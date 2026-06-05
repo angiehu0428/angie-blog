@@ -1,0 +1,27 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Angie's Blog</h1>
+			<p>
+				嗨,我是 Angie。這裡是我寫字、記錄想法與作品的地方。
+			</p>
+			<p>
+				歡迎看看我最近的文章,或從上方選單逛逛「關於我」。
+			</p>
+			<p><a href="/blog">→ 看所有文章</a></p>
+		</main>
+		<Footer />
+	</body>
+</html>

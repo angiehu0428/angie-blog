@@ -1,0 +1,19 @@
+---
+import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
+import Layout from '../layouts/BlogPost.astro';
+---
+
+<Layout
+	title="關於我"
+	description="關於 Angie"
+	pubDate={new Date('June 06 2026')}
+	heroImage={AboutHeroImage}
+>
+	<p>
+		嗨,我是 Angie 👋 這裡是我的個人部落格,記錄我的文字、想法與作品。
+	</p>
+
+	<p>
+		(這段是預設文字,之後在 <code>src/pages/about.astro</code> 改成你自己的介紹就好。)
+	</p>
+</Layout>
