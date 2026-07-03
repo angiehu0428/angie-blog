@@ -1,0 +1,52 @@
+# ─────────────────────────────────────────────────────────────
+# Angie's Blog 內容後台設定 (Sveltia CMS)
+#
+# ▸ 本機測試:網站跑起來後開 http://localhost:4321/admin/
+#   → 選「Work with Local Repository / 使用本地資料夾」→ 授權 angie-blog 資料夾
+#   → 就能直接編輯文章,不需要 GitHub 登入。
+#
+# ▸ 正式上線後(部署到 Cloudflare Pages + 推上 GitHub):
+#   把下面的 repo 改成你的 GitHub「帳號/專案名」,並設定 GitHub 登入,
+#   之後你就能在 https://angiehu.com/admin/ 用瀏覽器直接編輯 + 自動發布。
+# ─────────────────────────────────────────────────────────────
+
+backend:
+  name: github
+  repo: OWNER/REPO # ← 上線後改成你的 GitHub 帳號/專案名
+  branch: main
+
+# 上傳的圖片/檔案(例如 ICRT mp3)會放到這裡,網址是 /uploads/檔名
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "blog"
+    label: "文章"
+    label_singular: "一篇文章"
+    description: "新增或編輯部落格文章"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "yaml-frontmatter"
+    sortable_fields: ["pubDate", "title"]
+    fields:
+      - { label: "標題", name: "title", widget: "string" }
+      - { label: "摘要(顯示在列表與 Google 搜尋)", name: "description", widget: "text" }
+      - {
+          label: "發布日期",
+          name: "pubDate",
+          widget: "datetime",
+          date_format: "YYYY-MM-DD",
+          time_format: false,
+          format: "YYYY-MM-DD",
+        }
+      - {
+          label: "分類(可多選)",
+          name: "tags",
+          widget: "select",
+          multiple: true,
+          required: false,
+          options: ["IP相關", "美術相關", "個人成長", "身心靈"],
+        }
+      - { label: "內文", name: "body", widget: "markdown" }

@@ -1,5 +1,8 @@
 ---
+import { Image } from 'astro:assets';
 import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
+import interviewUS from '../assets/media/interview-us.png';
+import interviewStanLee from '../assets/media/interview-stanlee.png';
 import Layout from '../layouts/BlogPost.astro';
 ---
 
@@ -25,26 +28,49 @@ import Layout from '../layouts/BlogPost.astro';
 	</p>
 	<p>
 		服務涵蓋角色與圖像授權代理、社群行銷、OEM／ODM 生產,以及 webtoon、動畫等媒體改編。代理的 IP 包括
-		Bu2ma 的《胖虎 Alexander the Fat Tiger》、台灣原創《鯊魚哥 Mr. Shark》,以及新作《Sharkitty》、《Annoying Birds》等。
+		Bu2ma 的《胖虎 Alexander the Fat Tiger》、台灣原創《鯊魚先生 Mr. Shark》,以及新作《Sharkitty》、《Annoying Birds》等。
 	</p>
 	<p>
 		👉 想了解合作,歡迎到公司官網:<a href="https://www.hucreates.com" target="_blank" rel="noopener">www.hucreates.com</a>
 	</p>
+
+	<h2>顧問經歷</h2>
+	<p>
+		<em>⚠️ 這段等你回來補上:你曾擔任過幾間公司的顧問?想列出哪些公司/職稱?告訴我清單,我幫你排成漂亮的一段。</em>
+	</p>
+	<ul>
+		<li>(公司名稱 —— 顧問角色 / 年份)</li>
+		<li>(公司名稱 —— 顧問角色 / 年份)</li>
+	</ul>
 
 	<h2>還有 AI 工具</h2>
 	<p>
 		因為喜歡一直學新東西,我也開始用 <strong>AI 打造能真正解決日常麻煩的小工具</strong>——掃收據自動記帳、名片自動整理進 Notion、AI 塔羅等等。這個網站就是放我的工具與想法的地方。
 	</p>
 
-	<h2>過去的一些足跡</h2>
-	<ul>
-		<li>
-			<strong>INSIDE 硬塞的網路趨勢觀察</strong>(2012)——
-			<a href="https://www.inside.com.tw/2012/08/15/how-to-get-in-top-social-game-company-angie-hu" target="_blank" rel="noopener">如何進入頂尖社交遊戲公司:專訪來自台灣的 Angie Hu</a>
-		</li>
-		<li><strong>ICRT</strong> 廣播專訪(2020)</li>
-		<li><strong>Stan Lee 官方網站</strong>專訪(2014,網站已隨 Stan Lee 過世註銷)</li>
-	</ul>
+	<h2>媒體 / 過去專訪</h2>
+
+	<p>
+		<strong>INSIDE 硬塞的網路趨勢觀察</strong>(2012)——
+		<a href="https://www.inside.com.tw/2012/08/15/how-to-get-in-top-social-game-company-angie-hu" target="_blank" rel="noopener">如何進入頂尖社交遊戲公司:專訪來自台灣的 Angie Hu</a>。
+		台灣媒體報導可見 <a href="https://www.incgmedia.com/people/hu-creates-studio" target="_blank" rel="noopener">INCG Media</a>。
+	</p>
+	<figure>
+		<Image src={interviewUS} alt="美國媒體專訪 Angie Hu 的畫面" widths={[400, 800, 1200]} sizes="(max-width: 720px) 100vw, 720px" />
+		<figcaption>美國媒體專訪</figcaption>
+	</figure>
+
+	<p><strong>ICRT 廣播專訪</strong>(2020/04/28)</p>
+	<div class="audio-placeholder">
+		🎧 這段是廣播音檔(Notion 裡的 mp3 沒辦法自動搬)。<strong>之後在後台上傳 mp3</strong>,我就幫你放上播放器;
+		或你把檔案給我,我直接放進網站。
+	</div>
+
+	<p><strong>Stan Lee 官方網站專訪</strong>(2014,網站已隨 Stan Lee 過世而註銷)</p>
+	<figure>
+		<Image src={interviewStanLee} alt="Stan Lee 官方網站 2014 年專訪 Angie Hu 的截圖" widths={[400, 800]} sizes="(max-width: 720px) 100vw, 720px" />
+		<figcaption>Stan Lee 官方網站專訪截圖(2014)</figcaption>
+	</figure>
 
 	<h2>聯絡我</h2>
 	<ul>
@@ -55,3 +81,30 @@ import Layout from '../layouts/BlogPost.astro';
 		<li>早期作品集:<a href="https://www.behance.net/angiehu" target="_blank" rel="noopener">Behance</a></li>
 	</ul>
 </Layout>
+
+<style>
+	figure {
+		margin: 1.5rem 0;
+	}
+	figure :global(img) {
+		width: 100%;
+		height: auto;
+		border-radius: 12px;
+		border: 1px solid rgb(var(--gray-light));
+	}
+	figcaption {
+		font-size: 0.85rem;
+		color: rgb(var(--gray));
+		margin-top: 0.5rem;
+		text-align: center;
+	}
+	.audio-placeholder {
+		background: rgba(var(--accent-soft), 0.1);
+		border: 1px dashed rgba(var(--accent-soft), 0.5);
+		border-radius: 12px;
+		padding: 1rem 1.2rem;
+		font-size: 0.95rem;
+		color: rgb(var(--gray-dark));
+		margin: 0.5rem 0 1.5rem;
+	}
+</style>
