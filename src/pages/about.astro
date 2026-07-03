@@ -4,56 +4,57 @@ import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
 import interviewUS from '../assets/media/interview-us.png';
 import interviewStanLee from '../assets/media/interview-stanlee.png';
 import Layout from '../layouts/BlogPost.astro';
+
+const clients = [
+	'遊戲橘子 Gamania',
+	'網銀國際 WANIN International',
+	'華碩 ASUS',
+	'紅心辣椒 Cayenne Entertainment',
+	'夢想動畫 Moonshine Animation',
+	'好奇心創意',
+];
 ---
 
 <Layout
 	title="關於 Angie"
-	description="設計師出身、當過 Zynga 遊戲美術概念設定,現在經營 Hu Creates 藝術與 IP 授權,並用 AI 打造好用的小工具。"
+	description="Art Center 畢業,曾任 Disney、Zynga 資深概念設計師;現為胡創有限公司負責人,專注亞洲與國際的圖像代理授權,並用 AI 打造實用工具。"
 	pubDate={new Date('June 06 2026')}
 	heroImage={AboutHeroImage}
 >
-	<p>
-		嗨,我是 <strong>Angie Hu</strong> 👋
-	</p>
+	<p>我是 <strong>Angie Hu</strong>。</p>
 
 	<p>
-		我是設計師出身——復興商工美工科,後來到美國念了 Art Center 的娛樂產業設計。畢業後第一份工作就進了社交遊戲龍頭
-		<strong>Zynga</strong> 當 Concept Artist(美術概念設定),參與遊戲的整體美術風格、建築道具到 UI。
+		畢業於洛杉磯 Art Center College of Design 設計藝術中心學院。在台時曾有多媒體網頁設計相關資歷,曾任
+		<strong>迪士尼(Disney)</strong>、社交遊戲大廠 <strong>Zynga</strong> 資深概念設計師。2016
+		年回台後成立外包美術工作室,參與歐美與中國大陸遊戲動畫美術設計案,並舉辦大型設計藝術相關活動與課程。2019
+		年成立<strong>胡創有限公司</strong>,2020 年轉型為圖像代理授權,致力連結亞洲與國際市場的藝術家與 IP。
 	</p>
+
+	<h2>顧問客戶</h2>
+	<p>曾擔任以下企業的顧問:</p>
+	<ul class="clients">
+		{clients.map((c) => <li>{c}</li>)}
+	</ul>
 
 	<h2>Hu Creates —— 藝術與 IP 授權</h2>
 	<p>
-		現在我經營 <strong><a href="https://www.hucreates.com" target="_blank" rel="noopener">Hu Creates</a></strong>,一間位於台北的<strong>專業藝術與 IP 授權經紀公司</strong>。我們代理來自亞洲與國際的藝術家,處理角色授權、圖像版權與跨產業合作——
-		把亞洲的優秀創作帶向歐美市場,也把歐美的 IP 引進亞洲,目標始終如一:讓好作品站上國際舞台。
+		我經營 <strong><a href="https://www.hucreates.com" target="_blank" rel="noopener">Hu Creates 胡創</a></strong>,一間位於台北的<strong>專業藝術與 IP 授權經紀公司</strong>,代理來自亞洲與國際的藝術家,處理角色授權、圖像版權與跨產業合作——把亞洲的優秀創作帶向歐美市場,也把歐美的 IP 引進亞洲。
 	</p>
 	<p>
-		服務涵蓋角色與圖像授權代理、社群行銷、OEM／ODM 生產,以及 webtoon、動畫等媒體改編。代理的 IP 包括
-		Bu2ma 的《胖虎 Alexander the Fat Tiger》、台灣原創《鯊魚先生 Mr. Shark》,以及新作《Sharkitty》、《Annoying Birds》等。
-	</p>
-	<p>
-		👉 想了解合作,歡迎到公司官網:<a href="https://www.hucreates.com" target="_blank" rel="noopener">www.hucreates.com</a>
+		代理的 IP 包括 Bu2ma 的《胖虎 Alexander the Fat Tiger》、台灣原創《鯊魚先生 Mr. Shark》,以及《Sharkitty》、《Annoying Birds》等。
+		👉 合作洽詢:<a href="https://www.hucreates.com" target="_blank" rel="noopener">www.hucreates.com</a>
 	</p>
 
-	<h2>顧問經歷</h2>
+	<h2>AI 工具</h2>
 	<p>
-		<em>⚠️ 這段等你回來補上:你曾擔任過幾間公司的顧問?想列出哪些公司/職稱?告訴我清單,我幫你排成漂亮的一段。</em>
-	</p>
-	<ul>
-		<li>(公司名稱 —— 顧問角色 / 年份)</li>
-		<li>(公司名稱 —— 顧問角色 / 年份)</li>
-	</ul>
-
-	<h2>還有 AI 工具</h2>
-	<p>
-		因為喜歡一直學新東西,我也開始用 <strong>AI 打造能真正解決日常麻煩的小工具</strong>——掃收據自動記帳、名片自動整理進 Notion、AI 塔羅等等。這個網站就是放我的工具與想法的地方。
+		因為喜歡一直學新東西,我也用 <strong>AI 打造能解決日常麻煩的小工具</strong>——掃收據自動記帳、名片自動整理進 Notion、AI 塔羅等等。這個網站就是放我的工具與想法的地方。
 	</p>
 
 	<h2>媒體 / 過去專訪</h2>
-
 	<p>
 		<strong>INSIDE 硬塞的網路趨勢觀察</strong>(2012)——
 		<a href="https://www.inside.com.tw/2012/08/15/how-to-get-in-top-social-game-company-angie-hu" target="_blank" rel="noopener">如何進入頂尖社交遊戲公司:專訪來自台灣的 Angie Hu</a>。
-		台灣媒體報導可見 <a href="https://www.incgmedia.com/people/hu-creates-studio" target="_blank" rel="noopener">INCG Media</a>。
+		台灣媒體報導亦可見 <a href="https://www.incgmedia.com/people/hu-creates-studio" target="_blank" rel="noopener">INCG Media</a>。
 	</p>
 	<figure>
 		<Image src={interviewUS} alt="美國媒體專訪 Angie Hu 的畫面" widths={[400, 800, 1200]} sizes="(max-width: 720px) 100vw, 720px" />
@@ -106,5 +107,21 @@ import Layout from '../layouts/BlogPost.astro';
 		font-size: 0.95rem;
 		color: rgb(var(--gray-dark));
 		margin: 0.5rem 0 1.5rem;
+	}
+	.clients {
+		list-style: none;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+	}
+	.clients li {
+		background: rgba(var(--accent-soft), 0.12);
+		color: var(--accent-dark);
+		border: 1px solid rgba(var(--accent-soft), 0.3);
+		border-radius: 999px;
+		padding: 0.4rem 1rem;
+		font-size: 0.9rem;
+		font-weight: 600;
 	}
 </style>
