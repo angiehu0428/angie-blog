@@ -120,7 +120,7 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags ?? []))];
 			}
 			.card:hover {
 				transform: translateY(-5px);
-				box-shadow: 0 16px 36px rgba(99, 102, 241, 0.16);
+				box-shadow: 0 16px 36px rgba(var(--accent-soft), 0.16);
 				border-color: transparent;
 			}
 			.card a {
@@ -140,7 +140,7 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags ?? []))];
 				font-size: 0.7rem;
 				font-weight: 700;
 				color: var(--accent-dark);
-				background: rgba(99, 102, 241, 0.1);
+				background: rgba(var(--accent-soft), 0.1);
 				padding: 0.2rem 0.55rem;
 				border-radius: 999px;
 			}

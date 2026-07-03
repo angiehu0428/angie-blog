@@ -1,6 +1,7 @@
 ---
 import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
 ---
 
 <header>
@@ -10,8 +11,14 @@ import HeaderLink from './HeaderLink.astro';
 			<HeaderLink href="/">首頁</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/about">關於</HeaderLink>
+			<a class="hucreates" href="https://www.hucreates.com" target="_blank" rel="noopener"
+				>Hu Creates ↗</a
+			>
 		</div>
-		<div class="social-links">
+		<div class="right-links">
+			<LanguageSwitcher />
+		</div>
+		<div class="social-links" hidden>
 			<a href="https://m.webtoo.ls/@astro" target="_blank">
 				<span class="sr-only">Follow Astro on Mastodon</span>
 				<svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"
@@ -73,12 +80,16 @@ import HeaderLink from './HeaderLink.astro';
 		text-decoration: none;
 		border-bottom-color: var(--accent);
 	}
-	.social-links,
-	.social-links a {
+	.hucreates {
+		font-weight: 600;
+		color: var(--accent-dark);
+	}
+	.right-links {
 		display: flex;
+		align-items: center;
 	}
 	@media (max-width: 720px) {
-		.social-links {
+		.hucreates {
 			display: none;
 		}
 	}

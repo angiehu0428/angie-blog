@@ -1,0 +1,117 @@
+---
+// Lightweight auto-translation via Google Translate element, wrapped in a clean
+// native <select>. Machine translation (v1) — covers all pages incl. future posts,
+// free, no backend. Default banner/UI hidden for a clean look.
+---
+
+<div class="lang">
+	<span class="globe" aria-hidden="true">🌐</span>
+	<select id="lang-select" aria-label="選擇語言 / Language">
+		<option value="zh-TW">繁中</option>
+		<option value="en">EN</option>
+		<option value="ja">日本語</option>
+		<option value="ko">한국어</option>
+		<option value="zh-CN">简体</option>
+	</select>
+</div>
+
+<div id="google_translate_element" aria-hidden="true"></div>
+
+<script is:inline>
+	function googleTranslateElementInit() {
+		new google.translate.TranslateElement(
+			{
+				pageLanguage: 'zh-TW',
+				includedLanguages: 'en,ja,ko,zh-CN',
+				autoDisplay: false,
+			},
+			'google_translate_element',
+		);
+	}
+</script>
+<script
+	is:inline
+	src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script is:inline>
+	(function () {
+		function currentLang() {
+			var m = document.cookie.match(/googtrans=([^;]+)/);
+			if (!m) return 'zh-TW';
+			var parts = decodeURIComponent(m[1]).split('/');
+			return parts[2] || 'zh-TW';
+		}
+		var sel = document.getElementById('lang-select');
+		if (!sel) return;
+		sel.value = currentLang();
+		sel.addEventListener('change', function () {
+			var lang = sel.value;
+			var host = location.hostname;
+			var kill = '=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+			document.cookie = 'googtrans' + kill;
+			document.cookie = 'googtrans' + kill.replace('path=/;', 'path=/; domain=.' + host + ';');
+			if (lang !== 'zh-TW') {
+				var val = '=/zh-TW/' + lang + '; path=/';
+				document.cookie = 'googtrans' + val;
+				document.cookie = 'googtrans' + val + '; domain=.' + host;
+			}
+			location.reload();
+		});
+	})();
+</script>
+
+<style is:global>
+	/* hide Google Translate's default banner/tooltip for a clean look */
+	.goog-te-banner-frame,
+	.goog-te-balloon-frame,
+	#goog-gt-tt,
+	.goog-te-gadget-icon {
+		display: none !important;
+	}
+	.goog-te-gadget {
+		height: 0;
+		overflow: hidden;
+	}
+	#google_translate_element {
+		position: absolute;
+		left: -9999px;
+		height: 0;
+		overflow: hidden;
+	}
+	body {
+		top: 0 !important;
+	}
+	.skiptranslate iframe {
+		display: none !important;
+	}
+	/* undo Google's highlight styling on translated text */
+	font {
+		background: transparent !important;
+		box-shadow: none !important;
+	}
+</style>
+
+<style>
+	.lang {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+	}
+	.globe {
+		font-size: 0.95rem;
+		line-height: 1;
+	}
+	.lang select {
+		border: 1px solid rgb(var(--gray-light));
+		background: var(--surface);
+		color: rgb(var(--gray-dark));
+		border-radius: 999px;
+		padding: 0.3rem 0.7rem;
+		font-size: 0.85rem;
+		font-family: inherit;
+		cursor: pointer;
+	}
+	.lang select:hover {
+		border-color: var(--accent);
+	}
+</style>

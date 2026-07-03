@@ -5,22 +5,21 @@
  */
 
 :root {
-	/* modern-tech palette */
-	--accent: #6366f1; /* indigo */
-	--accent-dark: #4f46e5;
-	--accent-2: #06b6d4; /* cyan pop */
-	--accent-gradient: linear-gradient(120deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
-	--black: 15, 18, 25;
-	--gray: 96, 115, 159;
-	--gray-light: 229, 233, 240;
-	--gray-dark: 34, 41, 57;
-	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
-	/* dark ink for the tech hero */
-	--ink-900: #0b1020;
-	--ink-800: #121933;
+	/* clean + soft palette (warm cream & sage) — inspired by editorial blogs like Ramp */
+	--bg: #faf8f3; /* warm cream */
+	--surface: #ffffff;
+	--accent: #6f7c54; /* soft sage */
+	--accent-dark: #545f3f; /* deeper sage for hover/contrast */
+	--accent-soft: 111, 124, 84; /* sage as rgb, for soft tints */
+	--accent-gradient: linear-gradient(120deg, #7f8c60 0%, #a7ad84 100%);
+	--black: 36, 33, 28; /* warm near-black */
+	--gray: 132, 125, 114; /* warm muted */
+	--gray-light: 233, 228, 219; /* warm soft border */
+	--gray-dark: 46, 42, 36; /* warm ink */
+	--gray-gradient: rgba(var(--gray-light), 40%), var(--bg);
 	--box-shadow:
-		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
-		0 16px 32px rgba(var(--gray), 33%);
+		0 2px 6px rgba(var(--gray), 12%), 0 8px 24px rgba(var(--gray), 12%),
+		0 16px 32px rgba(var(--gray), 10%);
 	/* modern sans stack with good Traditional-Chinese fallbacks */
 	--font-sans:
 		"Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
@@ -31,12 +30,12 @@ body {
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: #fff;
+	background: var(--bg);
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	color: rgb(var(--gray-dark));
 	font-size: 19px;
-	line-height: 1.7;
+	line-height: 1.75;
 	-webkit-font-smoothing: antialiased;
 }
 main {
