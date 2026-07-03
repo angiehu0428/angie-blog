@@ -5,29 +5,39 @@
  */
 
 :root {
-	--accent: #2337ff;
-	--accent-dark: #000d8a;
+	/* modern-tech palette */
+	--accent: #6366f1; /* indigo */
+	--accent-dark: #4f46e5;
+	--accent-2: #06b6d4; /* cyan pop */
+	--accent-gradient: linear-gradient(120deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
 	--black: 15, 18, 25;
 	--gray: 96, 115, 159;
 	--gray-light: 229, 233, 240;
 	--gray-dark: 34, 41, 57;
 	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
+	/* dark ink for the tech hero */
+	--ink-900: #0b1020;
+	--ink-800: #121933;
 	--box-shadow:
 		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
 		0 16px 32px rgba(var(--gray), 33%);
+	/* modern sans stack with good Traditional-Chinese fallbacks */
+	--font-sans:
+		"Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+		"Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
 }
 body {
-	font-family: var(--font-atkinson);
+	font-family: var(--font-sans);
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: linear-gradient(var(--gray-gradient)) no-repeat;
-	background-size: 100% 600px;
+	background: #fff;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	color: rgb(var(--gray-dark));
-	font-size: 20px;
+	font-size: 19px;
 	line-height: 1.7;
+	-webkit-font-smoothing: antialiased;
 }
 main {
 	width: 720px;

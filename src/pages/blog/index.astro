@@ -1,114 +1,202 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import { SITE_TITLE } from '../../consts';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+const allTags = [...new Set(posts.flatMap((p) => p.data.tags ?? []))];
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="zh-Hant">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
+		<BaseHead title={`Blog · ${SITE_TITLE}`} description="Angie 的文章:IP 授權、美術、個人成長與身心靈。" />
 	</head>
 	<body>
 		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
+		<main class="blog-main">
+			<header class="blog-head">
+				<h1>Blog</h1>
+				<p class="muted">關於 IP 授權、美術、個人成長與身心靈的一些紀錄。</p>
+			</header>
+
+			{
+				allTags.length > 0 && (
+					<div class="filters" role="tablist">
+						<button class="chip is-active" data-tag="__all">全部</button>
+						{allTags.map((t) => (
+							<button class="chip" data-tag={t}>
+								{t}
+							</button>
+						))}
+					</div>
+				)
+			}
+
+			<ul class="cards">
+				{
+					posts.map((post) => (
+						<li class="card" data-tags={(post.data.tags ?? []).join(',')}>
+							<a href={`/blog/${post.id}/`}>
+								<div class="card-tags">
+									{(post.data.tags ?? []).map((t) => (
+										<span class="mini-tag">#{t}</span>
+									))}
+								</div>
+								<h2 class="card-title">{post.data.title}</h2>
+								<p class="card-desc">{post.data.description}</p>
+								<FormattedDate date={post.data.pubDate} />
+							</a>
+						</li>
+					))
+				}
+			</ul>
+			<p class="empty muted" hidden>這個分類還沒有文章 ✨</p>
 		</main>
 		<Footer />
+
+		<style>
+			.blog-main {
+				width: 960px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 3rem 1em;
+			}
+			.blog-head h1 {
+				font-size: 2.5rem;
+				font-weight: 800;
+				margin: 0 0 0.3rem;
+			}
+			.muted {
+				color: rgb(var(--gray));
+			}
+			.filters {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+				margin: 1.8rem 0 2rem;
+			}
+			.chip {
+				font-size: 0.9rem;
+				font-weight: 600;
+				padding: 0.45rem 1rem;
+				border-radius: 999px;
+				border: 1px solid rgb(var(--gray-light));
+				background: #fff;
+				color: rgb(var(--gray-dark));
+				cursor: pointer;
+				transition: 0.15s ease;
+			}
+			.chip:hover {
+				border-color: var(--accent);
+			}
+			.chip.is-active {
+				background: var(--accent-gradient);
+				color: #fff;
+				border-color: transparent;
+			}
+			.cards {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+				gap: 1.25rem;
+			}
+			.card {
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 16px;
+				overflow: hidden;
+				transition:
+					transform 0.18s ease,
+					box-shadow 0.18s ease,
+					border-color 0.18s ease;
+			}
+			.card:hover {
+				transform: translateY(-5px);
+				box-shadow: 0 16px 36px rgba(99, 102, 241, 0.16);
+				border-color: transparent;
+			}
+			.card a {
+				display: block;
+				padding: 1.5rem;
+				text-decoration: none;
+				color: inherit;
+				height: 100%;
+			}
+			.card-tags {
+				display: flex;
+				gap: 0.4rem;
+				flex-wrap: wrap;
+				margin-bottom: 0.6rem;
+			}
+			.mini-tag {
+				font-size: 0.7rem;
+				font-weight: 700;
+				color: var(--accent-dark);
+				background: rgba(99, 102, 241, 0.1);
+				padding: 0.2rem 0.55rem;
+				border-radius: 999px;
+			}
+			.card-title {
+				font-size: 1.25rem;
+				font-weight: 800;
+				line-height: 1.3;
+				margin: 0 0 0.5rem;
+			}
+			.card-desc {
+				color: rgb(var(--gray));
+				font-size: 0.92rem;
+				line-height: 1.6;
+				margin: 0 0 1rem;
+			}
+			.card :global(time) {
+				color: rgb(var(--gray));
+				font-size: 0.82rem;
+			}
+			.empty {
+				text-align: center;
+				padding: 2rem;
+			}
+		</style>
+
+		<script>
+			const chips = document.querySelectorAll<HTMLButtonElement>('.chip');
+			const cards = document.querySelectorAll<HTMLElement>('.card');
+			const empty = document.querySelector<HTMLElement>('.empty');
+
+			function apply(tag: string) {
+				let shown = 0;
+				cards.forEach((card) => {
+					const tags = (card.dataset.tags || '').split(',').filter(Boolean);
+					const match = tag === '__all' || tags.includes(tag);
+					card.style.display = match ? '' : 'none';
+					if (match) shown++;
+				});
+				if (empty) empty.hidden = shown !== 0;
+				chips.forEach((c) => c.classList.toggle('is-active', c.dataset.tag === tag));
+			}
+
+			chips.forEach((chip) => {
+				chip.addEventListener('click', () => {
+					const tag = chip.dataset.tag || '__all';
+					apply(tag);
+					const url = new URL(location.href);
+					if (tag === '__all') url.searchParams.delete('tag');
+					else url.searchParams.set('tag', tag);
+					history.replaceState({}, '', url);
+				});
+			});
+
+			// apply ?tag= from the URL on load (e.g. links from a post)
+			const initial = new URL(location.href).searchParams.get('tag');
+			if (initial) apply(initial);
+		</script>
 	</body>
 </html>

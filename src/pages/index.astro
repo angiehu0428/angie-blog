@@ -1,8 +1,46 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+// --- PLACEHOLDER 資料:之後換成 Angie 真正的 AI 工具 ---
+const tools = [
+	{
+		icon: '🔮',
+		name: '塔羅占卜',
+		desc: '輸入你的問題,AI 幫你抽牌並給出清楚的解讀。',
+		href: '#',
+		tag: 'AI · 占卜',
+	},
+	{
+		icon: '✈️',
+		name: '旅遊花費統計',
+		desc: '掃收據或信用卡截圖,自動去重、即時換匯記帳。',
+		href: '#',
+		tag: 'AI · 記帳',
+	},
+	{
+		icon: '📇',
+		name: '名片掃描 → Notion',
+		desc: '拍一張名片,自動整理成 Notion 聯絡人資料。',
+		href: '#',
+		tag: 'AI · 自動化',
+	},
+	{
+		icon: '🧾',
+		name: '收據掃描',
+		desc: '拍發票收據,自動彙整成報帳表格,省下手key。',
+		href: '#',
+		tag: 'AI · OCR',
+	},
+];
+
+const posts = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 3);
 ---
 
 <!doctype html>
@@ -12,16 +50,325 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	</head>
 	<body>
 		<Header />
-		<main>
-			<h1>Angie's Blog</h1>
-			<p>
-				嗨,我是 Angie。這裡是我寫字、記錄想法與作品的地方。
-			</p>
-			<p>
-				歡迎看看我最近的文章,或從上方選單逛逛「關於我」。
-			</p>
-			<p><a href="/blog">→ 看所有文章</a></p>
+
+		<!-- HERO -->
+		<section class="hero">
+			<div class="hero-glow" aria-hidden="true"></div>
+			<div class="hero-inner">
+				<p class="eyebrow">AI TOOLS · CREATIVE · IP</p>
+				<h1>我打造<span class="grad">好用的 AI 工具</span><br />也在這裡寫下想法。</h1>
+				<p class="lede">
+					嗨,我是 Angie。設計背景出身,現在用 AI 做出能真正解決日常麻煩的小工具。
+					歡迎試用我的工具,或看看我的文章。
+				</p>
+				<div class="cta-row">
+					<a class="btn btn-primary" href="#tools">探索我的工具 →</a>
+					<a class="btn btn-ghost" href="/blog">讀 Blog</a>
+				</div>
+			</div>
+		</section>
+
+		<main class="wide">
+			<!-- TOOLS -->
+			<section id="tools" class="block">
+				<div class="block-head">
+					<h2>我的 AI 工具</h2>
+					<p class="muted">用 AI 把重複、麻煩的事變簡單。點卡片即可試用。</p>
+				</div>
+				<div class="tool-grid">
+					{
+						tools.map((t) => (
+							<a class="tool-card" href={t.href}>
+								<div class="tool-icon">{t.icon}</div>
+								<div class="tool-body">
+									<span class="tool-tag">{t.tag}</span>
+									<h3>{t.name}</h3>
+									<p>{t.desc}</p>
+								</div>
+								<span class="tool-go">打開工具 →</span>
+							</a>
+						))
+					}
+				</div>
+				<p class="placeholder-note">
+					⚠️ 上面是<strong>示意排版</strong>,等你給我工具清單(名稱／網址／一句介紹)就換成真的。
+				</p>
+			</section>
+
+			<!-- LATEST POSTS -->
+			<section class="block">
+				<div class="block-head">
+					<h2>最新文章</h2>
+					<a class="see-all" href="/blog">看全部 →</a>
+				</div>
+				{
+					posts.length === 0 ? (
+						<p class="muted">文章搬家中,敬請期待 ✨</p>
+					) : (
+						<ul class="post-list">
+							{posts.map((post) => (
+								<li>
+									<a href={`/blog/${post.id}/`}>
+										<span class="post-title">{post.data.title}</span>
+										<FormattedDate date={post.data.pubDate} />
+									</a>
+								</li>
+							))}
+						</ul>
+					)
+				}
+			</section>
 		</main>
+
 		<Footer />
 	</body>
 </html>
+
+<style>
+	/* ---------- HERO ---------- */
+	.hero {
+		position: relative;
+		overflow: hidden;
+		background: var(--ink-900);
+		color: #eaf0ff;
+		padding: 6rem 1.5rem 5rem;
+		isolation: isolate;
+	}
+	.hero-glow {
+		position: absolute;
+		inset: -30% -10% auto -10%;
+		height: 120%;
+		background:
+			radial-gradient(40% 50% at 20% 10%, rgba(99, 102, 241, 0.55), transparent 70%),
+			radial-gradient(35% 45% at 80% 0%, rgba(6, 182, 212, 0.45), transparent 70%),
+			radial-gradient(30% 40% at 60% 60%, rgba(139, 92, 246, 0.4), transparent 70%);
+		filter: blur(10px);
+		z-index: -1;
+		animation: float 14s ease-in-out infinite alternate;
+	}
+	@keyframes float {
+		from {
+			transform: translateY(0) scale(1);
+		}
+		to {
+			transform: translateY(-24px) scale(1.05);
+		}
+	}
+	.hero-inner {
+		max-width: 860px;
+		margin: 0 auto;
+	}
+	.eyebrow {
+		letter-spacing: 0.22em;
+		font-size: 0.75rem;
+		font-weight: 700;
+		color: #9db4ff;
+		margin: 0 0 1rem;
+	}
+	.hero h1 {
+		font-size: clamp(2.4rem, 6vw, 4rem);
+		line-height: 1.1;
+		font-weight: 800;
+		color: #fff;
+		margin: 0 0 1.2rem;
+		letter-spacing: -0.02em;
+	}
+	.grad {
+		background: var(--accent-gradient);
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+	}
+	.lede {
+		font-size: 1.15rem;
+		color: #c3cce6;
+		max-width: 620px;
+		margin: 0 0 2rem;
+	}
+	.cta-row {
+		display: flex;
+		gap: 0.9rem;
+		flex-wrap: wrap;
+	}
+	.btn {
+		display: inline-block;
+		padding: 0.85rem 1.5rem;
+		border-radius: 999px;
+		font-weight: 700;
+		text-decoration: none;
+		transition:
+			transform 0.15s ease,
+			box-shadow 0.15s ease,
+			background 0.15s ease;
+	}
+	.btn-primary {
+		background: var(--accent-gradient);
+		color: #fff;
+		box-shadow: 0 8px 30px rgba(99, 102, 241, 0.5);
+	}
+	.btn-primary:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 12px 40px rgba(99, 102, 241, 0.6);
+	}
+	.btn-ghost {
+		color: #eaf0ff;
+		border: 1px solid rgba(255, 255, 255, 0.25);
+	}
+	.btn-ghost:hover {
+		background: rgba(255, 255, 255, 0.08);
+		transform: translateY(-2px);
+	}
+
+	/* ---------- LAYOUT ---------- */
+	main.wide {
+		width: 1080px;
+		max-width: calc(100% - 2em);
+		margin: auto;
+		padding: 3.5rem 1em 2rem;
+	}
+	.block {
+		margin-bottom: 4.5rem;
+	}
+	.block-head {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 1rem;
+		flex-wrap: wrap;
+		margin-bottom: 1.6rem;
+	}
+	.block-head h2 {
+		font-size: 1.9rem;
+		font-weight: 800;
+		margin: 0;
+	}
+	.muted {
+		color: rgb(var(--gray));
+		margin: 0;
+	}
+	.see-all {
+		font-weight: 700;
+		text-decoration: none;
+		white-space: nowrap;
+	}
+
+	/* ---------- TOOL GRID ---------- */
+	.tool-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+		gap: 1.25rem;
+	}
+	.tool-card {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: 0.9rem;
+		padding: 1.6rem;
+		border-radius: 18px;
+		background: #fff;
+		border: 1px solid rgb(var(--gray-light));
+		text-decoration: none;
+		color: inherit;
+		overflow: hidden;
+		transition:
+			transform 0.18s ease,
+			box-shadow 0.18s ease,
+			border-color 0.18s ease;
+	}
+	.tool-card::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: var(--accent-gradient);
+		opacity: 0;
+		transition: opacity 0.18s ease;
+		z-index: 0;
+	}
+	.tool-card > * {
+		position: relative;
+		z-index: 1;
+	}
+	.tool-card:hover {
+		transform: translateY(-6px);
+		box-shadow: 0 18px 40px rgba(99, 102, 241, 0.18);
+		border-color: transparent;
+	}
+	.tool-icon {
+		font-size: 2.2rem;
+		line-height: 1;
+	}
+	.tool-tag {
+		display: inline-block;
+		font-size: 0.7rem;
+		letter-spacing: 0.08em;
+		font-weight: 700;
+		color: var(--accent-dark);
+		background: rgba(99, 102, 241, 0.1);
+		padding: 0.25rem 0.6rem;
+		border-radius: 999px;
+		margin-bottom: 0.6rem;
+	}
+	.tool-body h3 {
+		font-size: 1.2rem;
+		font-weight: 800;
+		margin: 0 0 0.35rem;
+	}
+	.tool-body p {
+		margin: 0;
+		color: rgb(var(--gray));
+		font-size: 0.95rem;
+		line-height: 1.5;
+	}
+	.tool-go {
+		font-weight: 700;
+		color: var(--accent-dark);
+		font-size: 0.95rem;
+		margin-top: auto;
+	}
+	.placeholder-note {
+		margin-top: 1.5rem;
+		font-size: 0.9rem;
+		color: rgb(var(--gray));
+		background: rgba(6, 182, 212, 0.08);
+		border: 1px dashed rgba(6, 182, 212, 0.4);
+		padding: 0.8rem 1rem;
+		border-radius: 12px;
+	}
+
+	/* ---------- POST LIST ---------- */
+	.post-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	.post-list li + li {
+		border-top: 1px solid rgb(var(--gray-light));
+	}
+	.post-list a {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 1rem 0.25rem;
+		text-decoration: none;
+		color: inherit;
+	}
+	.post-list a:hover .post-title {
+		color: var(--accent-dark);
+	}
+	.post-title {
+		font-weight: 700;
+		font-size: 1.1rem;
+	}
+	.post-list :global(time) {
+		color: rgb(var(--gray));
+		font-size: 0.85rem;
+		white-space: nowrap;
+	}
+
+	@media (max-width: 720px) {
+		.hero {
+			padding: 4rem 1.25rem 3.5rem;
+		}
+	}
+</style>

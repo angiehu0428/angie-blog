@@ -8,10 +8,15 @@ import Header from '../components/Header.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, tags = [] } = Astro.props;
+
+// Absolute URL for share links (uses site: https://angiehu.com from astro.config)
+const shareUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
+const enc = encodeURIComponent;
+const shareText = `${title}`;
 ---
 
-<html lang="en">
+<html lang="zh-Hant">
 	<head>
 		<BaseHead title={title} description={description} />
 		<style>
@@ -40,10 +45,10 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				margin-bottom: 1em;
 				padding: 1em 0;
 				text-align: center;
-				line-height: 1;
+				line-height: 1.1;
 			}
 			.title h1 {
-				margin: 0 0 0.5em 0;
+				margin: 0 0 0.4em 0;
 			}
 			.date {
 				margin-bottom: 0.5em;
@@ -51,6 +56,87 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			}
 			.last-updated-on {
 				font-style: italic;
+			}
+			.tags {
+				display: flex;
+				gap: 0.5rem;
+				justify-content: center;
+				flex-wrap: wrap;
+				margin-top: 0.75rem;
+			}
+			.tag {
+				font-size: 0.75rem;
+				font-weight: 700;
+				color: var(--accent-dark);
+				background: rgba(99, 102, 241, 0.1);
+				padding: 0.25rem 0.7rem;
+				border-radius: 999px;
+				text-decoration: none;
+			}
+			.tag:hover {
+				background: rgba(99, 102, 241, 0.2);
+			}
+
+			/* ---------- share + comments ---------- */
+			.post-foot {
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: 2.5rem auto 0;
+				padding: 0 1em;
+			}
+			.share {
+				border-top: 1px solid rgb(var(--gray-light));
+				padding-top: 1.5rem;
+				display: flex;
+				align-items: center;
+				gap: 0.6rem;
+				flex-wrap: wrap;
+			}
+			.share-label {
+				font-weight: 700;
+				color: rgb(var(--gray-dark));
+				margin-right: 0.25rem;
+			}
+			.share a,
+			.share button {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.35rem;
+				font-size: 0.9rem;
+				font-weight: 600;
+				padding: 0.5rem 0.9rem;
+				border-radius: 999px;
+				border: 1px solid rgb(var(--gray-light));
+				background: #fff;
+				color: rgb(var(--gray-dark));
+				text-decoration: none;
+				cursor: pointer;
+				transition:
+					transform 0.15s ease,
+					border-color 0.15s ease,
+					color 0.15s ease;
+			}
+			.share a:hover,
+			.share button:hover {
+				transform: translateY(-2px);
+				border-color: var(--accent);
+				color: var(--accent-dark);
+			}
+			.comments {
+				margin: 3rem auto 1rem;
+			}
+			.comments h2 {
+				font-size: 1.4rem;
+				font-weight: 800;
+				margin-bottom: 0.5rem;
+			}
+			.comments-placeholder {
+				background: rgba(6, 182, 212, 0.08);
+				border: 1px dashed rgba(6, 182, 212, 0.4);
+				border-radius: 12px;
+				padding: 1.25rem;
+				color: rgb(var(--gray));
+				font-size: 0.95rem;
 			}
 		</style>
 	</head>
@@ -69,18 +155,76 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 							{
 								updatedDate && (
 									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
+										最後更新 <FormattedDate date={updatedDate} />
 									</div>
 								)
 							}
 						</div>
 						<h1>{title}</h1>
+						{
+							tags.length > 0 && (
+								<div class="tags">
+									{tags.map((t) => (
+										<a class="tag" href={`/blog/?tag=${enc(t)}`}>
+											#{t}
+										</a>
+									))}
+								</div>
+							)
+						}
 						<hr />
 					</div>
 					<slot />
 				</div>
 			</article>
+
+			<div class="post-foot">
+				<!-- SHARE -->
+				<div class="share">
+					<span class="share-label">分享：</span>
+					<a
+						href={`https://twitter.com/intent/tweet?url=${enc(shareUrl)}&text=${enc(shareText)}`}
+						target="_blank"
+						rel="noopener">𝕏 / Twitter</a
+					>
+					<a
+						href={`https://www.facebook.com/sharer/sharer.php?u=${enc(shareUrl)}`}
+						target="_blank"
+						rel="noopener">Facebook</a
+					>
+					<a
+						href={`https://social-plugins.line.me/lineit/share?url=${enc(shareUrl)}`}
+						target="_blank"
+						rel="noopener">LINE</a
+					>
+					<button id="copy-link" data-url={shareUrl}>🔗 複製連結</button>
+				</div>
+
+				<!-- COMMENTS (等接上 Disqus / 自建留言) -->
+				<section class="comments">
+					<h2>留言</h2>
+					<div class="comments-placeholder">
+						💬 留言功能之後接上（需登入 FB / Google 才能留言，防洗版與惡意留言）。
+						這塊會換成真正的留言區。
+					</div>
+				</section>
+			</div>
 		</main>
 		<Footer />
+
+		<script>
+			const btn = document.getElementById('copy-link');
+			btn?.addEventListener('click', async () => {
+				const url = btn.getAttribute('data-url') || location.href;
+				try {
+					await navigator.clipboard.writeText(url);
+					const prev = btn.textContent;
+					btn.textContent = '✅ 已複製';
+					setTimeout(() => (btn.textContent = prev), 1500);
+				} catch {
+					prompt('複製這個連結：', url);
+				}
+			});
+		</script>
 	</body>
 </html>
