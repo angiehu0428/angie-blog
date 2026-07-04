@@ -1,0 +1,33 @@
+{
+  "blocks": [
+    {
+      "type": "hero",
+      "eyebrow": "AI TOOLS · CREATIVE · IP",
+      "heading": "我打造",
+      "highlight": "好用的 AI 工具",
+      "headingAfter": "也在這裡寫下想法。",
+      "lede": "嗨,我是 Angie。設計背景出身,現在用 AI 做出能真正解決日常麻煩的小工具。歡迎試用我的工具,或看看我的文章。",
+      "primaryLabel": "探索我的工具 →",
+      "primaryHref": "#tools",
+      "ghostLabel": "讀 Blog",
+      "ghostHref": "/blog"
+    },
+    {
+      "type": "tools",
+      "heading": "我的 AI 工具",
+      "subtitle": "用 AI 把重複、麻煩的事變簡單。點卡片即可試用。",
+      "note": "⚠️ 目前是示意排版,等真實網址就換成真的。",
+      "items": [
+        { "icon": "🔮", "name": "塔羅占卜", "desc": "輸入你的問題,AI 幫你抽牌並給出清楚的解讀。", "href": "#", "tag": "AI · 占卜" },
+        { "icon": "✈️", "name": "旅遊花費統計", "desc": "掃收據或信用卡截圖,自動去重、即時換匯記帳。", "href": "#", "tag": "AI · 記帳" },
+        { "icon": "📇", "name": "名片掃描 → Notion", "desc": "拍一張名片,自動整理成 Notion 聯絡人資料。", "href": "#", "tag": "AI · 自動化" },
+        { "icon": "🧾", "name": "收據掃描", "desc": "拍發票收據,自動彙整成報帳表格,省下手 key。", "href": "#", "tag": "AI · OCR" }
+      ]
+    },
+    {
+      "type": "latestPosts",
+      "heading": "最新文章",
+      "count": 3
+    }
+  ]
+}

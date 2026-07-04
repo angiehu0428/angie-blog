@@ -5,42 +5,13 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { marked } from 'marked';
+import home from '../data/home.json';
 
-// --- PLACEHOLDER 資料:之後換成 Angie 真正的 AI 工具 ---
-const tools = [
-	{
-		icon: '🔮',
-		name: '塔羅占卜',
-		desc: '輸入你的問題,AI 幫你抽牌並給出清楚的解讀。',
-		href: '#',
-		tag: 'AI · 占卜',
-	},
-	{
-		icon: '✈️',
-		name: '旅遊花費統計',
-		desc: '掃收據或信用卡截圖,自動去重、即時換匯記帳。',
-		href: '#',
-		tag: 'AI · 記帳',
-	},
-	{
-		icon: '📇',
-		name: '名片掃描 → Notion',
-		desc: '拍一張名片,自動整理成 Notion 聯絡人資料。',
-		href: '#',
-		tag: 'AI · 自動化',
-	},
-	{
-		icon: '🧾',
-		name: '收據掃描',
-		desc: '拍發票收據,自動彙整成報帳表格,省下手 key。',
-		href: '#',
-		tag: 'AI · OCR',
-	},
-];
-
-const posts = (await getCollection('blog'))
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-	.slice(0, 3);
+const allPosts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const blocks = home.blocks ?? [];
 ---
 
 <!doctype html>
@@ -51,85 +22,159 @@ const posts = (await getCollection('blog'))
 	<body>
 		<Header />
 
-		<!-- HERO -->
-		<section class="hero">
-			<div class="hero-blob" aria-hidden="true"></div>
-			<div class="hero-inner">
-				<p class="eyebrow">AI TOOLS · CREATIVE · IP</p>
-				<h1>我打造<span class="hl">好用的 AI 工具</span><br />也在這裡寫下想法。</h1>
-				<p class="lede">
-					嗨,我是 Angie。設計背景出身,現在用 AI 做出能真正解決日常麻煩的小工具。
-					歡迎試用我的工具,或看看我的文章。
-				</p>
-				<div class="cta-row">
-					<a class="btn btn-primary" href="#tools">探索我的工具 →</a>
-					<a class="btn btn-ghost" href="/blog">讀 Blog</a>
-				</div>
-			</div>
-		</section>
-
-		<main class="wide">
-			<!-- TOOLS -->
-			<section id="tools" class="block">
-				<div class="block-head">
-					<h2>我的 AI 工具</h2>
-					<p class="muted">用 AI 把重複、麻煩的事變簡單。點卡片即可試用。</p>
-				</div>
-				<div class="tool-grid">
-					{
-						tools.map((t) => (
-							<a class="tool-card" href={t.href}>
-								<div class="tool-icon">{t.icon}</div>
-								<div class="tool-body">
-									<span class="tool-tag">{t.tag}</span>
-									<h3>{t.name}</h3>
-									<p>{t.desc}</p>
+		{
+			blocks.map((block) => {
+				/* ---------- HERO ---------- */
+				if (block.type === 'hero') {
+					return (
+						<section class="hero">
+							<div class="hero-blob" aria-hidden="true" />
+							<div class="container hero-inner">
+								{block.eyebrow && <p class="eyebrow">{block.eyebrow}</p>}
+								<h1>
+									{block.heading}
+									{block.highlight && <span class="hl">{block.highlight}</span>}
+									{block.headingAfter && (
+										<>
+											<br />
+											{block.headingAfter}
+										</>
+									)}
+								</h1>
+								{block.lede && <p class="lede">{block.lede}</p>}
+								<div class="cta-row">
+									{block.primaryLabel && (
+										<a class="btn btn-primary" href={block.primaryHref || '#'}>
+											{block.primaryLabel}
+										</a>
+									)}
+									{block.ghostLabel && (
+										<a class="btn btn-ghost" href={block.ghostHref || '#'}>
+											{block.ghostLabel}
+										</a>
+									)}
 								</div>
-								<span class="tool-go">打開工具 →</span>
-							</a>
-						))
-					}
-				</div>
-				<p class="placeholder-note">
-					⚠️ 上面是<strong>示意排版</strong>,等你給我工具清單(名稱／網址／一句介紹)就換成真的。
-				</p>
-			</section>
-
-			<!-- LATEST POSTS -->
-			<section class="block">
-				<div class="block-head">
-					<h2>最新文章</h2>
-					<a class="see-all" href="/blog">看全部 →</a>
-				</div>
-				{
-					posts.length === 0 ? (
-						<p class="muted">文章搬家中,敬請期待 ✨</p>
-					) : (
-						<ul class="post-list">
-							{posts.map((post) => (
-								<li>
-									<a href={`/blog/${post.id}/`}>
-										<span class="post-title">{post.data.title}</span>
-										<FormattedDate date={post.data.pubDate} />
-									</a>
-								</li>
-							))}
-						</ul>
-					)
+							</div>
+						</section>
+					);
 				}
-			</section>
-		</main>
+
+				/* ---------- TOOLS ---------- */
+				if (block.type === 'tools') {
+					return (
+						<section id="tools" class="block">
+							<div class="container">
+								<div class="block-head">
+									<h2>{block.heading}</h2>
+									{block.subtitle && <p class="muted">{block.subtitle}</p>}
+								</div>
+								<div class="tool-grid">
+									{(block.items ?? []).map((t) => (
+										<a class="tool-card" href={t.href || '#'}>
+											<div class="tool-icon">{t.icon}</div>
+											<div class="tool-body">
+												{t.tag && <span class="tool-tag">{t.tag}</span>}
+												<h3>{t.name}</h3>
+												<p>{t.desc}</p>
+											</div>
+											<span class="tool-go">打開工具 →</span>
+										</a>
+									))}
+								</div>
+								{block.note && <p class="placeholder-note">{block.note}</p>}
+							</div>
+						</section>
+					);
+				}
+
+				/* ---------- LATEST POSTS ---------- */
+				if (block.type === 'latestPosts') {
+					const posts = allPosts.slice(0, block.count ?? 3);
+					return (
+						<section class="block">
+							<div class="container">
+								<div class="block-head">
+									<h2>{block.heading}</h2>
+									<a class="see-all" href="/blog">
+										看全部 →
+									</a>
+								</div>
+								{posts.length === 0 ? (
+									<p class="muted">文章搬家中,敬請期待 ✨</p>
+								) : (
+									<ul class="post-list">
+										{posts.map((post) => (
+											<li>
+												<a href={`/blog/${post.id}/`}>
+													<span class="post-title">{post.data.title}</span>
+													<FormattedDate date={post.data.pubDate} />
+												</a>
+											</li>
+										))}
+									</ul>
+								)}
+							</div>
+						</section>
+					);
+				}
+
+				/* ---------- RICH TEXT ---------- */
+				if (block.type === 'richText') {
+					return (
+						<section class="block">
+							<div class="container prose-block">
+								{block.heading && <h2>{block.heading}</h2>}
+								{block.body && <div set:html={marked.parse(block.body)} />}
+							</div>
+						</section>
+					);
+				}
+
+				/* ---------- CTA ---------- */
+				if (block.type === 'cta') {
+					return (
+						<section class="block">
+							<div class="container">
+								<div class="cta-box">
+									<div>
+										<h2>{block.heading}</h2>
+										{block.text && <p class="muted">{block.text}</p>}
+									</div>
+									{block.buttonLabel && (
+										<a class="btn btn-primary" href={block.buttonHref || '#'}>
+											{block.buttonLabel}
+										</a>
+									)}
+								</div>
+							</div>
+						</section>
+					);
+				}
+
+				return null;
+			})
+		}
 
 		<Footer />
 	</body>
 </html>
 
 <style>
+	.container {
+		width: 1080px;
+		max-width: calc(100% - 2em);
+		margin: 0 auto;
+	}
+	.block {
+		padding: 0 0 1rem;
+		margin-bottom: 3.5rem;
+	}
+
 	/* ---------- HERO (clean + soft) ---------- */
 	.hero {
 		position: relative;
 		overflow: hidden;
-		padding: 6rem 1.5rem 4.5rem;
+		padding: 6rem 0 4.5rem;
 		isolation: isolate;
 	}
 	.hero-blob {
@@ -158,7 +203,7 @@ const posts = (await getCollection('blog'))
 	}
 	.hero-inner {
 		max-width: 820px;
-		margin: 0 auto;
+		margin-inline: auto;
 	}
 	.eyebrow {
 		letter-spacing: 0.22em;
@@ -220,16 +265,7 @@ const posts = (await getCollection('blog'))
 		transform: translateY(-2px);
 	}
 
-	/* ---------- LAYOUT ---------- */
-	main.wide {
-		width: 1080px;
-		max-width: calc(100% - 2em);
-		margin: auto;
-		padding: 2.5rem 1em 2rem;
-	}
-	.block {
-		margin-bottom: 4.5rem;
-	}
+	/* ---------- shared section head ---------- */
 	.block-head {
 		display: flex;
 		align-items: baseline;
@@ -354,9 +390,34 @@ const posts = (await getCollection('blog'))
 		white-space: nowrap;
 	}
 
+	/* ---------- RICH TEXT + CTA ---------- */
+	.prose-block :global(h2) {
+		font-size: 1.8rem;
+		font-weight: 800;
+	}
+	.prose-block :global(a) {
+		color: var(--accent-dark);
+	}
+	.cta-box {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1.5rem;
+		flex-wrap: wrap;
+		background: rgba(var(--accent-soft), 0.1);
+		border: 1px solid rgba(var(--accent-soft), 0.3);
+		border-radius: 20px;
+		padding: 2rem;
+	}
+	.cta-box h2 {
+		font-size: 1.6rem;
+		font-weight: 800;
+		margin: 0 0 0.4rem;
+	}
+
 	@media (max-width: 720px) {
 		.hero {
-			padding: 4rem 1.25rem 3rem;
+			padding: 4rem 0 3rem;
 		}
 	}
 </style>

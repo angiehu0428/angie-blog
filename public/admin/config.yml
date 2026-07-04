@@ -50,3 +50,67 @@ collections:
           options: ["IP相關", "美術相關", "個人成長", "身心靈"],
         }
       - { label: "內文", name: "body", widget: "markdown" }
+
+  # ── 頁面排版:一塊塊「區塊」,可新增/刪除/拖曳排序 ──
+  - name: "pages"
+    label: "頁面排版"
+    files:
+      - name: "home"
+        label: "首頁"
+        file: "src/data/home.json"
+        description: "拖曳左邊的把手可調整區塊順序;右上角可新增區塊"
+        fields:
+          - label: "區塊(拖曳排序)"
+            name: "blocks"
+            label_singular: "區塊"
+            widget: "list"
+            types:
+              - label: "Hero 大標區"
+                name: "hero"
+                widget: "object"
+                fields:
+                  - { label: "上方小標", name: "eyebrow", widget: "string", required: false }
+                  - { label: "主標", name: "heading", widget: "string" }
+                  - { label: "主標(彩色高亮字)", name: "highlight", widget: "string", required: false }
+                  - { label: "主標(換行後那句)", name: "headingAfter", widget: "string", required: false }
+                  - { label: "說明文字", name: "lede", widget: "text", required: false }
+                  - { label: "主按鈕文字", name: "primaryLabel", widget: "string", required: false }
+                  - { label: "主按鈕連結", name: "primaryHref", widget: "string", required: false }
+                  - { label: "次按鈕文字", name: "ghostLabel", widget: "string", required: false }
+                  - { label: "次按鈕連結", name: "ghostHref", widget: "string", required: false }
+              - label: "AI 工具牆"
+                name: "tools"
+                widget: "object"
+                fields:
+                  - { label: "標題", name: "heading", widget: "string" }
+                  - { label: "副標", name: "subtitle", widget: "string", required: false }
+                  - { label: "提示小字(可留空)", name: "note", widget: "string", required: false }
+                  - label: "工具卡(可拖曳排序)"
+                    name: "items"
+                    widget: "list"
+                    fields:
+                      - { label: "Emoji 圖示", name: "icon", widget: "string" }
+                      - { label: "名稱", name: "name", widget: "string" }
+                      - { label: "一句介紹", name: "desc", widget: "text" }
+                      - { label: "連結網址", name: "href", widget: "string", required: false }
+                      - { label: "標籤", name: "tag", widget: "string", required: false }
+              - label: "最新文章"
+                name: "latestPosts"
+                widget: "object"
+                fields:
+                  - { label: "標題", name: "heading", widget: "string" }
+                  - { label: "顯示幾篇", name: "count", widget: "number", default: 3, value_type: "int" }
+              - label: "文字區塊"
+                name: "richText"
+                widget: "object"
+                fields:
+                  - { label: "標題(可留空)", name: "heading", widget: "string", required: false }
+                  - { label: "內文", name: "body", widget: "markdown" }
+              - label: "行動呼籲 CTA"
+                name: "cta"
+                widget: "object"
+                fields:
+                  - { label: "標題", name: "heading", widget: "string" }
+                  - { label: "說明", name: "text", widget: "text", required: false }
+                  - { label: "按鈕文字", name: "buttonLabel", widget: "string", required: false }
+                  - { label: "按鈕連結", name: "buttonHref", widget: "string", required: false }
