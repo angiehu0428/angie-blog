@@ -11,6 +11,10 @@ import home from '../data/home.json';
 const allPosts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+// 工具卡從「AI 工具」集合來(後台可各自編輯介紹頁),依 order 排序
+const allTools = (await getCollection('tools')).sort(
+	(a, b) => (a.data.order ?? 99) - (b.data.order ?? 99),
+);
 const blocks = home.blocks ?? [];
 ---
 
@@ -69,16 +73,11 @@ const blocks = home.blocks ?? [];
 									{block.subtitle && <p class="muted">{block.subtitle}</p>}
 								</div>
 								<div class="tool-grid">
-									{(block.items ?? []).map((t) => {
+									{allTools.map((tool) => {
+										const t = tool.data;
 										const isInternal = t.status === 'internal';
-										const Tag = isInternal ? 'div' : 'a';
 										return (
-											<Tag
-												class:list={['tool-card', { 'is-internal': isInternal }]}
-												href={isInternal ? undefined : t.href || '#'}
-												target={isInternal ? undefined : '_blank'}
-												rel={isInternal ? undefined : 'noopener'}
-											>
+											<a class="tool-card" href={`/tools/${tool.id}/`}>
 												<div class="tool-icon">{t.icon}</div>
 												<div class="tool-body">
 													{t.tag && <span class="tool-tag">{t.tag}</span>}
@@ -95,9 +94,9 @@ const blocks = home.blocks ?? [];
 												{isInternal ? (
 													<span class="tool-status">🔒 內部使用中 · 對外版本開發中</span>
 												) : (
-													<span class="tool-go">打開工具 →</span>
+													<span class="tool-go">了解更多 →</span>
 												)}
-											</Tag>
+											</a>
 										);
 									})}
 								</div>
@@ -409,14 +408,6 @@ const blocks = home.blocks ?? [];
 		border-radius: 999px;
 		padding: 0.35rem 0.8rem;
 		align-self: flex-start;
-	}
-	.tool-card.is-internal {
-		cursor: default;
-	}
-	.tool-card.is-internal:hover {
-		transform: none;
-		box-shadow: none;
-		border-color: rgb(var(--gray-light));
 	}
 	.placeholder-note {
 		margin-top: 1.5rem;

@@ -19,4 +19,19 @@ const blog = defineCollection({
 		}),
 });
 
-export const collections = { blog };
+const tools = defineCollection({
+	loader: glob({ base: './src/content/tools', pattern: '**/*.{md,mdx}' }),
+	schema: z.object({
+		name: z.string(),
+		icon: z.string().default('🛠️'),
+		tag: z.string().optional(),
+		desc: z.string(),
+		cover: z.string().optional(), // 封面截圖 (/uploads/...)
+		features: z.array(z.string()).default([]),
+		href: z.string().optional(),
+		status: z.enum(['live', 'internal']).default('live'),
+		order: z.number().default(99),
+	}),
+});
+
+export const collections = { blog, tools };

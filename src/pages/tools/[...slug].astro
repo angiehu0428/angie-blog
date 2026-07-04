@@ -1,0 +1,213 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+
+export async function getStaticPaths() {
+	const tools = await getCollection('tools');
+	return tools.map((tool) => ({
+		params: { slug: tool.id },
+		props: tool,
+	}));
+}
+
+const tool = Astro.props;
+const { Content } = await render(tool);
+const { name, icon, tag, desc, cover, features, href, status } = tool.data;
+const isInternal = status === 'internal';
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+	<head>
+		<BaseHead title={`${name} · AI 工具`} description={desc} image={cover} />
+	</head>
+	<body>
+		<Header />
+		<main class="tool-main">
+			<a class="back" href="/#tools">← 所有工具</a>
+
+			<header class="tool-head">
+				<div class="tool-icon">{icon}</div>
+				<div>
+					{tag && <span class="tool-tag">{tag}</span>}
+					<h1>{name}</h1>
+					<p class="lede">{desc}</p>
+					<div class="cta-row">
+						{
+							isInternal ? (
+								<span class="tool-status">🔒 內部使用中 · 對外版本開發中</span>
+							) : (
+								href && (
+									<a class="btn btn-primary" href={href} target="_blank" rel="noopener">
+										打開工具 →
+									</a>
+								)
+							)
+						}
+					</div>
+				</div>
+			</header>
+
+			{
+				features.length > 0 && (
+					<ul class="tool-features">
+						{features.map((f) => (
+							<li>{f}</li>
+						))}
+					</ul>
+				)
+			}
+
+			{cover && <img class="cover" src={cover} alt={`${name} 截圖`} />}
+
+			<article class="prose-block">
+				<Content />
+			</article>
+
+			{
+				!isInternal && href && (
+					<p class="bottom-cta">
+						<a class="btn btn-primary" href={href} target="_blank" rel="noopener">
+							試用 {name} →
+						</a>
+					</p>
+				)
+			}
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.tool-main {
+		width: 760px;
+		max-width: calc(100% - 2em);
+		margin: auto;
+		padding: 2.5rem 1em 2rem;
+	}
+	.back {
+		display: inline-block;
+		text-decoration: none;
+		color: rgb(var(--gray));
+		font-weight: 600;
+		margin-bottom: 1.5rem;
+	}
+	.back:hover {
+		color: var(--accent-dark);
+	}
+	.tool-head {
+		display: flex;
+		gap: 1.2rem;
+		align-items: flex-start;
+		margin-bottom: 1.5rem;
+	}
+	.tool-icon {
+		font-size: 3rem;
+		line-height: 1;
+	}
+	.tool-head h1 {
+		font-size: 2.1rem;
+		font-weight: 800;
+		margin: 0.3rem 0 0.5rem;
+	}
+	.lede {
+		color: rgb(var(--gray));
+		margin: 0 0 1rem;
+	}
+	.tool-tag {
+		display: inline-block;
+		font-size: 0.72rem;
+		letter-spacing: 0.06em;
+		font-weight: 700;
+		color: var(--accent-dark);
+		background: rgba(var(--accent-soft), 0.14);
+		padding: 0.25rem 0.6rem;
+		border-radius: 999px;
+	}
+	.cta-row {
+		display: flex;
+		gap: 0.8rem;
+		flex-wrap: wrap;
+	}
+	.btn {
+		display: inline-block;
+		padding: 0.7rem 1.4rem;
+		border-radius: 999px;
+		font-weight: 700;
+		text-decoration: none;
+		transition:
+			transform 0.15s ease,
+			background 0.15s ease;
+	}
+	.btn-primary {
+		background: var(--accent);
+		color: #fff;
+		box-shadow: 0 8px 22px rgba(var(--accent-soft), 0.35);
+	}
+	.btn-primary:hover {
+		background: var(--accent-dark);
+		transform: translateY(-2px);
+	}
+	.tool-status {
+		font-weight: 700;
+		font-size: 0.85rem;
+		color: #9a6a45;
+		background: rgba(198, 138, 92, 0.14);
+		border-radius: 999px;
+		padding: 0.45rem 0.9rem;
+	}
+	.tool-features {
+		list-style: none;
+		margin: 0 0 1.8rem;
+		padding: 1.2rem 1.4rem;
+		background: var(--surface);
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 14px;
+		display: grid;
+		gap: 0.45rem;
+	}
+	.tool-features li {
+		position: relative;
+		padding-left: 1.2rem;
+		font-size: 0.95rem;
+		line-height: 1.5;
+	}
+	.tool-features li::before {
+		content: '✓';
+		position: absolute;
+		left: 0;
+		color: var(--accent);
+		font-weight: 700;
+	}
+	.cover {
+		width: 100%;
+		height: auto;
+		border-radius: 14px;
+		border: 1px solid rgb(var(--gray-light));
+		margin-bottom: 1.8rem;
+	}
+	.prose-block :global(h2) {
+		font-size: 1.45rem;
+		font-weight: 800;
+		margin: 1.8rem 0 0.7rem;
+	}
+	.prose-block :global(a) {
+		color: var(--accent-dark);
+	}
+	.prose-block :global(img),
+	.prose-block :global(video) {
+		border: 1px solid rgb(var(--gray-light));
+	}
+	.bottom-cta {
+		margin: 2.5rem 0 1rem;
+		text-align: center;
+	}
+	@media (max-width: 600px) {
+		.tool-head {
+			flex-direction: column;
+			gap: 0.6rem;
+		}
+	}
+</style>

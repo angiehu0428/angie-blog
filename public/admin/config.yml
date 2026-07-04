@@ -56,6 +56,43 @@ collections:
           hint: "圖片/GIF 直接插入;影片(mp4)與音檔(mp3)先上傳,再用插入圖片的方式選它,會自動變成播放器;YouTube 連結單獨貼一行會自動嵌入影片。",
         }
 
+  # ── AI 工具:每個工具一頁,含介紹與截圖 ──
+  - name: "tools"
+    label: "AI 工具"
+    label_singular: "一個工具"
+    description: "每個工具有自己的介紹頁(首頁卡片自動同步)"
+    folder: "src/content/tools"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "yaml-frontmatter"
+    sortable_fields: ["order", "name"]
+    fields:
+      - { label: "工具名稱", name: "name", widget: "string" }
+      - { label: "Emoji 圖示", name: "icon", widget: "string", default: "🛠️" }
+      - { label: "標籤(例如 AI · 記帳)", name: "tag", widget: "string", required: false }
+      - { label: "一句介紹(顯示在首頁卡片)", name: "desc", widget: "text" }
+      - { label: "封面截圖(選填,顯示在介紹頁頂部)", name: "cover", widget: "image", required: false }
+      - label: "功能點(顯示成 ✓ 清單)"
+        name: "features"
+        widget: "list"
+        required: false
+      - { label: "工具網址(內部工具可留空)", name: "href", widget: "string", required: false }
+      - {
+          label: "狀態",
+          name: "status",
+          widget: "select",
+          options: [{ label: "公開(可點開)", value: "live" }, { label: "內部使用(顯示「對外版本開發中」)", value: "internal" }],
+          default: "live",
+        }
+      - { label: "排序(數字小的排前面)", name: "order", widget: "number", value_type: "int", default: 99 }
+      - {
+          label: "使用介紹(可插入截圖/GIF/影片)",
+          name: "body",
+          widget: "markdown",
+          hint: "圖片/GIF 直接插入;影片(mp4)與音檔(mp3)上傳後用插入圖片的方式選它會自動變播放器;YouTube 連結單獨貼一行會自動嵌入。",
+        }
+
   # ── 全站設定:站名、導覽列、頁尾、社群連結 ──
   - name: "settings"
     label: "全站設定"
@@ -113,28 +150,8 @@ collections:
                 widget: "object"
                 fields:
                   - { label: "標題", name: "heading", widget: "string" }
-                  - { label: "副標", name: "subtitle", widget: "string", required: false }
+                  - { label: "副標", name: "subtitle", widget: "string", required: false, hint: "工具卡片內容請到左邊選單的「AI 工具」編輯(每個工具有自己的介紹頁)" }
                   - { label: "提示小字(可留空)", name: "note", widget: "string", required: false }
-                  - label: "工具卡(可拖曳排序)"
-                    name: "items"
-                    widget: "list"
-                    fields:
-                      - { label: "Emoji 圖示", name: "icon", widget: "string" }
-                      - { label: "名稱", name: "name", widget: "string" }
-                      - { label: "一句介紹", name: "desc", widget: "text" }
-                      - label: "功能點(每行一點,顯示成 ✓ 清單)"
-                        name: "features"
-                        widget: "list"
-                        required: false
-                      - { label: "連結網址(內部工具可留空)", name: "href", widget: "string", required: false }
-                      - { label: "標籤", name: "tag", widget: "string", required: false }
-                      - {
-                          label: "狀態",
-                          name: "status",
-                          widget: "select",
-                          options: [{ label: "公開(可點開)", value: "live" }, { label: "內部使用(顯示「對外版本開發中」)", value: "internal" }],
-                          default: "live",
-                        }
               - label: "最新文章"
                 name: "latestPosts"
                 widget: "object"
