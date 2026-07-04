@@ -16,12 +16,11 @@
       "type": "tools",
       "heading": "我的 AI 工具",
       "subtitle": "用 AI 把重複、麻煩的事變簡單。點卡片即可試用。",
-      "note": "⚠️ 目前是示意排版,等真實網址就換成真的。",
       "items": [
-        { "icon": "🔮", "name": "塔羅占卜", "desc": "輸入你的問題,AI 幫你抽牌並給出清楚的解讀。", "href": "#", "tag": "AI · 占卜" },
-        { "icon": "✈️", "name": "旅遊花費統計", "desc": "掃收據或信用卡截圖,自動去重、即時換匯記帳。", "href": "#", "tag": "AI · 記帳" },
-        { "icon": "📇", "name": "名片掃描 → Notion", "desc": "拍一張名片,自動整理成 Notion 聯絡人資料。", "href": "#", "tag": "AI · 自動化" },
-        { "icon": "🧾", "name": "收據掃描", "desc": "拍發票收據,自動彙整成報帳表格,省下手 key。", "href": "#", "tag": "AI · OCR" }
+        { "icon": "🔮", "name": "塔羅占卜", "desc": "輸入你的問題,AI 幫你抽牌並給出深入解讀(中英雙語)。", "href": "https://tarot.angiehu.com", "tag": "AI · 占卜" },
+        { "icon": "✈️", "name": "旅遊花費統計", "desc": "掃收據或信用卡截圖,自動去重、依當日匯率換算,還能排行程與朋友分攤。", "href": "https://travel-expense-pub.angiehu.workers.dev", "tag": "AI · 記帳" },
+        { "icon": "📇", "name": "名片掃描 → Notion", "desc": "拍一張名片,AI 自動辨識並整理進 Notion 聯絡人資料庫。", "href": "https://cards.hucreates.com", "tag": "AI · 自動化" },
+        { "icon": "🧾", "name": "收據掃描報帳", "desc": "拍收據或發票,AI 讀出金額與品項,一鍵整理成報帳資料。", "href": "https://receipts.hucreates.com", "tag": "AI · OCR" }
       ]
     },
     {
