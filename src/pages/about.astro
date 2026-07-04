@@ -1,112 +1,112 @@
 ---
-import { Image } from 'astro:assets';
-import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
-import interviewUS from '../assets/media/interview-us.png';
-import interviewStanLee from '../assets/media/interview-stanlee.png';
-import Layout from '../layouts/BlogPost.astro';
+import { marked } from 'marked';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import about from '../data/about.json';
 
-const clients = [
-	'遊戲橘子 Gamania',
-	'網銀國際 WANIN International',
-	'華碩 ASUS',
-	'紅心辣椒 Cayenne Entertainment',
-	'夢想動畫 Moonshine Animation',
-	'好奇心創意',
-];
+const blocks = about.blocks ?? [];
 ---
 
-<Layout
-	title="關於 Angie"
-	description="Art Center 畢業,曾任 Disney、Zynga 資深概念設計師;現為胡創有限公司負責人,專注亞洲與國際的圖像代理授權,並用 AI 打造實用工具。"
-	pubDate={new Date('June 06 2026')}
-	heroImage={AboutHeroImage}
->
-	<p>我是 <strong>Angie Hu</strong>。</p>
+<!doctype html>
+<html lang="zh-Hant">
+	<head>
+		<BaseHead title={about.title} description={about.description} />
+	</head>
+	<body>
+		<Header />
+		<main class="about-main">
+			<h1>{about.title}</h1>
 
-	<p>
-		畢業於洛杉磯 Art Center College of Design 設計藝術中心學院。在台時曾有多媒體網頁設計相關資歷,曾任
-		<strong>迪士尼(Disney)</strong>、社交遊戲大廠 <strong>Zynga</strong> 資深概念設計師。2016
-		年回台後成立外包美術工作室,參與歐美與中國大陸遊戲動畫美術設計案,並舉辦大型設計藝術相關活動與課程。2019
-		年成立<strong>胡創有限公司</strong>,2020 年轉型為圖像代理授權,致力連結亞洲與國際市場的藝術家與 IP。
-	</p>
-
-	<h2>顧問客戶</h2>
-	<p>曾擔任以下企業的顧問:</p>
-	<ul class="clients">
-		{clients.map((c) => <li>{c}</li>)}
-	</ul>
-
-	<h2>Hu Creates —— 藝術與 IP 授權</h2>
-	<p>
-		我經營 <strong><a href="https://www.hucreates.com" target="_blank" rel="noopener">Hu Creates 胡創</a></strong>,一間位於台北的<strong>專業藝術與 IP 授權經紀公司</strong>,代理來自亞洲與國際的藝術家,處理角色授權、圖像版權與跨產業合作——把亞洲的優秀創作帶向歐美市場,也把歐美的 IP 引進亞洲。
-	</p>
-	<p>
-		代理的 IP 包括 Bu2ma 的《胖虎 Alexander the Fat Tiger》、台灣原創《鯊魚先生 Mr. Shark》,以及《Sharkitty》、《Annoying Birds》等。
-		👉 合作洽詢:<a href="https://www.hucreates.com" target="_blank" rel="noopener">www.hucreates.com</a>
-	</p>
-
-	<h2>AI 工具</h2>
-	<p>
-		因為喜歡一直學新東西,我也用 <strong>AI 打造能解決日常麻煩的小工具</strong>——掃收據自動記帳、名片自動整理進 Notion、AI 塔羅等等。這個網站就是放我的工具與想法的地方。
-	</p>
-
-	<h2>媒體 / 過去專訪</h2>
-	<p>
-		<strong>INSIDE 硬塞的網路趨勢觀察</strong>(2012)——
-		<a href="https://www.inside.com.tw/2012/08/15/how-to-get-in-top-social-game-company-angie-hu" target="_blank" rel="noopener">如何進入頂尖社交遊戲公司:專訪來自台灣的 Angie Hu</a>。
-		台灣媒體報導亦可見 <a href="https://www.incgmedia.com/people/hu-creates-studio" target="_blank" rel="noopener">INCG Media</a>。
-	</p>
-	<figure>
-		<Image src={interviewUS} alt="美國媒體專訪 Angie Hu 的畫面" widths={[400, 800, 1200]} sizes="(max-width: 720px) 100vw, 720px" />
-		<figcaption>美國媒體專訪</figcaption>
-	</figure>
-
-	<p><strong>ICRT 廣播專訪</strong>(2020/04/28)</p>
-	<div class="audio-placeholder">
-		🎧 這段是廣播音檔(Notion 裡的 mp3 沒辦法自動搬)。<strong>之後在後台上傳 mp3</strong>,我就幫你放上播放器;
-		或你把檔案給我,我直接放進網站。
-	</div>
-
-	<p><strong>Stan Lee 官方網站專訪</strong>(2014,網站已隨 Stan Lee 過世而註銷)</p>
-	<figure>
-		<Image src={interviewStanLee} alt="Stan Lee 官方網站 2014 年專訪 Angie Hu 的截圖" widths={[400, 800]} sizes="(max-width: 720px) 100vw, 720px" />
-		<figcaption>Stan Lee 官方網站專訪截圖(2014)</figcaption>
-	</figure>
-
-	<h2>聯絡我</h2>
-	<ul>
-		<li>Email:<a href="mailto:angiehu@gmail.com">angiehu@gmail.com</a></li>
-		<li>公司官網:<a href="https://www.hucreates.com" target="_blank" rel="noopener">Hu Creates</a></li>
-		<li>Instagram:<a href="https://www.instagram.com/hupaints" target="_blank" rel="noopener">@hupaints</a></li>
-		<li>Facebook:<a href="https://www.facebook.com/hupaints" target="_blank" rel="noopener">hupaints</a></li>
-		<li>早期作品集:<a href="https://www.behance.net/angiehu" target="_blank" rel="noopener">Behance</a></li>
-	</ul>
-</Layout>
+			{
+				blocks.map((block) => {
+					if (block.type === 'richText') {
+						return (
+							<section class="ab-block prose-block">
+								{block.heading && <h2>{block.heading}</h2>}
+								{block.body && <div set:html={marked.parse(block.body)} />}
+							</section>
+						);
+					}
+					if (block.type === 'clients') {
+						return (
+							<section class="ab-block">
+								{block.heading && <h2>{block.heading}</h2>}
+								{block.intro && <p>{block.intro}</p>}
+								<ul class="clients">
+									{(block.items ?? []).map((c) => (
+										<li>{c}</li>
+									))}
+								</ul>
+							</section>
+						);
+					}
+					if (block.type === 'figure') {
+						return (
+							<figure class="ab-block">
+								<img src={block.image} alt={block.caption || ''} loading="lazy" />
+								{block.caption && <figcaption>{block.caption}</figcaption>}
+							</figure>
+						);
+					}
+					if (block.type === 'audio') {
+						return (
+							<section class="ab-block">
+								{block.title && <p class="audio-title">{block.title}</p>}
+								{block.file ? (
+									<audio controls preload="metadata" src={block.file} />
+								) : (
+									block.note && <div class="audio-placeholder">{block.note}</div>
+								)}
+							</section>
+						);
+					}
+					if (block.type === 'links') {
+						return (
+							<section class="ab-block">
+								{block.heading && <h2>{block.heading}</h2>}
+								<ul class="contact-links">
+									{(block.items ?? []).map((l) => (
+										<li>
+											<a href={l.url} target={l.url.startsWith('mailto:') ? undefined : '_blank'} rel="noopener">
+												{l.label}
+											</a>
+										</li>
+									))}
+								</ul>
+							</section>
+						);
+					}
+					return null;
+				})
+			}
+		</main>
+		<Footer />
+	</body>
+</html>
 
 <style>
-	figure {
-		margin: 1.5rem 0;
+	.about-main {
+		width: 760px;
+		max-width: calc(100% - 2em);
+		margin: auto;
+		padding: 3rem 1em 2rem;
 	}
-	figure :global(img) {
-		width: 100%;
-		height: auto;
-		border-radius: 12px;
-		border: 1px solid rgb(var(--gray-light));
+	.about-main h1 {
+		font-size: 2.4rem;
+		font-weight: 800;
+		margin: 0 0 2rem;
 	}
-	figcaption {
-		font-size: 0.85rem;
-		color: rgb(var(--gray));
-		margin-top: 0.5rem;
-		text-align: center;
+	.ab-block {
+		margin: 0 0 2.2rem;
 	}
-	.audio-placeholder {
-		background: rgba(var(--accent-soft), 0.1);
-		border: 1px dashed rgba(var(--accent-soft), 0.5);
-		border-radius: 12px;
-		padding: 1rem 1.2rem;
-		font-size: 0.95rem;
-		color: rgb(var(--gray-dark));
-		margin: 0.5rem 0 1.5rem;
+	.ab-block h2 {
+		font-size: 1.55rem;
+		font-weight: 800;
+		margin: 0 0 0.8rem;
+	}
+	.prose-block :global(a) {
+		color: var(--accent-dark);
 	}
 	.clients {
 		list-style: none;
@@ -122,6 +122,43 @@ const clients = [
 		border-radius: 999px;
 		padding: 0.4rem 1rem;
 		font-size: 0.9rem;
+		font-weight: 600;
+	}
+	figure.ab-block {
+		margin-inline: 0;
+	}
+	figure.ab-block img {
+		width: 100%;
+		height: auto;
+		border-radius: 12px;
+		border: 1px solid rgb(var(--gray-light));
+	}
+	figcaption {
+		font-size: 0.85rem;
+		color: rgb(var(--gray));
+		margin-top: 0.5rem;
+		text-align: center;
+	}
+	.audio-title {
+		font-weight: 700;
+		margin: 0 0 0.6rem;
+	}
+	.audio-placeholder {
+		background: rgba(var(--accent-soft), 0.1);
+		border: 1px dashed rgba(var(--accent-soft), 0.5);
+		border-radius: 12px;
+		padding: 1rem 1.2rem;
+		font-size: 0.95rem;
+		color: rgb(var(--gray-dark));
+	}
+	.contact-links {
+		list-style: none;
+		padding: 0;
+		display: grid;
+		gap: 0.5rem;
+	}
+	.contact-links a {
+		color: var(--accent-dark);
 		font-weight: 600;
 	}
 </style>

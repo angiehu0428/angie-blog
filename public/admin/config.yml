@@ -49,7 +49,37 @@ collections:
           required: false,
           hint: "現有分類:IP相關、美術相關、個人成長、身心靈。沿用時請打一模一樣的字,才會歸在同一類。",
         }
-      - { label: "內文", name: "body", widget: "markdown" }
+      - {
+          label: "內文",
+          name: "body",
+          widget: "markdown",
+          hint: "圖片/GIF 直接插入;影片(mp4)與音檔(mp3)先上傳,再用插入圖片的方式選它,會自動變成播放器;YouTube 連結單獨貼一行會自動嵌入影片。",
+        }
+
+  # ── 全站設定:站名、導覽列、頁尾、社群連結 ──
+  - name: "settings"
+    label: "全站設定"
+    files:
+      - name: "site"
+        label: "網站設定"
+        file: "src/data/site.json"
+        fields:
+          - { label: "網站名稱", name: "title", widget: "string" }
+          - { label: "網站描述(SEO)", name: "description", widget: "text" }
+          - label: "導覽列連結(可拖曳排序)"
+            name: "nav"
+            widget: "list"
+            fields:
+              - { label: "文字", name: "label", widget: "string" }
+              - { label: "連結", name: "href", widget: "string" }
+              - { label: "外部連結(新分頁開啟、顯示 ↗)", name: "external", widget: "boolean", default: false }
+          - { label: "頁尾版權文字(年份會自動加)", name: "footerText", widget: "string" }
+          - label: "頁尾社群連結"
+            name: "socials"
+            widget: "list"
+            fields:
+              - { label: "名稱", name: "label", widget: "string" }
+              - { label: "網址", name: "url", widget: "string" }
 
   # ── 頁面排版:一塊塊「區塊」,可新增/刪除/拖曳排序 ──
   - name: "pages"
@@ -125,3 +155,53 @@ collections:
                   - { label: "說明", name: "text", widget: "text", required: false }
                   - { label: "按鈕文字", name: "buttonLabel", widget: "string", required: false }
                   - { label: "按鈕連結", name: "buttonHref", widget: "string", required: false }
+
+      - name: "about"
+        label: "關於頁"
+        file: "src/data/about.json"
+        description: "關於頁的內容區塊,可拖曳排序、新增、刪除"
+        fields:
+          - { label: "頁面標題", name: "title", widget: "string" }
+          - { label: "頁面描述(SEO)", name: "description", widget: "text" }
+          - label: "區塊(拖曳排序)"
+            name: "blocks"
+            label_singular: "區塊"
+            widget: "list"
+            types:
+              - label: "文字區塊"
+                name: "richText"
+                widget: "object"
+                fields:
+                  - { label: "標題(可留空)", name: "heading", widget: "string", required: false }
+                  - { label: "內文", name: "body", widget: "markdown" }
+              - label: "顧問客戶(標籤牆)"
+                name: "clients"
+                widget: "object"
+                fields:
+                  - { label: "標題", name: "heading", widget: "string" }
+                  - { label: "說明(可留空)", name: "intro", widget: "string", required: false }
+                  - { label: "客戶名單(可拖曳排序)", name: "items", widget: "list" }
+              - label: "圖片(含說明)"
+                name: "figure"
+                widget: "object"
+                fields:
+                  - { label: "圖片", name: "image", widget: "image" }
+                  - { label: "圖說(可留空)", name: "caption", widget: "string", required: false }
+              - label: "音檔播放器"
+                name: "audio"
+                widget: "object"
+                fields:
+                  - { label: "標題", name: "title", widget: "string", required: false }
+                  - { label: "音檔(mp3,上傳後自動顯示播放器)", name: "file", widget: "file", required: false }
+                  - { label: "還沒上傳時顯示的文字", name: "note", widget: "string", required: false }
+              - label: "連結清單"
+                name: "links"
+                widget: "object"
+                fields:
+                  - { label: "標題", name: "heading", widget: "string", required: false }
+                  - label: "連結(可拖曳排序)"
+                    name: "items"
+                    widget: "list"
+                    fields:
+                      - { label: "顯示文字", name: "label", widget: "string" }
+                      - { label: "網址", name: "url", widget: "string" }

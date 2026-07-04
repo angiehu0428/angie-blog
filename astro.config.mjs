@@ -3,11 +3,15 @@
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
+import remarkMedia from './src/plugins/remark-media.mjs';
 
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://angiehu.com',
 	integrations: [mdx(), sitemap()],
+	markdown: {
+		remarkPlugins: [remarkMedia],
+	},
 	fonts: [
 		{
 			provider: fontProviders.local(),

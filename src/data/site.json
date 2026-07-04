@@ -1,0 +1,16 @@
+{
+  "title": "Angie's Blog",
+  "description": "Angie 的文字、想法與作品紀錄。",
+  "nav": [
+    { "label": "首頁", "href": "/", "external": false },
+    { "label": "Blog", "href": "/blog", "external": false },
+    { "label": "關於", "href": "/about", "external": false },
+    { "label": "Hu Creates", "href": "https://www.hucreates.com", "external": true }
+  ],
+  "footerText": "Angie Hu. All rights reserved.",
+  "socials": [
+    { "label": "Instagram", "url": "https://www.instagram.com/hupaints" },
+    { "label": "Facebook", "url": "https://www.facebook.com/hupaints" },
+    { "label": "Email", "url": "mailto:angiehu@gmail.com" }
+  ]
+}

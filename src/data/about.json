@@ -1,0 +1,69 @@
+{
+  "title": "關於 Angie",
+  "description": "Art Center 畢業,曾任 Disney、Zynga 資深概念設計師;現為胡創有限公司負責人,專注亞洲與國際的圖像代理授權,並用 AI 打造實用工具。",
+  "blocks": [
+    {
+      "type": "richText",
+      "body": "我是 **Angie Hu**。\n\n畢業於洛杉磯 Art Center College of Design 設計藝術中心學院。在台時曾有多媒體網頁設計相關資歷,曾任**迪士尼(Disney)**、社交遊戲大廠 **Zynga** 資深概念設計師。2016 年回台後成立外包美術工作室,參與歐美與中國大陸遊戲動畫美術設計案,並舉辦大型設計藝術相關活動與課程。2019 年成立**胡創有限公司**,2020 年轉型為圖像代理授權,致力連結亞洲與國際市場的藝術家與 IP。"
+    },
+    {
+      "type": "clients",
+      "heading": "顧問客戶",
+      "intro": "曾擔任以下企業的顧問:",
+      "items": [
+        "遊戲橘子 Gamania",
+        "網銀國際 WANIN International",
+        "華碩 ASUS",
+        "紅心辣椒 Cayenne Entertainment",
+        "夢想動畫 Moonshine Animation",
+        "好奇心創意"
+      ]
+    },
+    {
+      "type": "richText",
+      "heading": "Hu Creates —— 藝術與 IP 授權",
+      "body": "我經營 **[Hu Creates 胡創](https://www.hucreates.com)**,一間位於台北的**專業藝術與 IP 授權經紀公司**,代理來自亞洲與國際的藝術家,處理角色授權、圖像版權與跨產業合作——把亞洲的優秀創作帶向歐美市場,也把歐美的 IP 引進亞洲。\n\n代理的 IP 包括 Bu2ma 的《胖虎 Alexander the Fat Tiger》、台灣原創《鯊魚先生 Mr. Shark》,以及《Sharkitty》、《Annoying Birds》等。 👉 合作洽詢:[www.hucreates.com](https://www.hucreates.com)"
+    },
+    {
+      "type": "richText",
+      "heading": "AI 工具",
+      "body": "因為喜歡一直學新東西,我也用 **AI 打造能解決日常麻煩的小工具**——掃收據自動記帳、名片自動整理進 Notion、AI 塔羅等等。這個網站就是放我的工具與想法的地方。"
+    },
+    {
+      "type": "richText",
+      "heading": "媒體 / 過去專訪",
+      "body": "**INSIDE 硬塞的網路趨勢觀察**(2012)—— [如何進入頂尖社交遊戲公司:專訪來自台灣的 Angie Hu](https://www.inside.com.tw/2012/08/15/how-to-get-in-top-social-game-company-angie-hu)。台灣媒體報導亦可見 [INCG Media](https://www.incgmedia.com/people/hu-creates-studio)。"
+    },
+    {
+      "type": "figure",
+      "image": "/uploads/interview-us.jpg",
+      "caption": "美國媒體專訪"
+    },
+    {
+      "type": "audio",
+      "title": "ICRT 廣播專訪(2020/04/28)",
+      "file": "",
+      "note": "🎧 音檔整理中——在後台這個區塊上傳 mp3 後,這裡就會出現播放器。"
+    },
+    {
+      "type": "richText",
+      "body": "**Stan Lee 官方網站專訪**(2014,網站已隨 Stan Lee 過世而註銷)"
+    },
+    {
+      "type": "figure",
+      "image": "/uploads/interview-stanlee.jpg",
+      "caption": "Stan Lee 官方網站專訪截圖(2014)"
+    },
+    {
+      "type": "links",
+      "heading": "聯絡我",
+      "items": [
+        { "label": "Email", "url": "mailto:angiehu@gmail.com" },
+        { "label": "公司官網 Hu Creates", "url": "https://www.hucreates.com" },
+        { "label": "Instagram @hupaints", "url": "https://www.instagram.com/hupaints" },
+        { "label": "Facebook hupaints", "url": "https://www.facebook.com/hupaints" },
+        { "label": "早期作品集 Behance", "url": "https://www.behance.net/angiehu" }
+      ]
+    }
+  ]
+}
