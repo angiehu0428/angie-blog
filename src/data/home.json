@@ -15,12 +15,62 @@
     {
       "type": "tools",
       "heading": "我的 AI 工具",
-      "subtitle": "用 AI 把重複、麻煩的事變簡單。點卡片即可試用。",
+      "subtitle": "用 AI 把重複、麻煩的事變簡單。",
       "items": [
-        { "icon": "🔮", "name": "塔羅占卜", "desc": "輸入你的問題,AI 幫你抽牌並給出深入解讀(中英雙語)。", "href": "https://tarot.angiehu.com", "tag": "AI · 占卜" },
-        { "icon": "✈️", "name": "旅遊花費統計", "desc": "掃收據或信用卡截圖,自動去重、依當日匯率換算,還能排行程與朋友分攤。", "href": "https://travel-expense-pub.angiehu.workers.dev", "tag": "AI · 記帳" },
-        { "icon": "📇", "name": "名片掃描 → Notion", "desc": "拍一張名片,AI 自動辨識並整理進 Notion 聯絡人資料庫。", "href": "https://cards.hucreates.com", "tag": "AI · 自動化" },
-        { "icon": "🧾", "name": "收據掃描報帳", "desc": "拍收據或發票,AI 讀出金額與品項,一鍵整理成報帳資料。", "href": "https://receipts.hucreates.com", "tag": "AI · OCR" }
+        {
+          "icon": "🔮",
+          "name": "塔羅占卜",
+          "tag": "AI · 占卜",
+          "desc": "輸入你心裡的問題,AI 幫你抽牌,並依牌義與牌陣給出深入、個人化的解讀。",
+          "features": [
+            "多種牌陣:單張到五張牌",
+            "AI 依牌義與位置解讀,不只是背牌意",
+            "中英雙語介面",
+            "占卜紀錄可跨裝置同步(付費)"
+          ],
+          "href": "https://tarot.angiehu.com",
+          "status": "live"
+        },
+        {
+          "icon": "✈️",
+          "name": "旅遊花費統計",
+          "tag": "AI · 記帳",
+          "desc": "出國旅遊的記帳小幫手:拍收據或信用卡截圖,AI 自動幫你記好帳、換好匯率。",
+          "features": [
+            "掃收據/信用卡截圖,自動抓金額、店家、品項",
+            "依刷卡當日台銀匯率換算主幣別",
+            "自動偵測重複、交通卡只記加值",
+            "還有行程表、天氣穿衣、朋友分攤"
+          ],
+          "href": "https://travel-expense-pub.angiehu.workers.dev",
+          "status": "live"
+        },
+        {
+          "icon": "📇",
+          "name": "名片掃描 → Notion",
+          "tag": "AI · 自動化",
+          "desc": "拍一張名片,AI 自動辨識所有欄位,整理進 Notion 聯絡人資料庫。",
+          "features": [
+            "一次可拍多張名片",
+            "AI 讀出姓名/公司/職稱/聯絡方式",
+            "存檔前可編輯、重複聯絡人提醒",
+            "可依活動、展會自動分類"
+          ],
+          "status": "internal"
+        },
+        {
+          "icon": "🧾",
+          "name": "收據掃描報帳",
+          "tag": "AI · OCR",
+          "desc": "拍收據、發票或截圖,AI 讀出金額與品項,一鍵整理成報帳資料。",
+          "features": [
+            "支援照片、截圖與 PDF(電子發票/機票)",
+            "AI 讀出事由/金額/幣別/發票號碼",
+            "自動編憑證編號、換算匯率",
+            "一鍵存進 Notion 代墊總表"
+          ],
+          "status": "internal"
+        }
       ]
     },
     {

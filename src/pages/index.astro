@@ -69,17 +69,37 @@ const blocks = home.blocks ?? [];
 									{block.subtitle && <p class="muted">{block.subtitle}</p>}
 								</div>
 								<div class="tool-grid">
-									{(block.items ?? []).map((t) => (
-										<a class="tool-card" href={t.href || '#'}>
-											<div class="tool-icon">{t.icon}</div>
-											<div class="tool-body">
-												{t.tag && <span class="tool-tag">{t.tag}</span>}
-												<h3>{t.name}</h3>
-												<p>{t.desc}</p>
-											</div>
-											<span class="tool-go">打開工具 →</span>
-										</a>
-									))}
+									{(block.items ?? []).map((t) => {
+										const isInternal = t.status === 'internal';
+										const Tag = isInternal ? 'div' : 'a';
+										return (
+											<Tag
+												class:list={['tool-card', { 'is-internal': isInternal }]}
+												href={isInternal ? undefined : t.href || '#'}
+												target={isInternal ? undefined : '_blank'}
+												rel={isInternal ? undefined : 'noopener'}
+											>
+												<div class="tool-icon">{t.icon}</div>
+												<div class="tool-body">
+													{t.tag && <span class="tool-tag">{t.tag}</span>}
+													<h3>{t.name}</h3>
+													<p>{t.desc}</p>
+													{t.features && t.features.length > 0 && (
+														<ul class="tool-features">
+															{t.features.map((f) => (
+																<li>{f}</li>
+															))}
+														</ul>
+													)}
+												</div>
+												{isInternal ? (
+													<span class="tool-status">🔒 內部使用中 · 對外版本開發中</span>
+												) : (
+													<span class="tool-go">打開工具 →</span>
+												)}
+											</Tag>
+										);
+									})}
 								</div>
 								{block.note && <p class="placeholder-note">{block.note}</p>}
 							</div>
@@ -358,6 +378,45 @@ const blocks = home.blocks ?? [];
 		color: var(--accent-dark);
 		font-size: 0.94rem;
 		margin-top: auto;
+	}
+	.tool-features {
+		list-style: none;
+		margin: 0.9rem 0 0;
+		padding: 0;
+		display: grid;
+		gap: 0.35rem;
+	}
+	.tool-features li {
+		position: relative;
+		padding-left: 1.1rem;
+		font-size: 0.86rem;
+		color: rgb(var(--gray));
+		line-height: 1.45;
+	}
+	.tool-features li::before {
+		content: '✓';
+		position: absolute;
+		left: 0;
+		color: var(--accent);
+		font-weight: 700;
+	}
+	.tool-status {
+		margin-top: auto;
+		font-weight: 700;
+		font-size: 0.82rem;
+		color: #9a6a45;
+		background: rgba(198, 138, 92, 0.14);
+		border-radius: 999px;
+		padding: 0.35rem 0.8rem;
+		align-self: flex-start;
+	}
+	.tool-card.is-internal {
+		cursor: default;
+	}
+	.tool-card.is-internal:hover {
+		transform: none;
+		box-shadow: none;
+		border-color: rgb(var(--gray-light));
 	}
 	.placeholder-note {
 		margin-top: 1.5rem;
