@@ -33,7 +33,7 @@ collections:
     fields:
       - { label: "標題", name: "title", widget: "string" }
       - { label: "摘要(顯示在列表與 Google 搜尋)", name: "description", widget: "text" }
-      - { label: "Banner 圖(選填,顯示在文章頂部與首頁卡片)", name: "heroImage", widget: "image", required: false, allow_multiple: false }
+      - { label: "Banner 圖(選填,顯示在文章頂部與首頁卡片)", name: "heroImage", widget: "image", required: false }
       - {
           label: "發布日期",
           name: "pubDate",
