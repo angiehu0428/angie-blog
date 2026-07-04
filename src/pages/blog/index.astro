@@ -44,14 +44,19 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags ?? []))];
 					posts.map((post) => (
 						<li class="card" data-tags={(post.data.tags ?? []).join(',')}>
 							<a href={`/blog/${post.id}/`}>
-								<div class="card-tags">
-									{(post.data.tags ?? []).map((t) => (
-										<span class="mini-tag">#{t}</span>
-									))}
+								{post.data.heroImage && (
+									<img class="card-img" src={post.data.heroImage} alt="" loading="lazy" />
+								)}
+								<div class="card-body">
+									<div class="card-tags">
+										{(post.data.tags ?? []).map((t) => (
+											<span class="mini-tag">#{t}</span>
+										))}
+									</div>
+									<h2 class="card-title">{post.data.title}</h2>
+									<p class="card-desc">{post.data.description}</p>
+									<FormattedDate date={post.data.pubDate} />
 								</div>
-								<h2 class="card-title">{post.data.title}</h2>
-								<p class="card-desc">{post.data.description}</p>
-								<FormattedDate date={post.data.pubDate} />
 							</a>
 						</li>
 					))
@@ -123,9 +128,17 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags ?? []))];
 				box-shadow: 0 16px 36px rgba(var(--accent-soft), 0.16);
 				border-color: transparent;
 			}
+			.card-img {
+				width: 100%;
+				aspect-ratio: 16 / 9;
+				object-fit: cover;
+				display: block;
+			}
+			.card-body {
+				padding: 1.5rem;
+			}
 			.card a {
 				display: block;
-				padding: 1.5rem;
 				text-decoration: none;
 				color: inherit;
 				height: 100%;

@@ -102,16 +102,26 @@ const blocks = home.blocks ?? [];
 								{posts.length === 0 ? (
 									<p class="muted">文章搬家中,敬請期待 ✨</p>
 								) : (
-									<ul class="post-list">
+									<div class="home-posts">
 										{posts.map((post) => (
-											<li>
-												<a href={`/blog/${post.id}/`}>
-													<span class="post-title">{post.data.title}</span>
+											<a class="hp-card" href={`/blog/${post.id}/`}>
+												{post.data.heroImage ? (
+													<img class="hp-img" src={post.data.heroImage} alt="" loading="lazy" />
+												) : (
+													<div class="hp-img hp-img--empty" aria-hidden="true">
+														✍️
+													</div>
+												)}
+												<div class="hp-body">
+													{(post.data.tags ?? []).slice(0, 1).map((t) => (
+														<span class="tool-tag">{t}</span>
+													))}
+													<h3 class="hp-title">{post.data.title}</h3>
 													<FormattedDate date={post.data.pubDate} />
-												</a>
-											</li>
+												</div>
+											</a>
 										))}
-									</ul>
+									</div>
 								)}
 							</div>
 						</section>
@@ -388,6 +398,56 @@ const blocks = home.blocks ?? [];
 		color: rgb(var(--gray));
 		font-size: 0.85rem;
 		white-space: nowrap;
+	}
+
+	/* ---------- HOME POST CARDS (with banner) ---------- */
+	.home-posts {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+		gap: 1.25rem;
+	}
+	.hp-card {
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 16px;
+		overflow: hidden;
+		text-decoration: none;
+		color: inherit;
+		background: var(--surface);
+		transition:
+			transform 0.18s ease,
+			box-shadow 0.18s ease,
+			border-color 0.18s ease;
+	}
+	.hp-card:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 16px 34px rgba(var(--gray), 0.16);
+		border-color: rgba(var(--accent-soft), 0.55);
+	}
+	.hp-img {
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+		display: block;
+	}
+	.hp-img--empty {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 2rem;
+		background: rgba(var(--accent-soft), 0.1);
+	}
+	.hp-body {
+		padding: 1.1rem 1.2rem 1.3rem;
+	}
+	.hp-title {
+		font-size: 1.1rem;
+		font-weight: 800;
+		line-height: 1.35;
+		margin: 0.5rem 0;
+	}
+	.hp-body :global(time) {
+		color: rgb(var(--gray));
+		font-size: 0.82rem;
 	}
 
 	/* ---------- RICH TEXT + CTA ---------- */

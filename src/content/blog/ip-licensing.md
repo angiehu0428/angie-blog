@@ -3,6 +3,7 @@ title: 如何做角色 IP 授權
 description: 從確認 IP 擁有權、制定授權協議、監管使用，到授權費用與法律風險——角色 IP 授權的基本步驟整理。
 pubDate: '2023-09-29'
 tags: ['IP相關']
+heroImage: '/uploads/sample-banner.jpg'
 ---
 
 角色 IP 授權是指將角色形象授權給他人使用的過程，例如動畫、漫畫、遊戲等。以下是進行角色 IP 授權的基本步驟：
