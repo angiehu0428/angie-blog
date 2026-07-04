@@ -1,13 +1,12 @@
 # ─────────────────────────────────────────────────────────────
 # Angie's Blog 內容後台設定 (Sveltia CMS)
 #
-# ▸ 本機測試:網站跑起來後開 http://localhost:4321/admin/
-#   → 選「Work with Local Repository / 使用本地資料夾」→ 授權 angie-blog 資料夾
-#   → 就能直接編輯文章,不需要 GitHub 登入。
-#
-# ▸ 正式上線後(部署到 Cloudflare Pages + 推上 GitHub):
-#   把下面的 repo 改成你的 GitHub「帳號/專案名」,並設定 GitHub 登入,
-#   之後你就能在 https://angiehu.com/admin/ 用瀏覽器直接編輯 + 自動發布。
+# ▸ 正式後台:https://angiehu.com/admin/ → 用 GitHub 登入(angiehu0428)
+#   存檔會 commit 到 GitHub → Cloudflare 自動重新部署(幾分鐘生效)。
+# ▸ 本機測試:npm run dev → http://localhost:4321/admin/index.html
+#   → 選「Work with Local Repository」→ 授權 angie-blog 資料夾。
+# ▸ 注意:Sveltia 與舊版 Decap 有相容性差異(例如不支援 allow_multiple、
+#   select 尚不能動態新增選項,所以分類用自由輸入的 list)。
 # ─────────────────────────────────────────────────────────────
 
 backend:
@@ -44,12 +43,11 @@ collections:
           format: "YYYY-MM-DD",
         }
       - {
-          label: "分類(可多選)",
+          label: "分類標籤(自由輸入,打完一個按 Enter;新分類會自動出現在 Blog 篩選列)",
           name: "tags",
-          widget: "select",
-          multiple: true,
+          widget: "list",
           required: false,
-          options: ["IP相關", "美術相關", "個人成長", "身心靈"],
+          hint: "現有分類:IP相關、美術相關、個人成長、身心靈。沿用時請打一模一樣的字,才會歸在同一類。",
         }
       - { label: "內文", name: "body", widget: "markdown" }
 
@@ -94,8 +92,19 @@ collections:
                       - { label: "Emoji 圖示", name: "icon", widget: "string" }
                       - { label: "名稱", name: "name", widget: "string" }
                       - { label: "一句介紹", name: "desc", widget: "text" }
-                      - { label: "連結網址", name: "href", widget: "string", required: false }
+                      - label: "功能點(每行一點,顯示成 ✓ 清單)"
+                        name: "features"
+                        widget: "list"
+                        required: false
+                      - { label: "連結網址(內部工具可留空)", name: "href", widget: "string", required: false }
                       - { label: "標籤", name: "tag", widget: "string", required: false }
+                      - {
+                          label: "狀態",
+                          name: "status",
+                          widget: "select",
+                          options: [{ label: "公開(可點開)", value: "live" }, { label: "內部使用(顯示「對外版本開發中」)", value: "internal" }],
+                          default: "live",
+                        }
               - label: "最新文章"
                 name: "latestPosts"
                 widget: "object"
