@@ -3,6 +3,17 @@
 
 const MAX = { name: 100, email: 200, subject: 150, message: 4000 };
 
+// 顧問報價:價目只放在這裡(不進網頁原始碼),填表驗證通過才回傳。
+// ⚠️ 要改價格改這裡(每組對應顧問頁的方案順序)。
+const CONSULTING_PRICES = [
+	[
+		'個人創作者　NT$1,000–1,500／小時',
+		'公司行號(非上市櫃)　NT$2,000–2,500／小時',
+		'上市櫃公司　NT$3,000–5,000／小時',
+	],
+	['NT$50,000／月'],
+];
+
 function esc(s) {
 	return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
@@ -54,6 +65,8 @@ async function handleContact(request, env) {
 	});
 
 	if (!resp.ok) return json({ ok: false, error: 'notify failed' }, 502);
+	// 顧問報價表單:驗證通過才回傳價目(價目不在網頁原始碼裡)
+	if (data.wantQuote) return json({ ok: true, prices: CONSULTING_PRICES });
 	return json({ ok: true });
 }
 

@@ -85,11 +85,7 @@ const { title, intro, credentials, areas, pricing, cta } = consulting;
 								</ul>
 								<div class="price-gate">
 									<div class="gate-lock">🔒 填表後查看報價</div>
-									<div class="gate-prices">
-										{(t.priceLines ?? []).map((p) => (
-											<div class="price-line">{p}</div>
-										))}
-									</div>
+									<div class="gate-prices"></div>
 								</div>
 							</div>
 						))
@@ -497,10 +493,20 @@ const { title, intro, credentials, areas, pricing, cta } = consulting;
 								subject: '顧問報價詢問',
 								message: '【顧問報價詢問】' + (data.message || '(未填需求)'),
 								website: data.website || '',
+								wantQuote: true,
 							}),
 						});
 						const j = await r.json();
 						if (!j.ok) throw new Error(j.error || 'failed');
+						// worker 回傳的價目注入各方案卡(價目不在原始碼裡)
+						const boxes = grid.querySelectorAll('.gate-prices');
+						(j.prices || []).forEach((lines, i) => {
+							const box = boxes[i];
+							if (box)
+								box.innerHTML = lines
+									.map((p) => '<div class="price-line">' + p.replace(/</g, '&lt;') + '</div>')
+									.join('');
+						});
 						// 解鎖價目
 						grid.classList.add('unlocked');
 						qform.style.display = 'none';
