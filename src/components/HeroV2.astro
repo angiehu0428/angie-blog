@@ -5,6 +5,10 @@ interface Chip {
 	year: string;
 	text: string;
 }
+interface SideRole {
+	text: string;
+	href?: string;
+}
 interface StatementPart {
 	text: string;
 	/** 留空=一般文字;'peri' 或 'peach' = 句中色塊標籤 */
@@ -16,6 +20,8 @@ interface Props {
 	statement?: StatementPart[];
 	enSubtitle?: string;
 	chips?: Chip[];
+	/** 斜槓角色標籤(講師/顧問/活動策劃等並行身份,非時間軸) */
+	sideRoles?: SideRole[];
 	primaryLabel?: string;
 	primaryHref?: string;
 	ghostLabel?: string;
@@ -35,6 +41,7 @@ const {
 	statement = [],
 	enSubtitle,
 	chips = [],
+	sideRoles = [],
 	primaryLabel,
 	primaryHref,
 	ghostLabel,
@@ -80,6 +87,22 @@ const {
 								</span>
 							</span>
 						))}
+					</div>
+				)
+			}
+
+			{
+				sideRoles.length > 0 && (
+					<div class="roles rv d4" aria-label="斜槓角色">
+						{sideRoles.map((r) =>
+							r.href ? (
+								<a class="role-tag" href={r.href}>
+									{r.text}
+								</a>
+							) : (
+								<span class="role-tag">{r.text}</span>
+							),
+						)}
 					</div>
 				)
 			}
@@ -368,6 +391,26 @@ const {
 	.arrow {
 		color: var(--ink-soft);
 		font-size: 0.9rem;
+	}
+	/* 斜槓角色標籤:並行身份,跟時間軸分開、不用箭頭(非時序關係) */
+	.roles {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		margin-top: 12px;
+	}
+	.role-tag {
+		font-size: 0.82rem;
+		color: var(--peri-deep);
+		background: rgba(107, 124, 245, 0.12);
+		border: 1px dashed rgba(107, 124, 245, 0.35);
+		border-radius: 99px;
+		padding: 6px 14px;
+		text-decoration: none;
+	}
+	a.role-tag:hover {
+		background: rgba(107, 124, 245, 0.2);
+		border-style: solid;
 	}
 	/* CTA */
 	.cta {

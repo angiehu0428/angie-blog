@@ -16,6 +16,12 @@
         { "year": "2019", "text": "Hu Creates IP 授權" },
         { "year": "NOW", "text": "AI 工具製作中" }
       ],
+      "sideRoles": [
+        { "text": "🎓 講師" },
+        { "text": "💼 顧問", "href": "/consulting" },
+        { "text": "🎪 活動策劃" },
+        { "text": "🖼️ 畫展籌備中" }
+      ],
       "primaryLabel": "看看我做的東西",
       "primaryHref": "#tools",
       "ghostLabel": "我的故事",

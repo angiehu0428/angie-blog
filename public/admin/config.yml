@@ -187,6 +187,13 @@ collections:
                     fields:
                       - { label: "年份", name: "year", widget: "string" }
                       - { label: "文字", name: "text", widget: "string" }
+                  - label: "斜槓角色標籤(拖曳排序,講師/顧問/活動策劃等並行身份)"
+                    name: "sideRoles"
+                    widget: "list"
+                    required: false
+                    fields:
+                      - { label: "文字(可加 emoji)", name: "text", widget: "string" }
+                      - { label: "連結(選填,例如顧問頁 /consulting)", name: "href", widget: "string", required: false }
                   - { label: "主按鈕文字", name: "primaryLabel", widget: "string", required: false }
                   - { label: "主按鈕連結", name: "primaryHref", widget: "string", required: false }
                   - { label: "次按鈕文字", name: "ghostLabel", widget: "string", required: false }
