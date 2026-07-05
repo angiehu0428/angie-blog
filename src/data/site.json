@@ -12,7 +12,8 @@
   "footerText": "Angie Hu. All rights reserved.",
   "socials": [
     { "label": "找我合作", "url": "/contact" },
-    { "label": "Instagram", "url": "https://www.instagram.com/huisangie" },
+    { "label": "IG 生活", "url": "https://www.instagram.com/huisangie" },
+    { "label": "IG 繪圖", "url": "https://www.instagram.com/hupaints" },
     { "label": "Facebook", "url": "https://www.facebook.com/angiehu" }
   ]
 }

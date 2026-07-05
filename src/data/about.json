@@ -60,7 +60,8 @@
       "items": [
         { "label": "✉️ 找我合作(聯絡表單)", "url": "/contact" },
         { "label": "公司官網 Hu Creates", "url": "https://www.hucreates.com" },
-        { "label": "Instagram @huisangie", "url": "https://www.instagram.com/huisangie" },
+        { "label": "Instagram(生活)@huisangie", "url": "https://www.instagram.com/huisangie" },
+        { "label": "Instagram(繪圖)@hupaints", "url": "https://www.instagram.com/hupaints" },
         { "label": "Facebook angiehu", "url": "https://www.facebook.com/angiehu" },
         { "label": "早期作品集 Behance", "url": "https://www.behance.net/angiehu" }
       ]
