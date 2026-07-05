@@ -7,6 +7,8 @@
     { "label": "關於", "href": "/about", "external": false },
     { "label": "Hu Creates", "href": "https://www.hucreates.com", "external": true }
   ],
+  "ctaLabel": "找我合作",
+  "ctaHref": "https://calendly.com/hucreates/60min",
   "footerText": "Angie Hu. All rights reserved.",
   "socials": [
     { "label": "Instagram", "url": "https://www.instagram.com/hupaints" },

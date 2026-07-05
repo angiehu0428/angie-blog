@@ -10,6 +10,9 @@ features:
   - 可依活動、展會自動分類
 status: internal
 order: 4
+tags:
+  - 掃描自動化
+  - 公司工具
 keywords:
   - 名片掃描 notion
   - 名片管理 AI

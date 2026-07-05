@@ -10,6 +10,10 @@ features:
   - 一鍵存進 Notion 代墊總表
 status: internal
 order: 5
+tags:
+  - 掃描自動化
+  - 記帳理財
+  - 公司工具
 keywords:
   - 收據掃描 報帳
   - 發票辨識 AI

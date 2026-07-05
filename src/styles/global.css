@@ -5,25 +5,41 @@
  */
 
 :root {
-	/* clean + soft palette (warm cream & sage) — inspired by editorial blogs like Ramp */
-	--bg: #faf8f3; /* warm cream */
-	--surface: #ffffff;
-	--accent: #6f7c54; /* soft sage */
-	--accent-dark: #545f3f; /* deeper sage for hover/contrast */
-	--accent-soft: 111, 124, 84; /* sage as rgb, for soft tints */
-	--accent-gradient: linear-gradient(120deg, #7f8c60 0%, #a7ad84 100%);
-	--black: 36, 33, 28; /* warm near-black */
-	--gray: 132, 125, 114; /* warm muted */
-	--gray-light: 233, 228, 219; /* warm soft border */
-	--gray-dark: 46, 42, 36; /* warm ink */
+	/* 柔和科技風(2026-07-05 Angie 拍板,見 CLAUDE.md):暖瓷白+長春花藍+蜜桃/薰衣草 */
+	--paper: #f7f5f0; /* 暖瓷白 */
+	--paper-2: #fffefb;
+	--ink: #262a3f; /* 深靛墨 */
+	--ink-soft: #6e7288;
+	--peri: #6b7cf5; /* 柔霧長春花藍 */
+	--peri-deep: #4a5ad8;
+	--peach: #ffd9c2; /* 蜜桃 */
+	--lav: #e4e1ff; /* 薰衣草 */
+	--mint: #ddeee6;
+	--line: rgba(38, 42, 63, 0.08);
+	--r: 22px;
+
+	/* 舊變數名映射到新色票(全站元件沿用) */
+	--bg: var(--paper);
+	--surface: var(--paper-2);
+	--accent: var(--peri);
+	--accent-dark: var(--peri-deep);
+	--accent-soft: 107, 124, 245; /* peri as rgb, for soft tints */
+	--accent-gradient: linear-gradient(120deg, #6b7cf5 0%, #8fa0f8 55%, #ffd9c2 100%);
+	--black: 38, 42, 63;
+	--gray: 110, 114, 136; /* = ink-soft */
+	--gray-light: 228, 227, 238; /* 冷調淺線 */
+	--gray-dark: 38, 42, 63;
 	--gray-gradient: rgba(var(--gray-light), 40%), var(--bg);
 	--box-shadow:
-		0 2px 6px rgba(var(--gray), 12%), 0 8px 24px rgba(var(--gray), 12%),
-		0 16px 32px rgba(var(--gray), 10%);
-	/* modern sans stack with good Traditional-Chinese fallbacks */
+		0 2px 6px rgba(38, 42, 63, 8%), 0 8px 24px rgba(38, 42, 63, 8%),
+		0 16px 32px rgba(38, 42, 63, 6%);
+	/* DM Sans(內文)+ Space Grotesk(標題),搭中文系統字體 */
 	--font-sans:
-		"Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+		var(--font-dmsans, "DM Sans"), ui-sans-serif, system-ui, -apple-system,
 		"Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+	--font-display:
+		var(--font-grotesk, "Space Grotesk"), "Noto Sans TC", "PingFang TC",
+		"Microsoft JhengHei", sans-serif;
 }
 body {
 	font-family: var(--font-sans);
@@ -53,6 +69,7 @@ h6 {
 	margin: 0 0 0.5rem 0;
 	color: rgb(var(--black));
 	line-height: 1.2;
+	font-family: var(--font-display);
 }
 h1 {
 	font-size: 3.052em;

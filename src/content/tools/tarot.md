@@ -11,6 +11,8 @@ features:
 href: https://tarot.angiehu.com
 status: live
 order: 1
+tags:
+  - AI 生活
 keywords:
   - AI 塔羅占卜
   - 線上塔羅 免費

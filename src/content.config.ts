@@ -33,6 +33,7 @@ const tools = defineCollection({
 		status: z.enum(['live', 'internal']).default('live'),
 		order: z.number().default(99),
 		keywords: z.array(z.string()).default([]), // SEO 關鍵字(中英文都放)
+		tags: z.array(z.string()).default([]), // 分類(首頁篩選用)
 	}),
 });
 

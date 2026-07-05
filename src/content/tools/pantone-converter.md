@@ -11,6 +11,8 @@ features:
 href: https://pantone-converter.pages.dev
 status: live
 order: 3
+tags:
+  - 設計工具
 keywords:
   - pantone converter
   - photoshop pantone plugin

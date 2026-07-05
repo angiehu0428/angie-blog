@@ -11,6 +11,8 @@ features:
 href: https://travel-expense-pub.angiehu.workers.dev
 status: live
 order: 2
+tags:
+  - 記帳理財
 keywords:
   - 旅遊記帳 app
   - 出國記帳 app 免費

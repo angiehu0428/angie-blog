@@ -2,20 +2,30 @@
   "blocks": [
     {
       "type": "hero",
-      "eyebrow": "AI TOOLS · CREATIVE · IP",
-      "heading": "我打造",
-      "highlight": "好用的 AI 工具",
-      "headingAfter": "也在這裡寫下想法。",
-      "lede": "嗨,我是 Angie。設計背景出身,現在用 AI 做出能真正解決日常麻煩的小工具。歡迎試用我的工具,或看看我的文章。",
-      "primaryLabel": "探索我的工具 →",
+      "kicker": "ANGIE HU — TAIPEI",
+      "headline1": "一直在創作,",
+      "headline2Pre": "只是",
+      "headline2Hand": "工具",
+      "headline2Mid": "一直在",
+      "headline2Soft": "進化。",
+      "chips": [
+        { "year": "2007", "text": "Disney・Zynga 概念設計" },
+        { "year": "2019", "text": "Hu Creates IP 授權" },
+        { "year": "NOW", "text": "AI 工具製作中" }
+      ],
+      "primaryLabel": "看看我做的東西",
       "primaryHref": "#tools",
-      "ghostLabel": "讀 Blog",
-      "ghostHref": "/blog"
+      "ghostLabel": "我的故事",
+      "ghostHref": "/about",
+      "credits": ["Disney", "Zynga", "TheRealStanLee.com", "INSIDE", "ASUS", "Gamania"],
+      "badge": "跟 AI 一起,",
+      "badgeBold": "每天都在出貨",
+      "heroImage": ""
     },
     {
       "type": "tools",
       "heading": "我的 AI 工具",
-      "subtitle": "用 AI 把重複、麻煩的事變簡單。點卡片看介紹。"
+      "subtitle": "用 AI 把重複、麻煩的事變簡單。可以用分類或關鍵字找工具。"
     },
     {
       "type": "latestPosts",

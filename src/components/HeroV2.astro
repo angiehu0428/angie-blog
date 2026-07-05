@@ -1,0 +1,605 @@
+---
+// 柔和科技風 Hero(照 mockups/hero-proposal-v2.html 核准稿實作)
+// 內容由 src/data/home.json 的 hero 區塊供給(後台可編輯)
+interface Chip {
+	year: string;
+	text: string;
+}
+interface Props {
+	kicker?: string;
+	headline1?: string;
+	headline2Pre?: string;
+	headline2Hand?: string;
+	headline2Mid?: string;
+	headline2Soft?: string;
+	chips?: Chip[];
+	primaryLabel?: string;
+	primaryHref?: string;
+	ghostLabel?: string;
+	ghostHref?: string;
+	credits?: string[];
+	badge?: string;
+	badgeBold?: string;
+	/** 主視覺 4:5 圖(後台上傳);沒給就用設計稿的漸層佔位 */
+	heroImage?: string;
+}
+const {
+	kicker,
+	headline1,
+	headline2Pre,
+	headline2Hand,
+	headline2Mid,
+	headline2Soft,
+	chips = [],
+	primaryLabel,
+	primaryHref,
+	ghostLabel,
+	ghostHref,
+	credits = [],
+	badge,
+	badgeBold,
+	heroImage,
+} = Astro.props;
+---
+
+<section class="hero2">
+	<div class="aura" aria-hidden="true"><i></i><i></i><i></i></div>
+	<div class="dots" aria-hidden="true"></div>
+
+	<div class="stage">
+		<div>
+			{kicker && <span class="kicker rv d1">{kicker}</span>}
+			<h1>
+				{headline1 && (
+					<span class="rv d2" style="display:block">
+						{headline1}
+					</span>
+				)}
+				<span class="rv d3" style="display:block">
+					{headline2Pre}{headline2Hand && <span class="hand">{headline2Hand}</span>}{headline2Mid}{
+						headline2Soft && <span class="soft">{headline2Soft}</span>
+					}
+				</span>
+			</h1>
+
+			{
+				chips.length > 0 && (
+					<div class="timeline rv d4" aria-label="三個階段">
+						{chips.map((c, i) => (
+							<>
+								{i > 0 && <span class="arrow">→</span>}
+								<span class="chip">
+									<b>{c.year}</b> {c.text}
+								</span>
+							</>
+						))}
+					</div>
+				)
+			}
+
+			<div class="cta rv d5">
+				{
+					primaryLabel && (
+						<a class="btn btn-solid" href={primaryHref || '#'}>
+							{primaryLabel}
+						</a>
+					)
+				}
+				{
+					ghostLabel && (
+						<a class="btn btn-ghost" href={ghostHref || '#'}>
+							{ghostLabel}
+						</a>
+					)
+				}
+			</div>
+
+			{
+				credits.length > 0 && (
+					<div class="press rv d6">
+						<small>CREDITS &amp; PRESS</small>
+						<ul>
+							{credits.map((c) => (
+								<li>{c}</li>
+							))}
+						</ul>
+					</div>
+				)
+			}
+		</div>
+
+		<div class="collage rv d3" aria-label="作品拼貼">
+			<div class="frame f-main">
+				{
+					heroImage ? (
+						<img class="ph-img" src={heroImage} alt="Angie Hu 主視覺" />
+					) : (
+						<div class="ph">
+							<div class="note">
+								<b>主視覺圖位(4:5)</b>
+								<br />
+								之後在後台上傳形象照或代表作。
+							</div>
+						</div>
+					)
+				}
+			</div>
+			<div class="frame f-art">
+				<div class="thumb" role="img" aria-label="概念藝術示意"></div>
+				<div class="cap"><span>概念藝術時期</span><b>2007–16</b></div>
+			</div>
+			<div class="frame f-app">
+				<div class="mini" role="img" aria-label="AI 工具介面示意">
+					<div class="bar"></div>
+					<div class="row"><i></i><s></s><em>NT$420</em></div>
+					<div class="row"><i></i><s></s><em>¥1,200</em></div>
+					<div class="row"><i></i><s></s><em>€36</em></div>
+				</div>
+				<div class="cap"><span>AI 記帳工具</span><b>2026</b></div>
+			</div>
+			{
+				badge && (
+					<div class="badge">
+						{badge}
+						{badgeBold && <b>{badgeBold}</b>}
+					</div>
+				)
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.hero2 {
+		position: relative;
+		overflow: hidden;
+		isolation: isolate;
+	}
+	/* 極光暈染 */
+	.aura {
+		position: absolute;
+		inset: 0;
+		z-index: -2;
+		pointer-events: none;
+		overflow: hidden;
+	}
+	.aura i {
+		position: absolute;
+		border-radius: 50%;
+		filter: blur(90px);
+		opacity: 0.55;
+		animation: drift 16s ease-in-out infinite alternate;
+	}
+	.aura i:nth-child(1) {
+		width: 52vw;
+		height: 52vw;
+		background: var(--lav);
+		top: -18%;
+		right: -10%;
+	}
+	.aura i:nth-child(2) {
+		width: 38vw;
+		height: 38vw;
+		background: var(--peach);
+		bottom: -12%;
+		left: -8%;
+		animation-delay: -6s;
+		opacity: 0.5;
+	}
+	.aura i:nth-child(3) {
+		width: 26vw;
+		height: 26vw;
+		background: var(--mint);
+		top: 42%;
+		left: 34%;
+		animation-delay: -11s;
+		opacity: 0.45;
+	}
+	@keyframes drift {
+		to {
+			transform: translate(4%, 6%) scale(1.08);
+		}
+	}
+	/* 細點陣 */
+	.dots {
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		pointer-events: none;
+		background-image: radial-gradient(rgba(38, 42, 63, 0.1) 1px, transparent 1px);
+		background-size: 26px 26px;
+		mask-image: radial-gradient(80% 70% at 30% 30%, #000 30%, transparent 100%);
+	}
+	/* 進場動畫 */
+	.rv {
+		opacity: 0;
+		transform: translateY(22px);
+		animation: up 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+	}
+	@keyframes up {
+		to {
+			opacity: 1;
+			transform: none;
+		}
+	}
+	.d1 {
+		animation-delay: 0.06s;
+	}
+	.d2 {
+		animation-delay: 0.18s;
+	}
+	.d3 {
+		animation-delay: 0.32s;
+	}
+	.d4 {
+		animation-delay: 0.48s;
+	}
+	.d5 {
+		animation-delay: 0.66s;
+	}
+	.d6 {
+		animation-delay: 0.86s;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.hero2 * {
+			animation: none !important;
+			transition: none !important;
+		}
+		.rv {
+			opacity: 1;
+			transform: none;
+		}
+	}
+	/* 主舞台 */
+	.stage {
+		position: relative;
+		z-index: 1;
+		max-width: 1280px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: minmax(0, 10fr) minmax(0, 9fr);
+		gap: clamp(24px, 4vw, 64px);
+		align-items: center;
+		padding: clamp(28px, 5vh, 64px) clamp(20px, 5vw, 60px) clamp(40px, 6vh, 72px);
+	}
+	.kicker {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		font-family: var(--font-display);
+		font-size: 0.8rem;
+		letter-spacing: 0.22em;
+		color: var(--peri-deep);
+	}
+	.kicker::before {
+		content: '';
+		width: 26px;
+		height: 2px;
+		background: var(--peri);
+		border-radius: 2px;
+	}
+	h1 {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: clamp(2.3rem, 5.4vw, 4.2rem);
+		line-height: 1.18;
+		letter-spacing: -0.01em;
+		margin: clamp(16px, 2.5vh, 26px) 0 0;
+		color: var(--ink);
+	}
+	h1 .soft {
+		color: var(--peri);
+		white-space: nowrap;
+	}
+	h1 .hand {
+		background: linear-gradient(120deg, var(--peach), #ffe9dc);
+		border-radius: 0.35em;
+		padding: 0.02em 0.18em;
+		display: inline-block;
+		transform: rotate(-1.2deg);
+	}
+	/* 時間膠囊 */
+	.timeline {
+		display: flex;
+		gap: 10px;
+		flex-wrap: wrap;
+		margin-top: clamp(20px, 3vh, 30px);
+		align-items: center;
+	}
+	.chip {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		background: rgba(255, 255, 255, 0.72);
+		backdrop-filter: blur(8px);
+		border: 1px solid var(--line);
+		border-radius: 99px;
+		padding: 9px 18px;
+		font-size: 0.9rem;
+		color: var(--ink);
+		box-shadow: 0 4px 18px rgba(38, 42, 63, 0.05);
+	}
+	.chip b {
+		font-family: var(--font-display);
+		font-weight: 500;
+		color: var(--peri-deep);
+		font-size: 0.78rem;
+		letter-spacing: 0.08em;
+	}
+	.arrow {
+		color: var(--ink-soft);
+		font-size: 0.9rem;
+	}
+	/* CTA */
+	.cta {
+		display: flex;
+		gap: 14px;
+		margin-top: clamp(26px, 4vh, 40px);
+		flex-wrap: wrap;
+	}
+	.btn {
+		font-family: var(--font-display);
+		font-weight: 500;
+		font-size: 0.98rem;
+		text-decoration: none;
+		padding: 15px 28px;
+		border-radius: 14px;
+		transition:
+			transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1),
+			box-shadow 0.25s;
+	}
+	.btn-solid {
+		background: var(--peri);
+		color: #fff;
+		box-shadow: 0 10px 30px rgba(107, 124, 245, 0.35);
+	}
+	.btn-solid:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 16px 40px rgba(107, 124, 245, 0.45);
+	}
+	.btn-ghost {
+		color: var(--ink);
+		border: 1.5px solid rgba(38, 42, 63, 0.18);
+		background: rgba(255, 255, 255, 0.4);
+	}
+	.btn-ghost:hover {
+		border-color: var(--peri);
+		color: var(--peri-deep);
+		transform: translateY(-3px);
+	}
+	/* CREDITS 列 */
+	.press {
+		margin-top: clamp(30px, 5vh, 48px);
+	}
+	.press small {
+		font-size: 0.72rem;
+		letter-spacing: 0.18em;
+		color: var(--ink-soft);
+	}
+	.press ul {
+		display: flex;
+		gap: clamp(14px, 2.4vw, 28px);
+		list-style: none;
+		margin: 12px 0 0;
+		padding: 0;
+		flex-wrap: wrap;
+		align-items: center;
+	}
+	.press li {
+		font-family: var(--font-display);
+		font-weight: 500;
+		font-size: 0.95rem;
+		color: #9ba0b5;
+		transition: color 0.3s;
+		cursor: default;
+	}
+	.press li:hover {
+		color: var(--peri-deep);
+	}
+	/* 右側拼貼 */
+	.collage {
+		position: relative;
+		min-height: 520px;
+	}
+	.frame {
+		position: absolute;
+		border-radius: var(--r);
+		overflow: hidden;
+		background: var(--paper-2);
+		border: 1px solid rgba(255, 255, 255, 0.9);
+		box-shadow: 0 24px 60px rgba(38, 42, 63, 0.13);
+		transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+	}
+	.frame:hover {
+		transform: translateY(-8px) rotate(0deg) !important;
+		z-index: 5;
+	}
+	.f-main {
+		width: min(70%, 340px);
+		aspect-ratio: 4/5;
+		right: 2%;
+		top: 6%;
+		transform: rotate(1.6deg);
+		z-index: 2;
+	}
+	.ph-img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	.f-main .ph {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		background:
+			radial-gradient(120% 90% at 20% 10%, #c9cfff 0%, transparent 55%),
+			radial-gradient(110% 90% at 85% 30%, #ffd9c2 0%, transparent 50%),
+			radial-gradient(130% 110% at 55% 95%, #8fa0f8 0%, #6b7cf5 60%);
+	}
+	.f-main .ph .note {
+		margin: 16px 16px 16px auto;
+		max-width: 74%;
+		background: rgba(255, 255, 255, 0.85);
+		backdrop-filter: blur(8px);
+		border-radius: 14px;
+		padding: 12px 16px;
+		font-size: 0.82rem;
+		color: var(--ink-soft);
+		line-height: 1.55;
+	}
+	.f-main .ph .note b {
+		color: var(--ink);
+		font-weight: 500;
+	}
+	.f-art {
+		width: min(46%, 220px);
+		left: 0;
+		top: 14%;
+		transform: rotate(-3.4deg);
+		z-index: 3;
+		padding: 14px;
+	}
+	.f-art .thumb {
+		border-radius: 12px;
+		aspect-ratio: 16/10;
+		background: linear-gradient(135deg, #2b3162, #5b6cd8 55%, #f0a987);
+		position: relative;
+		overflow: hidden;
+	}
+	.f-art .thumb::after {
+		content: '';
+		position: absolute;
+		bottom: -2px;
+		left: 0;
+		right: 0;
+		height: 46%;
+		background:
+			radial-gradient(60% 100% at 30% 100%, #1d2247 60%, transparent 61%),
+			radial-gradient(50% 84% at 75% 100%, #262c55 60%, transparent 61%);
+	}
+	.cap {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-top: 10px;
+	}
+	.cap span {
+		font-size: 0.8rem;
+		color: var(--ink-soft);
+	}
+	.cap b {
+		font-family: var(--font-display);
+		font-size: 0.68rem;
+		letter-spacing: 0.14em;
+		color: var(--peri-deep);
+		font-weight: 500;
+	}
+	.f-app {
+		width: min(40%, 190px);
+		left: 8%;
+		bottom: 0;
+		transform: rotate(2.6deg);
+		z-index: 4;
+		padding: 14px;
+	}
+	.mini {
+		border-radius: 16px;
+		background: #f2f1fc;
+		border: 1px solid var(--line);
+		padding: 12px 12px 16px;
+	}
+	.mini .bar {
+		height: 8px;
+		border-radius: 6px;
+		background: var(--peri);
+		width: 52%;
+		margin-bottom: 10px;
+		opacity: 0.85;
+	}
+	.mini .row {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		margin-top: 8px;
+	}
+	.mini .row i {
+		width: 22px;
+		height: 22px;
+		border-radius: 7px;
+		flex: none;
+	}
+	.mini .row:nth-child(2) i {
+		background: var(--peach);
+	}
+	.mini .row:nth-child(3) i {
+		background: var(--lav);
+	}
+	.mini .row:nth-child(4) i {
+		background: var(--mint);
+	}
+	.mini .row s {
+		flex: 1;
+		height: 7px;
+		border-radius: 5px;
+		background: rgba(38, 42, 63, 0.1);
+		text-decoration: none;
+	}
+	.mini .row em {
+		font-style: normal;
+		font-family: var(--font-display);
+		font-size: 0.7rem;
+		color: var(--peri-deep);
+	}
+	.badge {
+		position: absolute;
+		right: -2%;
+		top: 0;
+		z-index: 5;
+		background: var(--ink);
+		color: #fff;
+		border-radius: 16px;
+		padding: 12px 18px;
+		font-family: var(--font-display);
+		font-size: 0.8rem;
+		letter-spacing: 0.04em;
+		box-shadow: 0 16px 40px rgba(38, 42, 63, 0.3);
+		transform: rotate(-2deg);
+		animation: bob 5s ease-in-out infinite;
+	}
+	.badge b {
+		color: #b9c4ff;
+		font-weight: 500;
+		margin-left: 0.3em;
+	}
+	@keyframes bob {
+		50% {
+			transform: rotate(-2deg) translateY(-8px);
+		}
+	}
+	/* 響應式 */
+	@media (max-width: 960px) {
+		.stage {
+			grid-template-columns: 1fr;
+			gap: 48px;
+		}
+		.collage {
+			min-height: 480px;
+			max-width: 520px;
+			margin: 0 auto;
+			width: 100%;
+		}
+	}
+	@media (max-width: 560px) {
+		.collage {
+			min-height: 430px;
+		}
+		.badge {
+			right: 0;
+			top: -6%;
+		}
+	}
+</style>

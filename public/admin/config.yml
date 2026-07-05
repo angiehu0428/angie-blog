@@ -94,6 +94,13 @@ collections:
         }
       - { label: "排序(數字小的排前面)", name: "order", widget: "number", value_type: "int", default: 99 }
       - {
+          label: "分類(首頁篩選用,可多個)",
+          name: "tags",
+          widget: "list",
+          required: false,
+          hint: "現有分類:記帳理財、掃描自動化、AI 生活、設計工具、公司工具。沿用請打一模一樣的字;打新的會自動變成新分類。",
+        }
+      - {
           label: "SEO 關鍵字(中英文都放,打完一個按 Enter)",
           name: "keywords",
           widget: "list",
@@ -124,6 +131,8 @@ collections:
               - { label: "文字", name: "label", widget: "string" }
               - { label: "連結", name: "href", widget: "string" }
               - { label: "外部連結(新分頁開啟、顯示 ↗)", name: "external", widget: "boolean", default: false }
+          - { label: "「找我合作」按鈕文字(留空=不顯示)", name: "ctaLabel", widget: "string", required: false }
+          - { label: "「找我合作」按鈕連結(例如 Calendly)", name: "ctaHref", widget: "string", required: false }
           - { label: "頁尾版權文字(年份會自動加)", name: "footerText", widget: "string" }
           - label: "頁尾社群連結"
             name: "socials"
@@ -146,19 +155,31 @@ collections:
             label_singular: "區塊"
             widget: "list"
             types:
-              - label: "Hero 大標區"
+              - label: "Hero 大標區(柔和科技風)"
                 name: "hero"
                 widget: "object"
                 fields:
-                  - { label: "上方小標", name: "eyebrow", widget: "string", required: false }
-                  - { label: "主標", name: "heading", widget: "string" }
-                  - { label: "主標(彩色高亮字)", name: "highlight", widget: "string", required: false }
-                  - { label: "主標(換行後那句)", name: "headingAfter", widget: "string", required: false }
-                  - { label: "說明文字", name: "lede", widget: "text", required: false }
+                  - { label: "上方小標(kicker)", name: "kicker", widget: "string", required: false }
+                  - { label: "主標第一行", name: "headline1", widget: "string", required: false }
+                  - { label: "第二行:前段文字", name: "headline2Pre", widget: "string", required: false }
+                  - { label: "第二行:蜜桃底高亮字", name: "headline2Hand", widget: "string", required: false }
+                  - { label: "第二行:中段文字", name: "headline2Mid", widget: "string", required: false }
+                  - { label: "第二行:藍色字(結尾)", name: "headline2Soft", widget: "string", required: false }
+                  - label: "時間膠囊(拖曳排序)"
+                    name: "chips"
+                    widget: "list"
+                    required: false
+                    fields:
+                      - { label: "年份", name: "year", widget: "string" }
+                      - { label: "文字", name: "text", widget: "string" }
                   - { label: "主按鈕文字", name: "primaryLabel", widget: "string", required: false }
                   - { label: "主按鈕連結", name: "primaryHref", widget: "string", required: false }
                   - { label: "次按鈕文字", name: "ghostLabel", widget: "string", required: false }
                   - { label: "次按鈕連結", name: "ghostHref", widget: "string", required: false }
+                  - { label: "CREDITS 列(媒體/合作名)", name: "credits", widget: "list", required: false }
+                  - { label: "漂浮徽章:前段", name: "badge", widget: "string", required: false }
+                  - { label: "漂浮徽章:亮色字", name: "badgeBold", widget: "string", required: false }
+                  - { label: "主視覺圖(4:5,建議 800×1000 以上)", name: "heroImage", widget: "image", required: false, hint: "沒上傳時會顯示漸層佔位" }
               - label: "AI 工具牆"
                 name: "tools"
                 widget: "object"

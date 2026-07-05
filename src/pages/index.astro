@@ -6,6 +6,7 @@ import Header from '../components/Header.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { marked } from 'marked';
+import HeroV2 from '../components/HeroV2.astro';
 import { websiteSchema } from '../utils/schema';
 import home from '../data/home.json';
 
@@ -33,43 +34,14 @@ const blocks = home.blocks ?? [];
 
 		{
 			blocks.map((block) => {
-				/* ---------- HERO ---------- */
+				/* ---------- HERO(柔和科技風 v2)---------- */
 				if (block.type === 'hero') {
-					return (
-						<section class="hero">
-							<div class="hero-blob" aria-hidden="true" />
-							<div class="container hero-inner">
-								{block.eyebrow && <p class="eyebrow">{block.eyebrow}</p>}
-								<h1>
-									{block.heading}
-									{block.highlight && <span class="hl">{block.highlight}</span>}
-									{block.headingAfter && (
-										<>
-											<br />
-											{block.headingAfter}
-										</>
-									)}
-								</h1>
-								{block.lede && <p class="lede">{block.lede}</p>}
-								<div class="cta-row">
-									{block.primaryLabel && (
-										<a class="btn btn-primary" href={block.primaryHref || '#'}>
-											{block.primaryLabel}
-										</a>
-									)}
-									{block.ghostLabel && (
-										<a class="btn btn-ghost" href={block.ghostHref || '#'}>
-											{block.ghostLabel}
-										</a>
-									)}
-								</div>
-							</div>
-						</section>
-					);
+					return <HeroV2 {...block} />;
 				}
 
-				/* ---------- TOOLS ---------- */
+				/* ---------- TOOLS(分類+搜尋)---------- */
 				if (block.type === 'tools') {
+					const allCats = [...new Set(allTools.flatMap((t) => t.data.tags ?? []))];
 					return (
 						<section id="tools" class="block">
 							<div class="container">
@@ -77,12 +49,47 @@ const blocks = home.blocks ?? [];
 									<h2>{block.heading}</h2>
 									{block.subtitle && <p class="muted">{block.subtitle}</p>}
 								</div>
+
+								<div class="tool-controls">
+									<div class="cat-chips" role="tablist">
+										<button class="cchip is-active" data-cat="__all">
+											全部
+										</button>
+										{allCats.map((c) => (
+											<button class="cchip" data-cat={c}>
+												{c}
+											</button>
+										))}
+									</div>
+									<input
+										id="tool-search"
+										type="search"
+										placeholder="🔍 搜尋工具…"
+										aria-label="搜尋工具"
+									/>
+								</div>
+
 								<div class="tool-grid">
 									{allTools.map((tool) => {
 										const t = tool.data;
 										const isInternal = t.status === 'internal';
+										const searchText = [
+											t.name,
+											t.desc,
+											t.tag,
+											...(t.features ?? []),
+											...(t.keywords ?? []),
+											...(t.tags ?? []),
+										]
+											.join(' ')
+											.toLowerCase();
 										return (
-											<a class="tool-card" href={`/tools/${tool.id}/`}>
+											<a
+												class="tool-card"
+												href={`/tools/${tool.id}/`}
+												data-cats={(t.tags ?? []).join(',')}
+												data-search={searchText}
+											>
 												<div class="tool-icon">{t.icon}</div>
 												<div class="tool-body">
 													{t.tag && <span class="tool-tag">{t.tag}</span>}
@@ -105,6 +112,9 @@ const blocks = home.blocks ?? [];
 										);
 									})}
 								</div>
+								<p class="tool-empty muted" hidden>
+									沒有符合的工具 🔍 換個關鍵字試試
+								</p>
 								{block.note && <p class="placeholder-note">{block.note}</p>}
 							</div>
 						</section>
@@ -204,71 +214,7 @@ const blocks = home.blocks ?? [];
 		margin-bottom: 3.5rem;
 	}
 
-	/* ---------- HERO (clean + soft) ---------- */
-	.hero {
-		position: relative;
-		overflow: hidden;
-		padding: 6rem 0 4.5rem;
-		isolation: isolate;
-	}
-	.hero-blob {
-		position: absolute;
-		z-index: -1;
-		top: -18%;
-		right: -8%;
-		width: 46vw;
-		max-width: 620px;
-		aspect-ratio: 1;
-		background: radial-gradient(
-			circle at 50% 50%,
-			rgba(var(--accent-soft), 0.22),
-			rgba(var(--accent-soft), 0) 68%
-		);
-		filter: blur(6px);
-		animation: drift 16s ease-in-out infinite alternate;
-	}
-	@keyframes drift {
-		from {
-			transform: translate(0, 0) scale(1);
-		}
-		to {
-			transform: translate(-28px, 22px) scale(1.08);
-		}
-	}
-	.hero-inner {
-		max-width: 820px;
-		margin-inline: auto;
-	}
-	.eyebrow {
-		letter-spacing: 0.22em;
-		font-size: 0.72rem;
-		font-weight: 700;
-		color: var(--accent-dark);
-		margin: 0 0 1.1rem;
-	}
-	.hero h1 {
-		font-size: clamp(2.3rem, 5.5vw, 3.6rem);
-		line-height: 1.18;
-		font-weight: 800;
-		color: rgb(var(--black));
-		margin: 0 0 1.2rem;
-		letter-spacing: -0.01em;
-	}
-	.hl {
-		background: linear-gradient(transparent 62%, rgba(var(--accent-soft), 0.35) 62%);
-		padding: 0 0.1em;
-	}
-	.lede {
-		font-size: 1.13rem;
-		color: rgb(var(--gray));
-		max-width: 600px;
-		margin: 0 0 2rem;
-	}
-	.cta-row {
-		display: flex;
-		gap: 0.8rem;
-		flex-wrap: wrap;
-	}
+	/* ---------- 按鈕(CTA 區塊沿用)---------- */
 	.btn {
 		display: inline-block;
 		padding: 0.8rem 1.5rem;
@@ -324,6 +270,64 @@ const blocks = home.blocks ?? [];
 		color: var(--accent-dark);
 	}
 
+	/* ---------- TOOL 控制列(分類+搜尋)---------- */
+	.tool-controls {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		margin-bottom: 1.4rem;
+	}
+	.cat-chips {
+		display: flex;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+	}
+	.cchip {
+		font-family: var(--font-sans);
+		font-size: 0.88rem;
+		font-weight: 600;
+		padding: 0.45rem 1rem;
+		border-radius: 999px;
+		border: 1px solid var(--line);
+		background: rgba(255, 255, 255, 0.72);
+		backdrop-filter: blur(8px);
+		color: var(--ink);
+		cursor: pointer;
+		transition: 0.2s ease;
+	}
+	.cchip:hover {
+		border-color: var(--peri);
+		color: var(--peri-deep);
+	}
+	.cchip.is-active {
+		background: var(--peri);
+		color: #fff;
+		border-color: var(--peri);
+		box-shadow: 0 6px 18px rgba(107, 124, 245, 0.3);
+	}
+	#tool-search {
+		font-family: var(--font-sans);
+		font-size: 0.92rem;
+		padding: 0.55rem 1.1rem;
+		border-radius: 999px;
+		border: 1px solid var(--line);
+		background: rgba(255, 255, 255, 0.72);
+		backdrop-filter: blur(8px);
+		color: var(--ink);
+		min-width: 220px;
+	}
+	#tool-search:focus {
+		outline: none;
+		border-color: var(--peri);
+		box-shadow: 0 0 0 3px rgba(107, 124, 245, 0.18);
+	}
+	.tool-empty {
+		text-align: center;
+		padding: 2rem 0;
+	}
+
 	/* ---------- TOOL GRID ---------- */
 	.tool-grid {
 		display: grid;
@@ -337,8 +341,9 @@ const blocks = home.blocks ?? [];
 		gap: 0.9rem;
 		padding: 1.6rem;
 		border-radius: 18px;
-		background: var(--surface);
-		border: 1px solid rgb(var(--gray-light));
+		background: rgba(255, 255, 255, 0.72);
+		backdrop-filter: blur(8px);
+		border: 1px solid var(--line);
 		text-decoration: none;
 		color: inherit;
 		transition:
@@ -531,8 +536,46 @@ const blocks = home.blocks ?? [];
 	}
 
 	@media (max-width: 720px) {
-		.hero {
-			padding: 4rem 0 3rem;
+		.tool-controls {
+			flex-direction: column;
+			align-items: stretch;
+		}
+		#tool-search {
+			min-width: 0;
 		}
 	}
 </style>
+
+<script>
+	// 工具區:分類篩選 + 關鍵字搜尋(兩者可疊加)
+	const chips = document.querySelectorAll<HTMLButtonElement>('.cchip');
+	const cards = document.querySelectorAll<HTMLElement>('.tool-card');
+	const searchBox = document.getElementById('tool-search') as HTMLInputElement | null;
+	const emptyMsg = document.querySelector<HTMLElement>('.tool-empty');
+
+	let activeCat = '__all';
+
+	function applyFilters() {
+		const q = (searchBox?.value || '').trim().toLowerCase();
+		let shown = 0;
+		cards.forEach((card) => {
+			const cats = (card.dataset.cats || '').split(',').filter(Boolean);
+			const text = card.dataset.search || '';
+			const catOk = activeCat === '__all' || cats.includes(activeCat);
+			const qOk = !q || text.includes(q);
+			const show = catOk && qOk;
+			card.style.display = show ? '' : 'none';
+			if (show) shown++;
+		});
+		if (emptyMsg) emptyMsg.hidden = shown !== 0;
+	}
+
+	chips.forEach((chip) => {
+		chip.addEventListener('click', () => {
+			activeCat = chip.dataset.cat || '__all';
+			chips.forEach((c) => c.classList.toggle('is-active', c === chip));
+			applyFilters();
+		});
+	});
+	searchBox?.addEventListener('input', applyFilters);
+</script>

@@ -14,26 +14,18 @@ export default defineConfig({
 	},
 	fonts: [
 		{
-			provider: fontProviders.local(),
-			name: 'Atkinson',
-			cssVariable: '--font-atkinson',
+			provider: fontProviders.google(),
+			name: 'Space Grotesk',
+			cssVariable: '--font-grotesk',
+			weights: [500, 700],
 			fallbacks: ['sans-serif'],
-			options: {
-				variants: [
-					{
-						src: ['./src/assets/fonts/atkinson-regular.woff'],
-						weight: 400,
-						style: 'normal',
-						display: 'swap',
-					},
-					{
-						src: ['./src/assets/fonts/atkinson-bold.woff'],
-						weight: 700,
-						style: 'normal',
-						display: 'swap',
-					},
-				],
-			},
+		},
+		{
+			provider: fontProviders.google(),
+			name: 'DM Sans',
+			cssVariable: '--font-dmsans',
+			weights: [400, 500, 700],
+			fallbacks: ['sans-serif'],
 		},
 	],
 });

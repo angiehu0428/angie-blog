@@ -1,5 +1,5 @@
 ---
-import { SITE_TITLE, SITE_NAV } from '../consts';
+import { SITE_TITLE, SITE_NAV, SITE_CTA } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 ---
@@ -22,6 +22,13 @@ import LanguageSwitcher from './LanguageSwitcher.astro';
 		</div>
 		<div class="right-links">
 			<LanguageSwitcher />
+			{
+				SITE_CTA.label && SITE_CTA.href && (
+					<a class="pill" href={SITE_CTA.href} target="_blank" rel="noopener">
+						{SITE_CTA.label}
+					</a>
+				)
+			}
 		</div>
 	</nav>
 </header>
@@ -63,6 +70,24 @@ import LanguageSwitcher from './LanguageSwitcher.astro';
 	.right-links {
 		display: flex;
 		align-items: center;
+		gap: 0.8rem;
+	}
+	.pill {
+		font-size: 0.88rem;
+		text-decoration: none;
+		color: var(--peri-deep);
+		border: 1.5px solid rgba(107, 124, 245, 0.45);
+		padding: 8px 18px !important;
+		border-radius: 99px;
+		transition: 0.3s;
+		background: rgba(255, 255, 255, 0.5);
+		backdrop-filter: blur(6px);
+		border-bottom: 1.5px solid rgba(107, 124, 245, 0.45) !important;
+	}
+	.pill:hover {
+		background: var(--peri);
+		color: #fff !important;
+		border-color: var(--peri) !important;
 	}
 	@media (max-width: 720px) {
 		.ext-link {
