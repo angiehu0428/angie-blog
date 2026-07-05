@@ -615,15 +615,26 @@ const {
 		bottom: 0;
 		transform: translateY(var(--plxy, 0px)) rotate(2.6deg);
 		z-index: 4;
-		padding: 12px;
+		padding: 0;
+		background: transparent;
+		border: none;
+		box-shadow: none;
+		overflow: visible;
+	}
+	.f-app .cap {
+		margin-top: 10px;
+		padding: 0 2px;
 	}
 	/* 登機證風格小卡(代表旅遊花費統計工具) */
 	.boarding {
 		position: relative;
 		border-radius: 14px;
 		background: var(--paper-2);
-		border: 1px solid var(--line);
+		border: 1px solid rgba(38, 42, 63, 0.08);
 		overflow: hidden;
+		box-shadow:
+			0 20px 42px rgba(38, 42, 63, 0.22),
+			0 4px 12px rgba(38, 42, 63, 0.12);
 	}
 	/* 上段:長春花藍 header(航線) */
 	.bp-top {
@@ -716,7 +727,7 @@ const {
 		height: 12px;
 		border-radius: 50%;
 		background: var(--paper);
-		border: 1px solid var(--line);
+		box-shadow: inset 0 1px 2.5px rgba(38, 42, 63, 0.3);
 	}
 	.bp-stub::before {
 		left: -13px;
