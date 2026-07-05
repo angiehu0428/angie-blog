@@ -43,7 +43,7 @@ const {
 ---
 
 <section class="hero2">
-	<div class="aura" aria-hidden="true"><i></i><i></i><i></i></div>
+	<div class="aura" aria-hidden="true" data-plx="-0.06"><i></i><i></i><i></i></div>
 	<div class="dots" aria-hidden="true"></div>
 
 	<div class="stage">
@@ -56,9 +56,11 @@ const {
 					</span>
 				)}
 				<span class="rv d3" style="display:block">
-					{headline2Pre}{headline2Hand && <span class="hand">{headline2Hand}</span>}{headline2Mid}{
-						headline2Soft && <span class="soft">{headline2Soft}</span>
-					}
+					<span class="nb">
+						{headline2Pre}{headline2Hand && <span class="hand">{headline2Hand}</span>}
+					</span><span class="nb">
+						{headline2Mid}{headline2Soft && <span class="soft">{headline2Soft}</span>}
+					</span>
 				</span>
 			</h1>
 
@@ -66,12 +68,12 @@ const {
 				chips.length > 0 && (
 					<div class="timeline rv d4" aria-label="三個階段">
 						{chips.map((c, i) => (
-							<>
+							<span class="tl-item">
 								{i > 0 && <span class="arrow">→</span>}
 								<span class="chip">
 									<b>{c.year}</b> {c.text}
 								</span>
-							</>
+							</span>
 						))}
 					</div>
 				)
@@ -109,7 +111,7 @@ const {
 		</div>
 
 		<div class="collage rv d3" aria-label="作品拼貼">
-			<div class="frame f-main">
+			<div class="frame f-main" data-plx="0.04">
 				{
 					heroImage ? (
 						<img class="ph-img" src={heroImage} alt="Angie Hu 主視覺" />
@@ -124,11 +126,11 @@ const {
 					)
 				}
 			</div>
-			<div class="frame f-art">
+			<div class="frame f-art" data-plx="-0.05">
 				<div class="thumb" role="img" aria-label="概念藝術示意"></div>
 				<div class="cap"><span>概念藝術時期</span><b>2007–16</b></div>
 			</div>
-			<div class="frame f-app">
+			<div class="frame f-app" data-plx="0.07">
 				<div class="mini" role="img" aria-label="AI 工具介面示意">
 					<div class="bar"></div>
 					<div class="row"><i></i><s></s><em>NT$420</em></div>
@@ -139,7 +141,7 @@ const {
 			</div>
 			{
 				badge && (
-					<div class="badge">
+					<div class="badge" data-plx="-0.09">
 						{badge}
 						{badgeBold && <b>{badgeBold}</b>}
 					</div>
@@ -162,6 +164,7 @@ const {
 		z-index: -2;
 		pointer-events: none;
 		overflow: hidden;
+		transform: translateY(var(--plxy, 0px));
 	}
 	.aura i {
 		position: absolute;
@@ -287,9 +290,13 @@ const {
 		margin: clamp(16px, 2.5vh, 26px) 0 0;
 		color: var(--ink);
 	}
+	/* 詞組不可斷:斷行只發生在詞組之間,不會出現孤字行 */
+	.nb {
+		display: inline-block;
+		white-space: nowrap;
+	}
 	h1 .soft {
 		color: var(--peri);
-		white-space: nowrap;
 	}
 	h1 .hand {
 		background: linear-gradient(120deg, var(--peach), #ffe9dc);
@@ -298,13 +305,19 @@ const {
 		display: inline-block;
 		transform: rotate(-1.2deg);
 	}
-	/* 時間膠囊 */
+	/* 時間膠囊(箭頭永遠跟著下一顆膠囊,換行時領頭而不是孤掛行尾) */
 	.timeline {
 		display: flex;
 		gap: 10px;
 		flex-wrap: wrap;
 		margin-top: clamp(20px, 3vh, 30px);
 		align-items: center;
+	}
+	.tl-item {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		white-space: nowrap;
 	}
 	.chip {
 		display: flex;
@@ -419,7 +432,7 @@ const {
 		aspect-ratio: 4/5;
 		right: 2%;
 		top: 6%;
-		transform: rotate(1.6deg);
+		transform: translateY(var(--plxy, 0px)) rotate(1.6deg);
 		z-index: 2;
 	}
 	.ph-img {
@@ -459,7 +472,7 @@ const {
 		width: min(46%, 220px);
 		left: 0;
 		top: 14%;
-		transform: rotate(-3.4deg);
+		transform: translateY(var(--plxy, 0px)) rotate(-3.4deg);
 		z-index: 3;
 		padding: 14px;
 	}
@@ -502,7 +515,7 @@ const {
 		width: min(40%, 190px);
 		left: 8%;
 		bottom: 0;
-		transform: rotate(2.6deg);
+		transform: translateY(var(--plxy, 0px)) rotate(2.6deg);
 		z-index: 4;
 		padding: 14px;
 	}
@@ -567,7 +580,7 @@ const {
 		font-size: 0.8rem;
 		letter-spacing: 0.04em;
 		box-shadow: 0 16px 40px rgba(38, 42, 63, 0.3);
-		transform: rotate(-2deg);
+		transform: translateY(var(--plxy, 0px)) rotate(-2deg);
 		animation: bob 5s ease-in-out infinite;
 	}
 	.badge b {
@@ -576,8 +589,12 @@ const {
 		margin-left: 0.3em;
 	}
 	@keyframes bob {
+		0%,
+		100% {
+			transform: translateY(var(--plxy, 0px)) rotate(-2deg);
+		}
 		50% {
-			transform: rotate(-2deg) translateY(-8px);
+			transform: translateY(calc(var(--plxy, 0px) - 8px)) rotate(-2deg);
 		}
 	}
 	/* 響應式 */
@@ -603,3 +620,30 @@ const {
 		}
 	}
 </style>
+
+<script>
+	// Parallax:各層依 data-plx 速度隨捲動位移(用 CSS 變數,保留原本的旋轉)
+	const plxEls = Array.from(document.querySelectorAll<HTMLElement>('[data-plx]'));
+	const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+	if (plxEls.length && !reduced) {
+		let ticking = false;
+		const update = () => {
+			const y = window.scrollY;
+			for (const el of plxEls) {
+				el.style.setProperty('--plxy', `${(y * parseFloat(el.dataset.plx || '0')).toFixed(1)}px`);
+			}
+			ticking = false;
+		};
+		window.addEventListener(
+			'scroll',
+			() => {
+				if (!ticking) {
+					requestAnimationFrame(update);
+					ticking = true;
+				}
+			},
+			{ passive: true },
+		);
+		update();
+	}
+</script>
