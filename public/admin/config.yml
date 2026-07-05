@@ -165,6 +165,7 @@ collections:
                   - { label: "第二行:蜜桃底高亮字", name: "headline2Hand", widget: "string", required: false }
                   - { label: "第二行:中段文字", name: "headline2Mid", widget: "string", required: false }
                   - { label: "第二行:藍色字(結尾)", name: "headline2Soft", widget: "string", required: false }
+                  - { label: "英文副標(標題下方小字)", name: "enSubtitle", widget: "string", required: false }
                   - label: "時間膠囊(拖曳排序)"
                     name: "chips"
                     widget: "list"

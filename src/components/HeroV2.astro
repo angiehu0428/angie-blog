@@ -12,6 +12,7 @@ interface Props {
 	headline2Hand?: string;
 	headline2Mid?: string;
 	headline2Soft?: string;
+	enSubtitle?: string;
 	chips?: Chip[];
 	primaryLabel?: string;
 	primaryHref?: string;
@@ -30,6 +31,7 @@ const {
 	headline2Hand,
 	headline2Mid,
 	headline2Soft,
+	enSubtitle,
 	chips = [],
 	primaryLabel,
 	primaryHref,
@@ -63,6 +65,8 @@ const {
 					</span>
 				</span>
 			</h1>
+
+			{enSubtitle && <p class="en-sub rv d4">{enSubtitle}</p>}
 
 			{
 				chips.length > 0 && (
@@ -304,6 +308,15 @@ const {
 		padding: 0.02em 0.18em;
 		display: inline-block;
 		transform: rotate(-1.2deg);
+	}
+	.en-sub {
+		font-family: var(--font-display);
+		font-weight: 500;
+		font-size: clamp(0.95rem, 1.6vw, 1.18rem);
+		letter-spacing: 0.01em;
+		color: var(--ink-soft);
+		margin: clamp(14px, 2vh, 20px) 0 0;
+		max-width: 30ch;
 	}
 	/* 時間膠囊(箭頭永遠跟著下一顆膠囊,換行時領頭而不是孤掛行尾) */
 	.timeline {

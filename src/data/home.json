@@ -3,11 +3,12 @@
     {
       "type": "hero",
       "kicker": "ANGIE HU — TAIPEI",
-      "headline1": "一直在創作,",
-      "headline2Pre": "只是",
-      "headline2Hand": "工具",
-      "headline2Mid": "一直在",
-      "headline2Soft": "進化。",
+      "headline1": "創作是本能,",
+      "headline2Pre": "工具會",
+      "headline2Hand": "進化",
+      "headline2Mid": "。",
+      "headline2Soft": "",
+      "enSubtitle": "Creativity is instinct. The tools just keep evolving.",
       "chips": [
         { "year": "2007", "text": "Disney・Zynga 概念設計" },
         { "year": "2019", "text": "Hu Creates IP 授權" },
