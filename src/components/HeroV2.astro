@@ -170,22 +170,26 @@ const {
 			</div>
 			<div class="frame f-app" data-plx="0.07">
 				<div class="boarding" role="img" aria-label="旅遊花費統計工具介面示意">
-					<div class="bp-eyebrow">
-						<span>BOARDING PASS</span>
-						<span class="bp-plane">✈</span>
+					<div class="bp-top">
+						<div class="bp-eyebrow">
+							<span>BOARDING PASS</span>
+							<span class="bp-plane">✈</span>
+						</div>
+						<div class="bp-route">
+							<b>TPE</b>
+							<span class="bp-path"><i></i></span>
+							<b>NRT</b>
+						</div>
 					</div>
-					<div class="bp-route">
-						<b>TPE</b>
-						<span class="bp-path"><i></i></span>
-						<b>NRT</b>
-					</div>
-					<div class="bp-meta">
-						<div><small>GATE</small><em>A12</em></div>
-						<div><small>SEAT</small><em>24A</em></div>
-					</div>
-					<div class="bp-stub">
-						<div class="bp-total"><small>總花費</small><b>¥18,400</b></div>
-						<div class="bp-barcode"></div>
+					<div class="bp-body">
+						<div class="bp-meta">
+							<div><small>GATE</small><em>A12</em></div>
+							<div><small>SEAT</small><em>24A</em></div>
+						</div>
+						<div class="bp-stub">
+							<div class="bp-total"><small>總花費</small><b>¥18,400</b></div>
+							<div class="bp-barcode"></div>
+						</div>
 					</div>
 				</div>
 				<div class="cap"><span>旅遊花費統計</span><b>2026</b></div>
@@ -617,10 +621,18 @@ const {
 	.boarding {
 		position: relative;
 		border-radius: 14px;
-		background: linear-gradient(158deg, #7d8bf8 0%, #5f6fe6 100%);
-		padding: 11px 13px 0;
+		background: var(--paper-2);
+		border: 1px solid var(--line);
 		overflow: hidden;
-		box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+	}
+	/* 上段:長春花藍 header(航線) */
+	.bp-top {
+		background: linear-gradient(158deg, #7d8bf8 0%, #5f6fe6 100%);
+		padding: 11px 13px 12px;
+	}
+	/* 下段:白底票根(GATE/SEAT/總花費/條碼) */
+	.bp-body {
+		padding: 10px 13px 0;
 	}
 	.bp-eyebrow {
 		display: flex;
@@ -679,20 +691,20 @@ const {
 		font-family: var(--font-display);
 		font-size: 0.52rem;
 		letter-spacing: 0.1em;
-		color: rgba(255, 255, 255, 0.62);
+		color: var(--ink-soft);
 	}
 	.bp-meta em {
 		font-style: normal;
 		font-family: var(--font-display);
 		font-weight: 600;
 		font-size: 0.72rem;
-		color: #fff;
+		color: var(--peri-deep);
 		white-space: nowrap;
 	}
 	/* 撕票線 + 票根 */
 	.bp-stub {
 		position: relative;
-		border-top: 1.5px dashed rgba(255, 255, 255, 0.5);
+		border-top: 1.5px dashed rgba(38, 42, 63, 0.22);
 		padding: 9px 0 11px;
 	}
 	.bp-stub::before,
@@ -704,12 +716,13 @@ const {
 		height: 12px;
 		border-radius: 50%;
 		background: var(--paper);
+		border: 1px solid var(--line);
 	}
 	.bp-stub::before {
-		left: -14px;
+		left: -13px;
 	}
 	.bp-stub::after {
-		right: -14px;
+		right: -13px;
 	}
 	/* 總花費:票根上加重呈現(這張卡的關鍵資訊,窄卡也不擠壓) */
 	.bp-total {
@@ -723,24 +736,24 @@ const {
 		font-family: var(--font-display);
 		font-size: 0.52rem;
 		letter-spacing: 0.1em;
-		color: rgba(255, 255, 255, 0.72);
+		color: var(--ink-soft);
 		white-space: nowrap;
 	}
 	.bp-total b {
 		font-family: var(--font-display);
 		font-weight: 700;
 		font-size: 0.76rem;
-		color: #fff;
+		color: var(--peri-deep);
 		white-space: nowrap;
 	}
 	.bp-barcode {
 		height: 18px;
 		background-image: repeating-linear-gradient(
 			90deg,
-			#fff 0 2px,
+			var(--ink) 0 2px,
 			transparent 2px 5px
 		);
-		opacity: 0.9;
+		opacity: 0.62;
 	}
 	.badge {
 		position: absolute;
