@@ -22,3 +22,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# wrangler 本機暫存
+.wrangler/
+
+# 設計稿(未定稿,不進公開 repo)
+mockups/
