@@ -16,6 +16,7 @@ const blog = defineCollection({
 			// Banner image path (e.g. /uploads/xxx.jpg) — uploadable from the CMS.
 			heroImage: z.string().optional(),
 			tags: z.array(z.string()).default([]),
+			keywords: z.array(z.string()).default([]), // SEO 關鍵字
 		}),
 });
 
@@ -31,6 +32,7 @@ const tools = defineCollection({
 		href: z.string().optional(),
 		status: z.enum(['live', 'internal']).default('live'),
 		order: z.number().default(99),
+		keywords: z.array(z.string()).default([]), // SEO 關鍵字(中英文都放)
 	}),
 });
 

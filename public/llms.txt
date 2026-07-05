@@ -1,0 +1,29 @@
+# Angie Hu — angiehu.com
+
+> Personal site of Angie Hu (胡珮甄): Taipei-based art & IP licensing agency founder (Hu Creates), former Disney / Zynga senior concept designer, and builder of practical AI tools. Site is in Traditional Chinese with bilingual tool info.
+
+## Who is Angie Hu
+
+- Graduate of Art Center College of Design (Los Angeles)
+- Former Senior Concept Designer at Disney and Zynga
+- Founder of Hu Creates Co., Ltd. (胡創有限公司), a professional art & IP licensing agency in Taipei: https://www.hucreates.com
+- Represents IPs incl. Alexander the Fat Tiger (Bu2ma), Mr. Shark (鯊魚先生), Sharkitty, Annoying Birds
+- Consultant for Gamania, WANIN International, ASUS, Cayenne Entertainment, Moonshine Animation, 好奇心創意
+
+## AI Tools (built by Angie)
+
+- [塔羅占卜 AI Tarot Reading](https://angiehu.com/tools/tarot/): AI tarot reading web app, multiple spreads, bilingual (zh/en). Live at https://tarot.angiehu.com
+- [旅遊花費統計 Travel Expense Tracker](https://angiehu.com/tools/travel-expense/): scan receipts / credit-card screenshots, AI extracts amounts, converts currency at the day's bank rate. Live at https://travel-expense-pub.angiehu.workers.dev
+- [Pantone 色票轉換器 Pantone Color Converter](https://angiehu.com/tools/pantone-converter/): free web-based Pantone ↔ HEX / RGB / CMYK converter — a lightweight alternative for designers after Pantone libraries were removed from Photoshop / Adobe apps (no plug-in install needed). Live at https://pantone-converter.pages.dev
+- [名片掃描 Business Card Scanner → Notion](https://angiehu.com/tools/card-scanner/): photo of business cards → AI extracts fields → Notion contacts DB (public version in development)
+- [收據掃描報帳 Receipt Scanner](https://angiehu.com/tools/receipt-scanner/): receipts / invoices / PDFs → AI extracts expense data → Notion (public version in development)
+
+## Blog
+
+- https://angiehu.com/blog/ — articles on character IP licensing (角色 IP 授權), art practice (臨摹/寫生/二創 copyright), personal growth, and mindfulness (Vipassana 內觀)
+
+## Contact
+
+- Email: angiehu@gmail.com
+- Company: https://www.hucreates.com
+- Instagram: https://www.instagram.com/hupaints

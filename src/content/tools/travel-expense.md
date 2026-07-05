@@ -11,6 +11,12 @@ features:
 href: https://travel-expense-pub.angiehu.workers.dev
 status: live
 order: 2
+keywords:
+  - 旅遊記帳 app
+  - 出國記帳 匯率
+  - travel expense tracker AI
+  - receipt scan expense app
+  - 收據掃描 記帳
 ---
 
 ## 這是什麼?

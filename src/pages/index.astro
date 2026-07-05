@@ -6,6 +6,7 @@ import Header from '../components/Header.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { marked } from 'marked';
+import { websiteSchema } from '../utils/schema';
 import home from '../data/home.json';
 
 const allPosts = (await getCollection('blog')).sort(
@@ -21,7 +22,11 @@ const blocks = home.blocks ?? [];
 <!doctype html>
 <html lang="zh-Hant">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead
+			title={SITE_TITLE}
+			description={SITE_DESCRIPTION}
+			schema={websiteSchema(SITE_TITLE, SITE_DESCRIPTION)}
+		/>
 	</head>
 	<body>
 		<Header />

@@ -11,13 +11,17 @@ interface Props {
 	title: string;
 	description: string;
 	image?: ImageMetadata | string;
+	keywords?: string[];
+	/** JSON-LD structured data object(s) for search engines & AI assistants */
+	schema?: object | object[];
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = FallbackImage } = Astro.props;
+const { title, description, image = FallbackImage, keywords = [], schema } = Astro.props;
 // image can be an imported asset (ImageMetadata) or a plain path string (CMS uploads)
 const ogImageSrc = typeof image === 'string' ? image : image.src;
+const schemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 ---
 
 <!-- Global Metadata -->
@@ -43,9 +47,13 @@ const ogImageSrc = typeof image === 'string' ? image : image.src;
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
+{keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
+<meta name="author" content="Angie Hu" />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
+<meta property="og:site_name" content={SITE_TITLE} />
+<meta property="og:locale" content="zh_TW" />
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
@@ -57,3 +65,6 @@ const ogImageSrc = typeof image === 'string' ? image : image.src;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(ogImageSrc, Astro.url)} />
+
+<!-- Structured data (JSON-LD) for search engines & AI assistants -->
+{schemas.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}

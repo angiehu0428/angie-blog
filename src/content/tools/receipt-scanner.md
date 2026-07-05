@@ -9,7 +9,12 @@ features:
   - 自動編憑證編號、換算匯率
   - 一鍵存進 Notion 代墊總表
 status: internal
-order: 4
+order: 5
+keywords:
+  - 收據掃描 報帳
+  - receipt scanner notion
+  - AI receipt OCR 發票辨識
+  - 代墊費用管理
 ---
 
 ## 這是什麼?

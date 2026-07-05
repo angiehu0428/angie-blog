@@ -4,20 +4,44 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import { blogPostSchema } from '../utils/schema';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage, tags = [] } = Astro.props;
+const {
+	title,
+	description,
+	pubDate,
+	updatedDate,
+	heroImage,
+	tags = [],
+	keywords = [],
+} = Astro.props;
 
 // Absolute URL for share links (uses site: https://angiehu.com from astro.config)
 const shareUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
 const enc = encodeURIComponent;
 const shareText = `${title}`;
+const schema = blogPostSchema({
+	title,
+	description,
+	pageUrl: shareUrl,
+	datePublished: pubDate,
+	dateModified: updatedDate,
+	image: heroImage,
+	keywords: [...keywords, ...tags],
+});
 ---
 
 <html lang="zh-Hant">
 	<head>
-		<BaseHead title={title} description={description} image={heroImage} />
+		<BaseHead
+			title={title}
+			description={description}
+			image={heroImage}
+			keywords={[...keywords, ...tags]}
+			schema={schema}
+		/>
 		<style>
 			main {
 				width: calc(100% - 2em);

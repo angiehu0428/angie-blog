@@ -11,6 +11,12 @@ features:
 href: https://tarot.angiehu.com
 status: live
 order: 1
+keywords:
+  - AI 塔羅占卜
+  - 線上塔羅 免費
+  - AI tarot reading online
+  - free tarot reading AI
+  - 塔羅牌陣 解讀
 ---
 
 ## 這是什麼?

@@ -9,7 +9,12 @@ features:
   - 存檔前可編輯、重複聯絡人提醒
   - 可依活動、展會自動分類
 status: internal
-order: 3
+order: 4
+keywords:
+  - 名片掃描 notion
+  - business card scanner notion
+  - AI business card OCR
+  - 名片管理 AI
 ---
 
 ## 這是什麼?

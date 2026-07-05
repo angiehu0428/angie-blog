@@ -50,6 +50,13 @@ collections:
           hint: "現有分類:IP相關、美術相關、個人成長、身心靈。沿用時請打一模一樣的字,才會歸在同一類。",
         }
       - {
+          label: "SEO 關鍵字(選填,中英文都放)",
+          name: "keywords",
+          widget: "list",
+          required: false,
+          hint: "想像別人會在 Google 或問 AI 時打什麼字",
+        }
+      - {
           label: "內文",
           name: "body",
           widget: "markdown",
@@ -86,6 +93,13 @@ collections:
           default: "live",
         }
       - { label: "排序(數字小的排前面)", name: "order", widget: "number", value_type: "int", default: 99 }
+      - {
+          label: "SEO 關鍵字(中英文都放,打完一個按 Enter)",
+          name: "keywords",
+          widget: "list",
+          required: false,
+          hint: "想像別人會在 Google 或問 AI 時打什麼字,例如:pantone converter、旅遊記帳 app",
+        }
       - {
           label: "使用介紹(可插入截圖/GIF/影片)",
           name: "body",

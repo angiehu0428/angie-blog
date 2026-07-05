@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
+import { toolSchema } from '../../utils/schema';
 
 export async function getStaticPaths() {
 	const tools = await getCollection('tools');
@@ -14,14 +15,22 @@ export async function getStaticPaths() {
 
 const tool = Astro.props;
 const { Content } = await render(tool);
-const { name, icon, tag, desc, cover, features, href, status } = tool.data;
+const { name, icon, tag, desc, cover, features, href, status, keywords } = tool.data;
 const isInternal = status === 'internal';
+const pageUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
+const schema = toolSchema({ name, desc, pageUrl, href, cover, keywords, isInternal });
 ---
 
 <!doctype html>
 <html lang="zh-Hant">
 	<head>
-		<BaseHead title={`${name} · AI 工具`} description={desc} image={cover} />
+		<BaseHead
+			title={`${name}｜Angie Hu 的 AI 工具`}
+			description={desc}
+			image={cover}
+			keywords={keywords}
+			schema={schema}
+		/>
 	</head>
 	<body>
 		<Header />
