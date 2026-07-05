@@ -48,14 +48,14 @@ export function toolSchema(t: {
 	href?: string;
 	cover?: string;
 	keywords?: string[];
-	isInternal: boolean;
+	isOpen: boolean;
 }) {
 	return {
 		'@context': 'https://schema.org',
 		'@type': 'SoftwareApplication',
 		name: t.name,
 		description: t.desc,
-		url: t.isInternal ? t.pageUrl : t.href || t.pageUrl,
+		url: t.isOpen ? t.href || t.pageUrl : t.pageUrl,
 		applicationCategory: 'WebApplication',
 		operatingSystem: 'Web',
 		...(t.cover ? { image: new URL(t.cover, 'https://angiehu.com').href } : {}),

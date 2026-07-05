@@ -8,8 +8,7 @@ features:
   - 免安裝、免外掛,瀏覽器打開就能用
   - Photoshop / Illustrator 移除 Pantone 後的免費替代方案
   - 找相近色:輸入任何顏色找最接近的 Pantone 色號
-href: https://pantone-converter.pages.dev
-status: live
+status: soon
 order: 3
 tags:
   - 設計工具
@@ -42,10 +41,12 @@ keywords:
 
 A **free web-based Pantone color converter** — convert **PANTONE ↔ HEX / RGB / CMYK** instantly in your browser. Since Adobe removed Pantone libraries from Photoshop and Illustrator, designers searching for a "Photoshop Pantone plugin" often just need the color values: no plug-in install, no subscription — open the site, type a PMS code (or paste any HEX), get the conversion, paste it back into your design tool.
 
-## 怎麼用?
+## 怎麼運作?
 
-1. 打開 [pantone-converter.pages.dev](https://pantone-converter.pages.dev)
-2. 輸入 Pantone 色號(例如 `PANTONE 186 C`)或任何 HEX / RGB 值
-3. 立刻拿到對應數值與相近色,複製貼回你的設計軟體
+輸入 Pantone 色號(例如 `PANTONE 186 C`)或任何 HEX / RGB 值,立刻拿到對應數值與最接近的色號,複製貼回你的設計軟體即可。
+
+## 目前狀態
+
+🚧 這個工具正在**打磨對外開放的版本**,還沒正式上線。想在推出時第一時間收到通知,歡迎到 [找我合作](/contact) 留個訊息 🙂
 
 *(截圖之後補上)*

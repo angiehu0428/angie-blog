@@ -16,9 +16,12 @@ export async function getStaticPaths() {
 const tool = Astro.props;
 const { Content } = await render(tool);
 const { name, icon, tag, desc, cover, features, href, status, keywords } = tool.data;
-const isInternal = status === 'internal';
+const isOpen = status === 'live';
+const badge =
+	status === 'internal' ? '🔒 內部工具 · 對外版本開發中' : '🚧 對外版本開發中,敬請期待';
 const pageUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
-const schema = toolSchema({ name, desc, pageUrl, href, cover, keywords, isInternal });
+// 未開放的工具:結構化資料只指到介紹頁,不外露可用網址
+const schema = toolSchema({ name, desc, pageUrl, href, cover, keywords, isOpen });
 ---
 
 <!doctype html>
@@ -45,14 +48,14 @@ const schema = toolSchema({ name, desc, pageUrl, href, cover, keywords, isIntern
 					<p class="lede">{desc}</p>
 					<div class="cta-row">
 						{
-							isInternal ? (
-								<span class="tool-status">🔒 內部使用中 · 對外版本開發中</span>
-							) : (
+							isOpen ? (
 								href && (
 									<a class="btn btn-primary" href={href} target="_blank" rel="noopener">
 										打開工具 →
 									</a>
 								)
+							) : (
+								<span class="tool-status">{badge}</span>
 							)
 						}
 					</div>
@@ -76,10 +79,19 @@ const schema = toolSchema({ name, desc, pageUrl, href, cover, keywords, isIntern
 			</article>
 
 			{
-				!isInternal && href && (
+				isOpen && href && (
 					<p class="bottom-cta">
 						<a class="btn btn-primary" href={href} target="_blank" rel="noopener">
 							試用 {name} →
+						</a>
+					</p>
+				)
+			}
+			{
+				!isOpen && (
+					<p class="bottom-cta">
+						<a class="btn btn-primary" href="/contact">
+							有興趣?推出時通知我 →
 						</a>
 					</p>
 				)

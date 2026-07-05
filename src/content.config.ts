@@ -30,7 +30,7 @@ const tools = defineCollection({
 		cover: z.string().optional(), // 封面截圖 (/uploads/...)
 		features: z.array(z.string()).default([]),
 		href: z.string().optional(),
-		status: z.enum(['live', 'internal']).default('live'),
+		status: z.enum(['live', 'internal', 'soon']).default('live'),
 		order: z.number().default(99),
 		keywords: z.array(z.string()).default([]), // SEO 關鍵字(中英文都放)
 		tags: z.array(z.string()).default([]), // 分類(首頁篩選用)

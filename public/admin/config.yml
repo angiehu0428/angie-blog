@@ -89,8 +89,14 @@ collections:
           label: "狀態",
           name: "status",
           widget: "select",
-          options: [{ label: "公開(可點開)", value: "live" }, { label: "內部使用(顯示「對外版本開發中」)", value: "internal" }],
+          options:
+            [
+              { label: "公開(可點開使用)", value: "live" },
+              { label: "開發中(只介紹、顯示「對外版本開發中」)", value: "soon" },
+              { label: "公司內部工具(只介紹、標內部工具)", value: "internal" },
+            ],
           default: "live",
+          hint: "選『開發中』或『內部』的工具:只會顯示功能介紹,不會給可點開的連結。",
         }
       - { label: "排序(數字小的排前面)", name: "order", widget: "number", value_type: "int", default: 99 }
       - {

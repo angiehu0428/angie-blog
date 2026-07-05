@@ -72,7 +72,11 @@ const blocks = home.blocks ?? [];
 								<div class="tool-grid">
 									{allTools.map((tool, i) => {
 										const t = tool.data;
-										const isInternal = t.status === 'internal';
+										const isOpen = t.status === 'live';
+										const badge =
+											t.status === 'internal'
+												? '🔒 內部工具 · 對外版本開發中'
+												: '🚧 對外版本開發中,敬請期待';
 										const searchText = [
 											t.name,
 											t.desc,
@@ -111,10 +115,10 @@ const blocks = home.blocks ?? [];
 														</ul>
 													)}
 												</div>
-												{isInternal ? (
-													<span class="tool-status">🔒 內部使用中 · 對外版本開發中</span>
-												) : (
+												{isOpen ? (
 													<span class="tool-go">了解更多 →</span>
+												) : (
+													<span class="tool-status">{badge}</span>
 												)}
 											</a>
 										);

@@ -8,8 +8,7 @@ features:
   - 依刷卡當日台銀匯率換算主幣別
   - 自動偵測重複、交通卡只記加值
   - 還有行程表、天氣穿衣、朋友分攤
-href: https://travel-expense-pub.angiehu.workers.dev
-status: live
+status: soon
 order: 2
 tags:
   - 記帳理財
@@ -45,6 +44,10 @@ keywords:
 
 ## What is this? (English)
 
-An **AI travel expense tracker**: snap photos of receipts or credit-card notification screenshots and the AI extracts the amount, merchant, line items and date — then converts everything to your home currency **using the bank exchange rate of the transaction day**. Smart deduplication, transit-card top-up logic (Suica/EasyCard), itinerary builder from flight/hotel emails, weather-based packing tips, and trip cost splitting with friends. Free to use: [travel-expense-pub.angiehu.workers.dev](https://travel-expense-pub.angiehu.workers.dev)
+An **AI travel expense tracker**: snap photos of receipts or credit-card notification screenshots and the AI extracts the amount, merchant, line items and date — then converts everything to your home currency **using the bank exchange rate of the transaction day**. Smart deduplication, transit-card top-up logic (Suica/EasyCard), itinerary builder from flight/hotel emails, weather-based packing tips, and trip cost splitting with friends.
+
+## 目前狀態
+
+🚧 對外開放的版本(含付費訂閱)還在製作中,尚未正式上線。想在推出時收到通知,歡迎到 [找我合作](/contact) 留個訊息 🙂
 
 *(截圖之後補上)*
