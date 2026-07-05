@@ -166,11 +166,19 @@ collections:
                 widget: "object"
                 fields:
                   - { label: "上方小標(kicker)", name: "kicker", widget: "string", required: false }
-                  - { label: "主標第一行", name: "headline1", widget: "string", required: false }
-                  - { label: "第二行:前段文字", name: "headline2Pre", widget: "string", required: false }
-                  - { label: "第二行:蜜桃底高亮字", name: "headline2Hand", widget: "string", required: false }
-                  - { label: "第二行:中段文字", name: "headline2Mid", widget: "string", required: false }
-                  - { label: "第二行:藍色字(結尾)", name: "headline2Soft", widget: "string", required: false }
+                  - label: "定位句(拖曳排序,句中可插色塊標籤)"
+                    name: "statement"
+                    widget: "list"
+                    hint: "把一整句話拆成好幾段;不需要標籤的段落「標籤顏色」選「無」即可"
+                    fields:
+                      - { label: "文字", name: "text", widget: "string" }
+                      - {
+                          label: "標籤顏色",
+                          name: "chip",
+                          widget: "select",
+                          required: false,
+                          options: [{ label: "無(一般文字)", value: "" }, { label: "藍色", value: "peri" }, { label: "蜜桃色", value: "peach" }],
+                        }
                   - { label: "英文副標(標題下方小字)", name: "enSubtitle", widget: "string", required: false }
                   - label: "時間膠囊(拖曳排序)"
                     name: "chips"

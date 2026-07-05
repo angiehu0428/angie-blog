@@ -5,13 +5,15 @@ interface Chip {
 	year: string;
 	text: string;
 }
+interface StatementPart {
+	text: string;
+	/** 留空=一般文字;'peri' 或 'peach' = 句中色塊標籤 */
+	chip?: 'peri' | 'peach';
+}
 interface Props {
 	kicker?: string;
-	headline1?: string;
-	headline2Pre?: string;
-	headline2Hand?: string;
-	headline2Mid?: string;
-	headline2Soft?: string;
+	/** 整句定位巨字,句中可插色塊標籤(取代舊的 headline1/2 欄位) */
+	statement?: StatementPart[];
 	enSubtitle?: string;
 	chips?: Chip[];
 	primaryLabel?: string;
@@ -30,11 +32,7 @@ interface Props {
 }
 const {
 	kicker,
-	headline1,
-	headline2Pre,
-	headline2Hand,
-	headline2Mid,
-	headline2Soft,
+	statement = [],
 	enSubtitle,
 	chips = [],
 	primaryLabel,
@@ -57,19 +55,16 @@ const {
 	<div class="stage">
 		<div>
 			{kicker && <span class="kicker rv d1">{kicker}</span>}
-			<h1>
-				{headline1 && (
-					<span class="rv d2" style="display:block">
-						{headline1}
-					</span>
-				)}
-				<span class="rv d3" style="display:block">
-					<span class="nb">
-						{headline2Pre}{headline2Hand && <span class="hand">{headline2Hand}</span>}
-					</span><span class="nb">
-						{headline2Mid}{headline2Soft && <span class="soft">{headline2Soft}</span>}
-					</span>
-				</span>
+			<h1 class="rv d2">
+				{
+					statement.map((part) =>
+						part.chip ? (
+							<span class={`stmt-chip ${part.chip}`}>{part.text}</span>
+						) : (
+							part.text
+						),
+					)
+				}
 			</h1>
 
 			{enSubtitle && <p class="en-sub rv d4">{enSubtitle}</p>}
@@ -304,26 +299,28 @@ const {
 	h1 {
 		font-family: var(--font-display);
 		font-weight: 700;
-		font-size: clamp(2.3rem, 5.4vw, 4.2rem);
-		line-height: 1.18;
+		font-size: clamp(1.7rem, 3.15vw, 2.7rem);
+		line-height: 1.3;
 		letter-spacing: -0.01em;
 		margin: clamp(16px, 2.5vh, 26px) 0 0;
 		color: var(--ink);
 	}
-	/* 詞組不可斷:斷行只發生在詞組之間,不會出現孤字行 */
-	.nb {
+	/* 句中色塊標籤(取代舊的 headline hand/soft 樣式) */
+	.stmt-chip {
 		display: inline-block;
-		white-space: nowrap;
+		padding: 0.03em 0.32em;
+		border-radius: 0.22em;
+		margin: 0 0.02em;
 	}
-	h1 .soft {
-		color: var(--peri);
-	}
-	h1 .hand {
-		background: linear-gradient(120deg, var(--peach), #ffe9dc);
-		border-radius: 0.35em;
-		padding: 0.02em 0.18em;
-		display: inline-block;
+	.stmt-chip.peri {
+		background: var(--peri);
+		color: #fff;
 		transform: rotate(-1.2deg);
+	}
+	.stmt-chip.peach {
+		background: var(--peach);
+		color: var(--ink);
+		transform: rotate(1deg);
 	}
 	.en-sub {
 		font-family: var(--font-display);

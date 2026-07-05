@@ -2,13 +2,15 @@
   "blocks": [
     {
       "type": "hero",
-      "kicker": "ANGIE HU — TAIPEI",
-      "headline1": "創作是本能,",
-      "headline2Pre": "工具會",
-      "headline2Hand": "進化",
-      "headline2Mid": "。",
-      "headline2Soft": "",
-      "enSubtitle": "Creativity is instinct. The tools just keep evolving.",
+      "kicker": "ANGIE HU",
+      "statement": [
+        { "text": "設計出身,從 🎨 概念藝術做到 " },
+        { "text": "AI 工具", "chip": "peri" },
+        { "text": " 🤖,也把 " },
+        { "text": "IP 授權", "chip": "peach" },
+        { "text": " 🐯 談成生意。" }
+      ],
+      "enSubtitle": "From concept art to AI tools — turning creative instinct into IP that ships.",
       "chips": [
         { "year": "2007", "text": "Disney・Zynga 概念設計" },
         { "year": "2019", "text": "Hu Creates IP 授權" },
