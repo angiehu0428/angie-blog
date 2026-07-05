@@ -18,7 +18,8 @@ Angie 的個人網站(Astro 靜態站,網域 angiehu.com)。**這份是專案交
 ## ⚠️ 規則
 - **repo 是 PUBLIC**(全世界看得到),機密與未定稿的私人內容不進 repo(mockups/ 已在本機、未 commit,維持)。
 - **UI/視覺方向的任何新決定,先做 mockup 給 Angie 看、她點頭才實作**——她是設計師,視覺由她定調。改既有已核准設計的小細節不用問。
-- 「找我合作」按鈕(Header pill)固定連 Calendly:https://calendly.com/hucreates/60min(全站設定可改)。
+- **Calendly 絕不放上網站**(2026-07-05 Angie 明令:只給「已用 Email 溝通過的人」)。「找我合作」pill → `/contact` 表單(worker `/api/contact` → Telegram 通知她,secrets TG_BOT_TOKEN/TG_CHAT_ID,值同 uptime-monitor 那組)。她 Email 回覆後才私下給 Calendly。
+- ⚠️ 2026-07-05 事故紀錄:mockups/ 曾被 `git add -A` 誤 commit 進公開 repo 一次,同日已移除+gitignore(**歷史 commit 仍看得到**,內容僅設計 HTML 無機密;Calendly 連結也曾短暫進過 site.json 歷史)。之後 add 檔案要逐一點名,別用 `-A`。
 - 部署:**Cloudflare Workers Builds(git 連動)——push 到 main 即自動建置+部署**(worker 名 angie-blog,`wrangler.jsonc` assets=./dist;非 Pages、無 GitHub Actions)。**別在本機 wrangler deploy。**
 - 驗證:`npm run build` 過 → push → 等 1–2 分鐘 → curl/開 https://angiehu.com 確認新內容出現。
 - **Node ≥22.12**(`.nvmrc`=22.12.0,Astro 6 需求;寫 20 會建置失敗)。
