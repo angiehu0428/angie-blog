@@ -21,7 +21,9 @@
       "credits": ["Disney", "Zynga", "TheRealStanLee.com", "INSIDE", "ASUS", "Gamania"],
       "badge": "跟 AI 一起,",
       "badgeBold": "每天都在出貨",
-      "heroImage": "/uploads/angie-hero.jpg"
+      "heroImage": "/uploads/angie-hero.jpg",
+      "conceptImage": "/uploads/concept-art-cars2.jpg",
+      "conceptCredit": "Test painting,《Cars 2》(Disney/Pixar),個人職涯作品集用"
     },
     {
       "type": "tools",

@@ -23,6 +23,10 @@ interface Props {
 	badgeBold?: string;
 	/** 主視覺 4:5 圖(後台上傳);沒給就用設計稿的漸層佔位 */
 	heroImage?: string;
+	/** 概念藝術小卡的圖(16:10);沒給就用設計稿的漸層佔位 */
+	conceptImage?: string;
+	/** 概念藝術小卡的圖說(例如版權/測試稿標註) */
+	conceptCredit?: string;
 }
 const {
 	kicker,
@@ -41,6 +45,8 @@ const {
 	badge,
 	badgeBold,
 	heroImage,
+	conceptImage,
+	conceptCredit,
 } = Astro.props;
 ---
 
@@ -131,8 +137,18 @@ const {
 				}
 			</div>
 			<div class="frame f-art" data-plx="-0.05">
-				<div class="thumb" role="img" aria-label="概念藝術示意"></div>
-				<div class="cap"><span>概念藝術時期</span><b>2007–16</b></div>
+				{
+					conceptImage ? (
+						<img class="thumb thumb-img" src={conceptImage} alt="概念藝術作品" />
+					) : (
+						<div class="thumb" role="img" aria-label="概念藝術示意" />
+					)
+				}
+				<div class="cap">
+					<span>概念藝術時期</span>
+					<b>2007–16</b>
+				</div>
+				{conceptCredit && <p class="credit">{conceptCredit}</p>}
 			</div>
 			<div class="frame f-app" data-plx="0.07">
 				<div class="mini" role="img" aria-label="AI 工具介面示意">
@@ -496,7 +512,19 @@ const {
 		position: relative;
 		overflow: hidden;
 	}
-	.f-art .thumb::after {
+	.f-art .thumb-img {
+		width: 100%;
+		object-fit: cover;
+		display: block;
+	}
+	.f-art .credit {
+		margin: 6px 0 0;
+		font-size: 0.62rem;
+		line-height: 1.4;
+		color: var(--ink-soft);
+		opacity: 0.85;
+	}
+	.f-art .thumb:not(.thumb-img)::after {
 		content: '';
 		position: absolute;
 		bottom: -2px;

@@ -187,6 +187,8 @@ collections:
                   - { label: "漂浮徽章:前段", name: "badge", widget: "string", required: false }
                   - { label: "漂浮徽章:亮色字", name: "badgeBold", widget: "string", required: false }
                   - { label: "主視覺圖(4:5,建議 800×1000 以上)", name: "heroImage", widget: "image", required: false, hint: "沒上傳時會顯示漸層佔位" }
+                  - { label: "概念藝術小卡圖(16:10)", name: "conceptImage", widget: "image", required: false, hint: "沒上傳時會顯示漸層佔位" }
+                  - { label: "概念藝術小卡圖說(版權/測試稿標註等)", name: "conceptCredit", widget: "string", required: false }
               - label: "AI 工具牆"
                 name: "tools"
                 widget: "object"
