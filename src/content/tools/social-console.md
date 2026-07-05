@@ -1,0 +1,42 @@
+---
+name: 社群管理後台
+icon: 📣
+tag: AI · 社群經營
+desc: 多品牌 IP 社群管理後台:一次寫、多平台發布,AI 幫忙寫文案、回覆私訊、寫分析報告。
+features:
+  - 一次撰寫,跨 FB / IG / Threads / X / TikTok / YouTube 發布
+  - AI 寫作助手:看圖寫文案、潤稿、翻譯、依語氣改寫
+  - AI 客服草稿:私訊自動生成回覆,真人審核後送出
+  - 受眾分析自動寫成文字報告,含版權方 PDF 匯出
+status: soon
+order: 9
+tags:
+  - AI 生活
+  - 公司工具
+keywords:
+  - 社群管理後台 AI
+  - social media management AI
+  - AI 社群小編
+  - multi-brand social console
+---
+
+## 這是什麼?
+
+給代理商用的**多品牌(多 IP)社群管理後台**:一次寫文案,同步發布到 Facebook、Instagram、Threads、X、TikTok、YouTube,還有審核流程、內容行事曆、受眾分析與版權方報告——把小編的重複工作交給 AI。
+
+## 特色
+
+- **AI 寫作助手**:看圖寫貼文、潤稿、依語氣改寫、自動生成 hashtag,每個品牌可設定專屬語氣人設
+- **AI 客服**:粉專/私訊自動生成回覆草稿,人工審核後才送出,不失控
+- **會寫字的分析報告**:不只畫圖表,還自動偵測數據變化並寫出文字解讀
+- **版權方報告**:一鍵匯出品牌 PDF 報告
+
+## What is this? (English)
+
+A **multi-brand social media management console** built for agencies: write once, cross-post to Facebook, Instagram, Threads, X, TikTok and YouTube, with approval workflows, content calendars, audience analytics, and licensor reports — powered by an AI assistant that drafts captions, replies, and written insights so the team doesn't have to do it all manually.
+
+## 目前狀態
+
+🚧 核心功能已開發完成,準備部署上線中。想在推出時收到通知,歡迎到 [找我合作](/contact) 留個訊息 🙂
+
+*(截圖之後補上)*
