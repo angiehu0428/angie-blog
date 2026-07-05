@@ -169,13 +169,26 @@ const {
 				{conceptCredit && <p class="credit">{conceptCredit}</p>}
 			</div>
 			<div class="frame f-app" data-plx="0.07">
-				<div class="mini" role="img" aria-label="AI 工具介面示意">
-					<div class="bar"></div>
-					<div class="row"><i></i><s></s><em>NT$420</em></div>
-					<div class="row"><i></i><s></s><em>¥1,200</em></div>
-					<div class="row"><i></i><s></s><em>€36</em></div>
+				<div class="boarding" role="img" aria-label="旅遊花費統計工具介面示意">
+					<div class="bp-eyebrow">
+						<span>BOARDING PASS</span>
+						<span class="bp-plane">✈</span>
+					</div>
+					<div class="bp-route">
+						<b>TPE</b>
+						<span class="bp-path"><i></i></span>
+						<b>NRT</b>
+					</div>
+					<div class="bp-meta">
+						<div><small>GATE</small><em>A12</em></div>
+						<div><small>SEAT</small><em>24A</em></div>
+					</div>
+					<div class="bp-stub">
+						<div class="bp-total"><small>總花費</small><b>¥18,400</b></div>
+						<div class="bp-barcode"></div>
+					</div>
 				</div>
-				<div class="cap"><span>AI 記帳工具</span><b>2026</b></div>
+				<div class="cap"><span>旅遊花費統計</span><b>2026</b></div>
 			</div>
 			{
 				badge && (
@@ -600,53 +613,135 @@ const {
 		z-index: 4;
 		padding: 14px;
 	}
-	.mini {
-		border-radius: 16px;
-		background: #f2f1fc;
+	/* 登機證風格小卡(代表旅遊花費統計工具) */
+	.boarding {
+		position: relative;
+		border-radius: 14px;
+		background: var(--paper-2);
 		border: 1px solid var(--line);
-		padding: 12px 12px 16px;
+		padding: 12px 14px 0;
+		overflow: hidden;
 	}
-	.mini .bar {
-		height: 8px;
-		border-radius: 6px;
-		background: var(--peri);
-		width: 52%;
-		margin-bottom: 10px;
-		opacity: 0.85;
+	.bp-eyebrow {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		font-family: var(--font-display);
+		font-size: 0.56rem;
+		letter-spacing: 0.14em;
+		color: var(--ink-soft);
 	}
-	.mini .row {
+	.bp-plane {
+		color: var(--peri);
+		font-size: 0.8rem;
+	}
+	.bp-route {
 		display: flex;
 		align-items: center;
 		gap: 8px;
 		margin-top: 8px;
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 1rem;
+		color: var(--ink);
 	}
-	.mini .row i {
-		width: 22px;
-		height: 22px;
-		border-radius: 7px;
-		flex: none;
-	}
-	.mini .row:nth-child(2) i {
-		background: var(--peach);
-	}
-	.mini .row:nth-child(3) i {
-		background: var(--lav);
-	}
-	.mini .row:nth-child(4) i {
-		background: var(--mint);
-	}
-	.mini .row s {
+	.bp-path {
 		flex: 1;
-		height: 7px;
-		border-radius: 5px;
-		background: rgba(38, 42, 63, 0.1);
-		text-decoration: none;
+		height: 1px;
+		background: repeating-linear-gradient(
+			90deg,
+			var(--peri) 0 4px,
+			transparent 4px 8px
+		);
+		position: relative;
 	}
-	.mini .row em {
+	.bp-path i {
+		position: absolute;
+		right: -2px;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 5px;
+		height: 5px;
+		border-radius: 50%;
+		background: var(--peri);
+	}
+	.bp-meta {
+		display: flex;
+		gap: 18px;
+		margin: 10px 0 12px;
+	}
+	.bp-meta div {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+	.bp-meta small {
+		font-family: var(--font-display);
+		font-size: 0.52rem;
+		letter-spacing: 0.1em;
+		color: var(--ink-soft);
+	}
+	.bp-meta em {
 		font-style: normal;
 		font-family: var(--font-display);
-		font-size: 0.7rem;
+		font-weight: 500;
+		font-size: 0.72rem;
 		color: var(--peri-deep);
+		white-space: nowrap;
+	}
+	/* 撕票線 + 票根 */
+	.bp-stub {
+		position: relative;
+		border-top: 1.5px dashed rgba(38, 42, 63, 0.25);
+		padding: 10px 0 12px;
+	}
+	.bp-stub::before,
+	.bp-stub::after {
+		content: '';
+		position: absolute;
+		top: -6px;
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+		background: var(--paper);
+		border: 1px solid var(--line);
+	}
+	.bp-stub::before {
+		left: -14px;
+	}
+	.bp-stub::after {
+		right: -14px;
+	}
+	/* 總花費:票根上加重呈現(這張卡的關鍵資訊,窄卡也不擠壓) */
+	.bp-total {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		gap: 6px;
+		margin-bottom: 8px;
+	}
+	.bp-total small {
+		font-family: var(--font-display);
+		font-size: 0.52rem;
+		letter-spacing: 0.1em;
+		color: var(--ink-soft);
+		white-space: nowrap;
+	}
+	.bp-total b {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 0.8rem;
+		color: var(--peri-deep);
+		white-space: nowrap;
+	}
+	.bp-barcode {
+		height: 20px;
+		background-image: repeating-linear-gradient(
+			90deg,
+			var(--ink) 0 2px,
+			transparent 2px 5px
+		);
+		opacity: 0.65;
 	}
 	.badge {
 		position: absolute;
