@@ -178,6 +178,13 @@ import Header from '../components/Header.astro';
 			const msg = form.querySelector('.form-msg') as HTMLElement;
 			const btn = form.querySelector('.btn-send') as HTMLButtonElement;
 
+			// 從其他頁帶主題進來(例如顧問頁 /contact?subject=顧問諮詢)
+			const preSubject = new URL(location.href).searchParams.get('subject');
+			if (preSubject) {
+				const sub = form.querySelector('[name="subject"]') as HTMLInputElement | null;
+				if (sub) sub.value = preSubject;
+			}
+
 			form.addEventListener('submit', async (e) => {
 				e.preventDefault();
 				const data = Object.fromEntries(new FormData(form).entries());

@@ -264,3 +264,59 @@ collections:
                     fields:
                       - { label: "顯示文字", name: "label", widget: "string" }
                       - { label: "網址", name: "url", widget: "string" }
+
+      - name: "consulting"
+        label: "顧問諮詢頁"
+        file: "src/data/consulting.json"
+        description: "顧問諮詢頁的資歷、諮詢領域、價位方案、預約說明"
+        fields:
+          - { label: "頁面標題", name: "title", widget: "string" }
+          - { label: "開頭介紹", name: "intro", widget: "text" }
+          - label: "資歷區"
+            name: "credentials"
+            widget: "object"
+            fields:
+              - { label: "區塊標題", name: "heading", widget: "string" }
+              - label: "資歷卡(可拖曳排序)"
+                name: "items"
+                widget: "list"
+                fields:
+                  - { label: "Emoji 圖示", name: "icon", widget: "string" }
+                  - { label: "小標", name: "title", widget: "string" }
+                  - { label: "說明", name: "text", widget: "text" }
+          - label: "諮詢領域區"
+            name: "areas"
+            widget: "object"
+            fields:
+              - { label: "區塊標題", name: "heading", widget: "string" }
+              - label: "領域卡(可拖曳排序)"
+                name: "items"
+                widget: "list"
+                fields:
+                  - { label: "Emoji 圖示", name: "icon", widget: "string" }
+                  - { label: "小標", name: "title", widget: "string" }
+                  - { label: "說明", name: "desc", widget: "text" }
+          - label: "價位區"
+            name: "pricing"
+            widget: "object"
+            fields:
+              - { label: "區塊標題", name: "heading", widget: "string" }
+              - { label: "小字說明(可留空)", name: "note", widget: "text", required: false }
+              - label: "方案(可拖曳排序)"
+                name: "tiers"
+                widget: "list"
+                fields:
+                  - { label: "方案名稱", name: "name", widget: "string" }
+                  - { label: "價格(例如 NT$3,000 或「客製」)", name: "price", widget: "string" }
+                  - { label: "單位(例如 ／60 分鐘)", name: "unit", widget: "string", required: false }
+                  - { label: "方案說明", name: "desc", widget: "text", required: false }
+                  - { label: "包含項目(每行一項)", name: "features", widget: "list", required: false }
+                  - { label: "標記為「最多人選」(醒目框)", name: "highlight", widget: "boolean", default: false }
+          - label: "預約區"
+            name: "cta"
+            widget: "object"
+            fields:
+              - { label: "標題", name: "heading", widget: "string" }
+              - { label: "說明", name: "text", widget: "text" }
+              - { label: "按鈕文字", name: "buttonLabel", widget: "string" }
+              - { label: "按鈕連結", name: "buttonHref", widget: "string" }

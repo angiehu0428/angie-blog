@@ -1,0 +1,369 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { personPageSchema } from '../utils/schema';
+import consulting from '../data/consulting.json';
+
+const { title, intro, credentials, areas, pricing, cta } = consulting;
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+	<head>
+		<BaseHead
+			title={`${title}｜Angie Hu`}
+			description={intro}
+			keywords={['IP 授權顧問', '角色授權諮詢', '藝術授權', '概念設計顧問', 'AI 導入顧問', 'IP licensing consultant']}
+			schema={personPageSchema()}
+		/>
+	</head>
+	<body>
+		<Header />
+
+		<section class="c-hero">
+			<div class="c-blob" aria-hidden="true"></div>
+			<div class="c-inner">
+				<span class="kicker">CONSULTING · 顧問諮詢</span>
+				<h1>{title}</h1>
+				<p class="lede">{intro}</p>
+				<a class="btn btn-primary" href={cta.buttonHref}>{cta.buttonLabel}</a>
+			</div>
+		</section>
+
+		<main class="c-main">
+			<!-- 資歷 -->
+			<section class="c-block">
+				<h2>{credentials.heading}</h2>
+				<div class="cred-grid">
+					{
+						credentials.items.map((it) => (
+							<div class="cred-card">
+								<span class="cred-icon">{it.icon}</span>
+								<h3>{it.title}</h3>
+								<p>{it.text}</p>
+							</div>
+						))
+					}
+				</div>
+			</section>
+
+			<!-- 諮詢領域 -->
+			<section class="c-block">
+				<h2>{areas.heading}</h2>
+				<div class="area-grid">
+					{
+						areas.items.map((it) => (
+							<div class="area-card">
+								<span class="area-icon">{it.icon}</span>
+								<div>
+									<h3>{it.title}</h3>
+									<p>{it.desc}</p>
+								</div>
+							</div>
+						))
+					}
+				</div>
+			</section>
+
+			<!-- 價位 -->
+			<section class="c-block">
+				<h2>{pricing.heading}</h2>
+				{pricing.note && <p class="muted price-note">{pricing.note}</p>}
+				<div class="price-grid">
+					{
+						pricing.tiers.map((t) => (
+							<div class:list={['price-card', { hot: t.highlight }]}>
+								{t.highlight && <span class="hot-tag">最多人選</span>}
+								<h3>{t.name}</h3>
+								<div class="price">
+									<span class="amount">{t.price}</span>
+									<span class="unit">{t.unit}</span>
+								</div>
+								{t.desc && <p class="price-desc">{t.desc}</p>}
+								<ul class="price-feats">
+									{(t.features ?? []).map((f) => (
+										<li>{f}</li>
+									))}
+								</ul>
+								<a class="btn btn-ghost price-btn" href={cta.buttonHref}>
+									詢問這個方案
+								</a>
+							</div>
+						))
+					}
+				</div>
+			</section>
+
+			<!-- 預約 CTA -->
+			<section class="c-cta">
+				<h2>{cta.heading}</h2>
+				<p>{cta.text}</p>
+				<a class="btn btn-primary" href={cta.buttonHref}>{cta.buttonLabel}</a>
+			</section>
+		</main>
+		<Footer />
+
+		<style>
+			.btn {
+				display: inline-block;
+				font-family: var(--font-display);
+				font-weight: 500;
+				text-decoration: none;
+				padding: 0.85rem 1.7rem;
+				border-radius: 14px;
+				transition:
+					transform 0.25s,
+					box-shadow 0.25s,
+					background 0.25s;
+			}
+			.btn-primary {
+				background: var(--peri);
+				color: #fff;
+				box-shadow: 0 10px 30px rgba(107, 124, 245, 0.35);
+			}
+			.btn-primary:hover {
+				transform: translateY(-3px);
+				box-shadow: 0 16px 40px rgba(107, 124, 245, 0.45);
+			}
+			.btn-ghost {
+				color: var(--ink);
+				border: 1.5px solid rgba(38, 42, 63, 0.16);
+				background: rgba(255, 255, 255, 0.5);
+			}
+			.btn-ghost:hover {
+				border-color: var(--peri);
+				color: var(--peri-deep);
+			}
+
+			/* Hero */
+			.c-hero {
+				position: relative;
+				overflow: hidden;
+				padding: clamp(3rem, 7vh, 5rem) 1.5rem clamp(2.5rem, 5vh, 4rem);
+				isolation: isolate;
+			}
+			.c-blob {
+				position: absolute;
+				z-index: -1;
+				top: -25%;
+				right: -8%;
+				width: 46vw;
+				max-width: 600px;
+				aspect-ratio: 1;
+				border-radius: 50%;
+				background: radial-gradient(circle at 50% 50%, var(--lav), transparent 68%);
+				filter: blur(80px);
+				opacity: 0.7;
+			}
+			.c-inner {
+				max-width: 760px;
+				margin: 0 auto;
+			}
+			.kicker {
+				font-family: var(--font-display);
+				font-size: 0.75rem;
+				letter-spacing: 0.2em;
+				color: var(--peri-deep);
+				font-weight: 500;
+			}
+			.c-hero h1 {
+				font-size: clamp(2.2rem, 5vw, 3.4rem);
+				font-weight: 700;
+				margin: 0.6rem 0 0.8rem;
+			}
+			.lede {
+				font-size: 1.13rem;
+				color: var(--ink-soft);
+				max-width: 620px;
+				margin: 0 0 1.8rem;
+				line-height: 1.7;
+			}
+
+			.c-main {
+				max-width: 1080px;
+				margin: 0 auto;
+				padding: 1rem 1em 2rem;
+			}
+			.c-block {
+				margin-bottom: clamp(3rem, 6vh, 4.5rem);
+			}
+			.c-block h2 {
+				font-size: 1.8rem;
+				font-weight: 800;
+				margin-bottom: 1.6rem;
+			}
+			.muted {
+				color: var(--ink-soft);
+			}
+			.price-note {
+				margin: -0.8rem 0 1.6rem;
+				font-size: 0.9rem;
+			}
+
+			/* 資歷卡 */
+			.cred-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+				gap: 1.25rem;
+			}
+			.cred-card {
+				background: rgba(255, 255, 255, 0.72);
+				backdrop-filter: blur(8px);
+				border: 1px solid var(--line);
+				border-radius: 18px;
+				padding: 1.6rem;
+			}
+			.cred-icon {
+				font-size: 2rem;
+			}
+			.cred-card h3 {
+				font-size: 1.15rem;
+				font-weight: 800;
+				margin: 0.6rem 0 0.4rem;
+			}
+			.cred-card p {
+				color: var(--ink-soft);
+				font-size: 0.95rem;
+				line-height: 1.6;
+				margin: 0;
+			}
+
+			/* 諮詢領域 */
+			.area-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+				gap: 1.25rem;
+			}
+			.area-card {
+				display: flex;
+				gap: 1rem;
+				padding: 1.4rem;
+				border-radius: 16px;
+				border: 1px solid var(--line);
+				background: rgba(255, 255, 255, 0.5);
+			}
+			.area-icon {
+				font-size: 1.8rem;
+				line-height: 1;
+			}
+			.area-card h3 {
+				font-size: 1.1rem;
+				font-weight: 800;
+				margin: 0 0 0.3rem;
+			}
+			.area-card p {
+				color: var(--ink-soft);
+				font-size: 0.94rem;
+				line-height: 1.6;
+				margin: 0;
+			}
+
+			/* 價位 */
+			.price-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+				gap: 1.25rem;
+				align-items: start;
+			}
+			.price-card {
+				position: relative;
+				background: rgba(255, 255, 255, 0.72);
+				backdrop-filter: blur(8px);
+				border: 1px solid var(--line);
+				border-radius: 20px;
+				padding: 1.8rem 1.6rem;
+				display: flex;
+				flex-direction: column;
+				gap: 0.8rem;
+			}
+			.price-card.hot {
+				border-color: var(--peri);
+				box-shadow: 0 16px 40px rgba(107, 124, 245, 0.18);
+			}
+			.hot-tag {
+				position: absolute;
+				top: -12px;
+				right: 18px;
+				background: var(--peri);
+				color: #fff;
+				font-family: var(--font-display);
+				font-size: 0.72rem;
+				font-weight: 500;
+				padding: 0.3rem 0.8rem;
+				border-radius: 99px;
+			}
+			.price-card h3 {
+				font-size: 1.25rem;
+				font-weight: 800;
+				margin: 0;
+			}
+			.price {
+				display: flex;
+				align-items: baseline;
+				gap: 0.4rem;
+			}
+			.price .amount {
+				font-family: var(--font-display);
+				font-size: 1.8rem;
+				font-weight: 700;
+				color: var(--peri-deep);
+			}
+			.price .unit {
+				color: var(--ink-soft);
+				font-size: 0.9rem;
+			}
+			.price-desc {
+				color: var(--ink-soft);
+				font-size: 0.92rem;
+				line-height: 1.55;
+				margin: 0;
+			}
+			.price-feats {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				display: grid;
+				gap: 0.4rem;
+			}
+			.price-feats li {
+				position: relative;
+				padding-left: 1.2rem;
+				font-size: 0.9rem;
+				color: var(--ink);
+			}
+			.price-feats li::before {
+				content: '✓';
+				position: absolute;
+				left: 0;
+				color: var(--peri);
+				font-weight: 700;
+			}
+			.price-btn {
+				text-align: center;
+				margin-top: auto;
+			}
+
+			/* 預約 CTA */
+			.c-cta {
+				text-align: center;
+				background: rgba(107, 124, 245, 0.08);
+				border: 1px solid rgba(107, 124, 245, 0.2);
+				border-radius: 24px;
+				padding: clamp(2.5rem, 5vh, 3.5rem) 1.5rem;
+				margin-bottom: 2rem;
+			}
+			.c-cta h2 {
+				font-size: 1.7rem;
+				font-weight: 800;
+				margin: 0 0 0.6rem;
+			}
+			.c-cta p {
+				color: var(--ink-soft);
+				max-width: 480px;
+				margin: 0 auto 1.6rem;
+				line-height: 1.7;
+			}
+		</style>
+	</body>
+</html>

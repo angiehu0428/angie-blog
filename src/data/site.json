@@ -4,6 +4,7 @@
   "nav": [
     { "label": "首頁", "href": "/", "external": false },
     { "label": "Blog", "href": "/blog", "external": false },
+    { "label": "顧問諮詢", "href": "/consulting", "external": false },
     { "label": "關於", "href": "/about", "external": false },
     { "label": "Hu Creates", "href": "https://www.hucreates.com", "external": true }
   ],
