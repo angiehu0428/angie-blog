@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Angie Hu — 設計 × AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=DM+Sans:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B0D14;          /* 主色：深墨 */
+  --ink-2:#12151F;
+  --lime:#D9FF4B;         /* 強調：螢光萊姆 */
+  --lime-dim:#AFCF2E;
+  --fog:#C9CFDE;          /* 內文 */
+  --fog-dim:#7E8598;      /* 次要文字 */
+  --line:rgba(201,207,222,.09);
+  --radius:18px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);
+  color:var(--fog);
+  font-family:'DM Sans',system-ui,sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+  position:relative;
+}
+/* ── 氛圍層：格線 + 光暈 + 顆粒 ── */
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(900px 600px at 78% 12%, rgba(217,255,75,.07), transparent 60%),
+    radial-gradient(700px 500px at 8% 88%, rgba(90,120,255,.06), transparent 60%),
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size:auto,auto,72px 72px,72px 72px;
+}
+body::after{
+  content:"";position:fixed;inset:-50%;z-index:0;pointer-events:none;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  animation:grain 9s steps(6) infinite;
+}
+@keyframes grain{
+  0%,100%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}
+  40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-2%)}80%{transform:translate(3%,3%)}
+}
+/* ── 進場動畫 ── */
+.reveal{opacity:0;transform:translateY(26px);animation:rise .8s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes rise{to{opacity:1;transform:translateY(0)}}
+.d1{animation-delay:.08s}.d2{animation-delay:.2s}.d3{animation-delay:.34s}
+.d4{animation-delay:.5s}.d5{animation-delay:.68s}.d6{animation-delay:.88s}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+/* ── 導覽 ── */
+nav{
+  position:relative;z-index:3;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:28px clamp(20px,5vw,64px);
+}
+.logo{font-family:'Space Grotesk';font-weight:700;font-size:1.05rem;color:#fff;letter-spacing:.02em;text-decoration:none}
+.logo em{font-style:normal;color:var(--lime)}
+nav ul{display:flex;gap:clamp(16px,3vw,36px);list-style:none}
+nav a.link{
+  color:var(--fog-dim);text-decoration:none;font-size:.92rem;letter-spacing:.03em;
+  transition:color .25s;position:relative;
+}
+nav a.link::after{
+  content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;
+  background:var(--lime);transition:width .3s cubic-bezier(.2,.7,.2,1);
+}
+nav a.link:hover{color:#fff}
+nav a.link:hover::after{width:100%}
+/* ── 主舞台 ── */
+.stage{
+  position:relative;z-index:2;
+  display:grid;grid-template-columns:56px 1fr;
+  padding:clamp(8px,3vh,40px) clamp(20px,5vw,64px) 72px;
+  max-width:1440px;margin:0 auto;
+}
+/* 左側直排資訊軌 */
+.rail{
+  display:flex;flex-direction:column;justify-content:space-between;align-items:center;
+  border-left:1px solid var(--line);padding:12px 0;
+}
+.rail span{
+  writing-mode:vertical-rl;font-family:'IBM Plex Mono',monospace;
+  font-size:.68rem;letter-spacing:.28em;color:var(--fog-dim);text-transform:uppercase;
+}
+.rail .dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 14px var(--lime)}
+/* 主要內容 */
+.main{position:relative;padding-left:clamp(16px,4vw,56px)}
+.kicker{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'IBM Plex Mono',monospace;font-size:.78rem;letter-spacing:.16em;
+  color:var(--lime);border:1px solid rgba(217,255,75,.28);
+  padding:8px 16px;border-radius:99px;background:rgba(217,255,75,.05);
+}
+.kicker::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--lime);
+  animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.25}}
+h1{
+  font-family:'Space Grotesk',sans-serif;font-weight:700;color:#fff;
+  font-size:clamp(2.6rem,7.2vw,6.4rem);
+  line-height:1.04;letter-spacing:-.02em;
+  margin:clamp(20px,3.5vh,36px) 0 0;
+  max-width:12em;
+}
+h1 .hollow{
+  color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.75);
+}
+h1 .mark{
+  color:var(--ink);background:var(--lime);
+  padding:0 .18em;border-radius:.12em;
+  display:inline-block;transform:rotate(-1.6deg);
+  box-shadow:0 12px 44px rgba(217,255,75,.22);
+}
+.lede{
+  margin-top:clamp(20px,3vh,32px);max-width:34em;
+  font-size:clamp(1rem,1.4vw,1.18rem);line-height:1.8;color:var(--fog);
+}
+.lede em{font-style:normal;color:#fff;font-weight:500}
+/* CTA */
+.cta{display:flex;gap:16px;margin-top:clamp(28px,4vh,44px);flex-wrap:wrap}
+.btn{
+  font-family:'Space Grotesk';font-weight:500;font-size:1rem;text-decoration:none;
+  padding:15px 30px;border-radius:12px;letter-spacing:.02em;
+  transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s;
+  position:relative;overflow:hidden;
+}
+.btn-solid{background:var(--lime);color:var(--ink)}
+.btn-solid::after{
+  content:"→";margin-left:10px;display:inline-block;transition:transform .25s;
+}
+.btn-solid:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(217,255,75,.28)}
+.btn-solid:hover::after{transform:translateX(5px)}
+.btn-ghost{color:#fff;border:1px solid rgba(255,255,255,.2)}
+.btn-ghost:hover{border-color:var(--lime);color:var(--lime);transform:translateY(-3px)}
+/* ── 右側浮動卡片堆（打破格線、與標題重疊）── */
+.deck{
+  position:absolute;right:clamp(-8px,1vw,24px);top:clamp(60px,10vh,120px);
+  width:min(340px,30vw);z-index:-1;
+}
+.card{
+  background:linear-gradient(160deg,var(--ink-2),#0d101c 70%);
+  border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 24px;box-shadow:0 30px 70px rgba(0,0,0,.5);
+  transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .35s;
+}
+.card:hover{transform:translateY(-6px) rotate(0deg)!important;border-color:rgba(217,255,75,.4)}
+.card + .card{margin-top:-14px}
+.card:nth-child(1){transform:rotate(2.4deg)}
+.card:nth-child(2){transform:rotate(-1.8deg) translateX(-26px)}
+.card:nth-child(3){transform:rotate(1.2deg) translateX(14px)}
+.card .tag{
+  font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.2em;
+  color:var(--lime-dim);text-transform:uppercase;
+}
+.card h3{font-family:'Space Grotesk';color:#fff;font-size:1.06rem;margin:8px 0 4px}
+.card p{font-size:.85rem;color:var(--fog-dim);line-height:1.6}
+/* ── 底部跑馬燈 ── */
+.marquee{
+  position:relative;z-index:2;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  overflow:hidden;padding:18px 0;background:rgba(255,255,255,.015);
+}
+.marquee .track{
+  display:flex;gap:56px;width:max-content;
+  animation:scroll 26s linear infinite;
+  font-family:'Space Grotesk';font-size:.95rem;color:var(--fog-dim);letter-spacing:.06em;
+}
+.marquee:hover .track{animation-play-state:paused}
+.track b{color:var(--lime);font-weight:500;margin-right:10px}
+@keyframes scroll{to{transform:translateX(-50%)}}
+/* ── 響應式 ── */
+@media (max-width:900px){
+  .deck{position:static;width:100%;margin-top:48px;z-index:1}
+  .card + .card{margin-top:12px}
+  .card:nth-child(1),.card:nth-child(2),.card:nth-child(3){transform:none}
+}
+@media (max-width:640px){
+  .stage{grid-template-columns:1fr}
+  .rail{display:none}
+  .main{padding-left:0}
+  nav ul li:nth-child(n+3){display:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="reveal d1">
+  <a class="logo" href="#">angie<em>hu</em>.com</a>
+  <ul>
+    <li><a class="link" href="#">作品</a></li>
+    <li><a class="link" href="#">部落格</a></li>
+    <li><a class="link" href="#">關於我</a></li>
+    <li><a class="link" href="#">聯絡</a></li>
+  </ul>
+</nav>
+
+<section class="stage">
+  <aside class="rail reveal d5">
+    <span>TAIPEI — DESIGN × AI</span>
+    <div class="dot" aria-hidden="true"></div>
+    <span>EST. 2026</span>
+  </aside>
+
+  <div class="main">
+    <span class="kicker reveal d1">HI, I'M ANGIE HU</span>
+    <h1>
+      <span class="reveal d2" style="display:block">設計出身，</span>
+      <span class="reveal d3" style="display:block"><span class="hollow">親手打造</span>自己的</span>
+      <span class="reveal d4" style="display:block"><span class="mark">AI 工具</span>。</span>
+    </h1>
+    <p class="lede reveal d4">
+      前網頁設計師，現在用 AI 把生活裡的麻煩事一件件變成順手的小工具——
+      <em>旅遊記帳、收據掃描、塔羅占卜</em>。
+      這裡記錄我怎麼從「不會寫程式」走到「每天和 AI 一起出貨」。
+    </p>
+    <div class="cta reveal d5">
+      <a class="btn btn-solid" href="#">看我做的工具</a>
+      <a class="btn btn-ghost" href="#">讀最新文章</a>
+    </div>
+
+    <div class="deck reveal d6" aria-label="精選作品">
+      <div class="card">
+        <span class="tag">Travel · AI OCR</span>
+        <h3>旅遊記帳小幫手</h3>
+        <p>拍下收據，AI 自動辨識金額幣別、即時換匯。</p>
+      </div>
+      <div class="card">
+        <span class="tag">Tarot · Bilingual</span>
+        <h3>AI 塔羅占卜</h3>
+        <p>雙語牌陣解讀，付費解鎖跨裝置占卜履歷。</p>
+      </div>
+      <div class="card">
+        <span class="tag">Workflow · Notion</span>
+        <h3>收據 → 報帳自動化</h3>
+        <p>掃描上傳，一路自動進到 Notion 代墊總表。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee reveal d6" aria-hidden="true">
+  <div class="track">
+    <span><b>01</b>旅遊記帳</span><span><b>02</b>AI 塔羅</span><span><b>03</b>收據掃描</span>
+    <span><b>04</b>名片管理</span><span><b>05</b>個人理財</span><span><b>06</b>Email 秘書</span>
+    <span><b>01</b>旅遊記帳</span><span><b>02</b>AI 塔羅</span><span><b>03</b>收據掃描</span>
+    <span><b>04</b>名片管理</span><span><b>05</b>個人理財</span><span><b>06</b>Email 秘書</span>
+  </div>
+</div>
+
+</body>
+</html>

@@ -24,7 +24,12 @@ import LanguageSwitcher from './LanguageSwitcher.astro';
 			<LanguageSwitcher />
 			{
 				SITE_CTA.label && SITE_CTA.href && (
-					<a class="pill" href={SITE_CTA.href} target="_blank" rel="noopener">
+					<a
+						class="pill"
+						href={SITE_CTA.href}
+						target={SITE_CTA.href.startsWith('http') ? '_blank' : undefined}
+						rel={SITE_CTA.href.startsWith('http') ? 'noopener' : undefined}
+					>
 						{SITE_CTA.label}
 					</a>
 				)

@@ -41,11 +41,15 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags ?? []))];
 
 			<ul class="cards">
 				{
-					posts.map((post) => (
+					posts.map((post, i) => (
 						<li class="card" data-tags={(post.data.tags ?? []).join(',')}>
 							<a href={`/blog/${post.id}/`}>
-								{post.data.heroImage && (
+								{post.data.heroImage ? (
 									<img class="card-img" src={post.data.heroImage} alt="" loading="lazy" />
+								) : (
+									<div class="card-img card-img--ph" data-v={i % 4} aria-hidden="true">
+										✍️
+									</div>
 								)}
 								<div class="card-body">
 									<div class="card-tags">
@@ -133,6 +137,32 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags ?? []))];
 				aspect-ratio: 16 / 9;
 				object-fit: cover;
 				display: block;
+			}
+			.card-img--ph {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 2.4rem;
+			}
+			.card-img--ph[data-v='0'] {
+				background:
+					radial-gradient(120% 100% at 15% 0%, var(--lav) 0%, transparent 60%),
+					linear-gradient(135deg, #eef0ff, #dfe4ff);
+			}
+			.card-img--ph[data-v='1'] {
+				background:
+					radial-gradient(120% 100% at 85% 0%, var(--peach) 0%, transparent 60%),
+					linear-gradient(135deg, #fff3ea, #ffe4d3);
+			}
+			.card-img--ph[data-v='2'] {
+				background:
+					radial-gradient(120% 100% at 20% 0%, var(--mint) 0%, transparent 60%),
+					linear-gradient(135deg, #edf6f1, #dcece3);
+			}
+			.card-img--ph[data-v='3'] {
+				background:
+					radial-gradient(120% 100% at 80% 0%, var(--lav) 0%, transparent 55%),
+					linear-gradient(135deg, #f4efff, #ffeadd);
 			}
 			.card-body {
 				padding: 1.5rem;
