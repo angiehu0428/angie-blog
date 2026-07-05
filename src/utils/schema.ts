@@ -22,8 +22,8 @@ export const PERSON = {
 	],
 	sameAs: [
 		'https://www.hucreates.com',
-		'https://www.instagram.com/hupaints',
-		'https://www.facebook.com/hupaints',
+		'https://www.instagram.com/huisangie',
+		'https://www.facebook.com/angiehu',
 		'https://www.behance.net/angiehu',
 	],
 };

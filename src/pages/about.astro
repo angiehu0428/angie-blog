@@ -69,7 +69,7 @@ const blocks = about.blocks ?? [];
 								<ul class="contact-links">
 									{(block.items ?? []).map((l) => (
 										<li>
-											<a href={l.url} target={l.url.startsWith('mailto:') ? undefined : '_blank'} rel="noopener">
+											<a href={l.url} target={l.url.startsWith('http') ? '_blank' : undefined} rel="noopener">
 												{l.label}
 											</a>
 										</li>

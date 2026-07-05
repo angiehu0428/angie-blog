@@ -11,8 +11,8 @@
   "ctaHref": "/contact",
   "footerText": "Angie Hu. All rights reserved.",
   "socials": [
-    { "label": "Instagram", "url": "https://www.instagram.com/hupaints" },
-    { "label": "Facebook", "url": "https://www.facebook.com/hupaints" },
-    { "label": "Email", "url": "mailto:angiehu@gmail.com" }
+    { "label": "找我合作", "url": "/contact" },
+    { "label": "Instagram", "url": "https://www.instagram.com/huisangie" },
+    { "label": "Facebook", "url": "https://www.facebook.com/angiehu" }
   ]
 }

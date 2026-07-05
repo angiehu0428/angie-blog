@@ -8,11 +8,14 @@ const today = new Date();
 	&copy; {today.getFullYear()} {SITE_FOOTER_TEXT}
 	<div class="social-links">
 		{
-			SITE_SOCIALS.map((s) => (
-				<a href={s.url} target="_blank" rel="noopener">
-					{s.label}
-				</a>
-			))
+			SITE_SOCIALS.map((s) => {
+				const external = s.url.startsWith('http');
+				return (
+					<a href={s.url} target={external ? '_blank' : undefined} rel={external ? 'noopener' : undefined}>
+						{s.label}
+					</a>
+				);
+			})
 		}
 	</div>
 </footer>
