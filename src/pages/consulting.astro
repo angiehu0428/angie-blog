@@ -66,32 +66,52 @@ const { title, intro, credentials, areas, pricing, cta } = consulting;
 				</div>
 			</section>
 
-			<!-- 價位 -->
-			<section class="c-block">
+			<!-- 價位(填表後解鎖) -->
+			<section class="c-block" id="pricing">
 				<h2>{pricing.heading}</h2>
 				{pricing.note && <p class="muted price-note">{pricing.note}</p>}
-				<div class="price-grid">
+				<div class="price-grid" data-locked="true">
 					{
 						pricing.tiers.map((t) => (
 							<div class:list={['price-card', { hot: t.highlight }]}>
 								{t.highlight && <span class="hot-tag">最多人選</span>}
 								<h3>{t.name}</h3>
-								<div class="price">
-									<span class="amount">{t.price}</span>
-									<span class="unit">{t.unit}</span>
-								</div>
+								{t.label && <div class="price-label">{t.label}</div>}
 								{t.desc && <p class="price-desc">{t.desc}</p>}
 								<ul class="price-feats">
-									{(t.features ?? []).map((f) => (
+									{(t.included ?? []).map((f) => (
 										<li>{f}</li>
 									))}
 								</ul>
-								<a class="btn btn-ghost price-btn" href={cta.buttonHref}>
-									詢問這個方案
-								</a>
+								<div class="price-gate">
+									<div class="gate-lock">🔒 填表後查看報價</div>
+									<div class="gate-prices">
+										{(t.priceLines ?? []).map((p) => (
+											<div class="price-line">{p}</div>
+										))}
+									</div>
+								</div>
 							</div>
 						))
 					}
+				</div>
+
+				<!-- 解鎖表單 -->
+				<div class="quote-box" id="quote-box">
+					<h3>💬 看完整報價</h3>
+					<p>留下聯絡方式與簡單需求,馬上看到價目——我也會親自跟你聯繫、討論最適合的方案。</p>
+					<form id="quote-form" novalidate>
+						<div class="q-grid">
+							<input type="text" name="name" placeholder="怎麼稱呼你 *" required maxlength="100" />
+							<input type="email" name="email" placeholder="你的 Email *" required maxlength="200" />
+						</div>
+						<textarea name="message" rows="3" placeholder="簡單說說你的需求(選填):想諮詢什麼、公司類型…" maxlength="2000"></textarea>
+						<label class="q-hp" aria-hidden="true">
+							Website <input type="text" name="website" tabindex="-1" autocomplete="off" />
+						</label>
+						<button type="submit" class="btn btn-primary">看報價 →</button>
+						<p class="q-msg" hidden></p>
+					</form>
 				</div>
 			</section>
 
@@ -298,20 +318,11 @@ const { title, intro, credentials, areas, pricing, cta } = consulting;
 				font-weight: 800;
 				margin: 0;
 			}
-			.price {
-				display: flex;
-				align-items: baseline;
-				gap: 0.4rem;
-			}
-			.price .amount {
+			.price-label {
 				font-family: var(--font-display);
-				font-size: 1.8rem;
-				font-weight: 700;
-				color: var(--peri-deep);
-			}
-			.price .unit {
-				color: var(--ink-soft);
 				font-size: 0.9rem;
+				font-weight: 500;
+				color: var(--peri-deep);
 			}
 			.price-desc {
 				color: var(--ink-soft);
@@ -339,9 +350,104 @@ const { title, intro, credentials, areas, pricing, cta } = consulting;
 				color: var(--peri);
 				font-weight: 700;
 			}
-			.price-btn {
-				text-align: center;
+
+			/* 價目鎖住 / 解鎖 */
+			.price-gate {
 				margin-top: auto;
+				border-top: 1px dashed var(--line);
+				padding-top: 0.9rem;
+			}
+			.gate-lock {
+				font-weight: 700;
+				font-size: 0.92rem;
+				color: var(--peri-deep);
+				background: rgba(107, 124, 245, 0.1);
+				border-radius: 10px;
+				padding: 0.6rem 0.9rem;
+				text-align: center;
+			}
+			.gate-prices {
+				display: none;
+				gap: 0.35rem;
+			}
+			.price-line {
+				font-family: var(--font-display);
+				font-weight: 500;
+				font-size: 0.98rem;
+				color: var(--peri-deep);
+			}
+			/* 解鎖後:顯示價格、藏起鎖 */
+			.price-grid.unlocked .gate-lock {
+				display: none;
+			}
+			.price-grid.unlocked .gate-prices {
+				display: grid;
+			}
+
+			/* 解鎖表單 */
+			.quote-box {
+				margin-top: 1.5rem;
+				background: rgba(228, 225, 255, 0.35);
+				border: 1px solid rgba(107, 124, 245, 0.25);
+				border-radius: 20px;
+				padding: 1.6rem;
+			}
+			.quote-box h3 {
+				font-size: 1.2rem;
+				font-weight: 800;
+				margin: 0 0 0.3rem;
+			}
+			.quote-box > p {
+				color: var(--ink-soft);
+				font-size: 0.94rem;
+				margin: 0 0 1.1rem;
+			}
+			.q-grid {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 0.8rem;
+				margin-bottom: 0.8rem;
+			}
+			#quote-form input,
+			#quote-form textarea {
+				font-family: var(--sans, var(--font-dmsans));
+				font-size: 0.98rem;
+				width: 100%;
+				padding: 0.7rem 1rem;
+				border-radius: 12px;
+				border: 1px solid var(--line);
+				background: var(--surface);
+				color: var(--ink);
+			}
+			#quote-form textarea {
+				margin-bottom: 0.9rem;
+				resize: vertical;
+			}
+			#quote-form input:focus,
+			#quote-form textarea:focus {
+				outline: none;
+				border-color: var(--peri);
+				box-shadow: 0 0 0 3px rgba(107, 124, 245, 0.18);
+			}
+			.q-hp {
+				position: absolute;
+				left: -9999px;
+				height: 0;
+				overflow: hidden;
+			}
+			.q-msg {
+				margin: 0.9rem 0 0;
+				font-weight: 600;
+				font-size: 0.94rem;
+				color: var(--peri-deep);
+			}
+			.q-msg.err {
+				color: #b0452e;
+			}
+			@media (max-width: 560px) {
+				.q-grid {
+					grid-template-columns: 1fr;
+				}
 			}
 
 			/* 預約 CTA */
@@ -365,5 +471,59 @@ const { title, intro, credentials, areas, pricing, cta } = consulting;
 				line-height: 1.7;
 			}
 		</style>
+
+		<script>
+			const qform = document.getElementById('quote-form') as HTMLFormElement | null;
+			const grid = document.querySelector('.price-grid');
+			if (qform && grid) {
+				const qmsg = qform.querySelector('.q-msg') as HTMLElement;
+				const qbtn = qform.querySelector('button') as HTMLButtonElement;
+				qform.addEventListener('submit', async (e) => {
+					e.preventDefault();
+					const data = Object.fromEntries(new FormData(qform).entries()) as Record<string, string>;
+					if (!data.name || !data.email) {
+						show('err', '請填「稱呼」和「Email」才能看報價 🙏');
+						return;
+					}
+					qbtn.disabled = true;
+					qbtn.textContent = '送出中…';
+					try {
+						const r = await fetch('/api/contact', {
+							method: 'POST',
+							headers: { 'content-type': 'application/json' },
+							body: JSON.stringify({
+								name: data.name,
+								email: data.email,
+								subject: '顧問報價詢問',
+								message: '【顧問報價詢問】' + (data.message || '(未填需求)'),
+								website: data.website || '',
+							}),
+						});
+						const j = await r.json();
+						if (!j.ok) throw new Error(j.error || 'failed');
+						// 解鎖價目
+						grid.classList.add('unlocked');
+						qform.style.display = 'none';
+						show('ok', '');
+						const box = document.getElementById('quote-box');
+						if (box) {
+							box.querySelector('h3')!.textContent = '✅ 報價已顯示在上方';
+							box.querySelector('p')!.textContent =
+								'謝謝!完整價目已經解鎖(往上看方案)。我也收到你的訊息了,會親自跟你聯繫討論最適合的方案 😊';
+						}
+						grid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+					} catch {
+						show('err', '送出失敗了 😥 請稍後再試,或到 Instagram @huisangie 私訊我');
+						qbtn.disabled = false;
+						qbtn.textContent = '看報價 →';
+					}
+				});
+				function show(kind: 'ok' | 'err', text: string) {
+					qmsg.hidden = !text;
+					qmsg.className = 'q-msg ' + kind;
+					qmsg.textContent = text;
+				}
+			}
+		</script>
 	</body>
 </html>

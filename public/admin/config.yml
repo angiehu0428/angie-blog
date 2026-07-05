@@ -307,10 +307,16 @@ collections:
                 widget: "list"
                 fields:
                   - { label: "方案名稱", name: "name", widget: "string" }
-                  - { label: "價格(例如 NT$3,000 或「客製」)", name: "price", widget: "string" }
-                  - { label: "單位(例如 ／60 分鐘)", name: "unit", widget: "string", required: false }
+                  - { label: "計費方式標籤(例如 按小時計費 / 月費制)", name: "label", widget: "string", required: false }
                   - { label: "方案說明", name: "desc", widget: "text", required: false }
-                  - { label: "包含項目(每行一項)", name: "features", widget: "list", required: false }
+                  - { label: "包含項目(每行一項,一般人就看得到)", name: "included", widget: "list", required: false }
+                  - {
+                      label: "價目(要填表後才顯示,每行一項)",
+                      name: "priceLines",
+                      widget: "list",
+                      required: false,
+                      hint: "這裡放金額,例如「個人 NT$1,000／小時」。訪客要先填詢問表單才會看到。",
+                    }
                   - { label: "標記為「最多人選」(醒目框)", name: "highlight", widget: "boolean", default: false }
           - label: "預約區"
             name: "cta"
