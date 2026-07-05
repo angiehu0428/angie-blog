@@ -14,7 +14,7 @@
 
 - [塔羅占卜 AI Tarot Reading](https://angiehu.com/tools/tarot/): AI tarot reading web app, multiple spreads, bilingual (zh/en). Live at https://tarot.angiehu.com
 - [旅遊花費統計 Travel Expense Tracker](https://angiehu.com/tools/travel-expense/): scan receipts / credit-card screenshots, AI extracts amounts, converts currency at the day's bank rate. Public version in development (not yet open).
-- [Pantone 色票轉換器 Pantone Color Converter](https://angiehu.com/tools/pantone-converter/): web-based Pantone ↔ HEX / RGB / CMYK converter — a lightweight alternative for designers after Pantone libraries were removed from Photoshop / Adobe apps (no plug-in install needed). Public version in development (not yet open).
+- [Pantone 色票轉換器 Pantone Color Converter](https://angiehu.com/tools/pantone-converter/): free web-based Pantone ↔ HEX / RGB / CMYK converter — a lightweight alternative for designers after Pantone libraries were removed from Photoshop / Adobe apps (no plug-in install needed). Free to use at https://pantone-converter.pages.dev (a paid unlock tier is still in development).
 - [名片掃描 Business Card Scanner → Notion](https://angiehu.com/tools/card-scanner/): photo of business cards → AI extracts fields → Notion contacts DB (public version in development)
 - [收據掃描報帳 Receipt Scanner](https://angiehu.com/tools/receipt-scanner/): receipts / invoices / PDFs → AI extracts expense data → Notion (public version in development)
 
