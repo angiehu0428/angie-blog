@@ -1,8 +1,8 @@
 ---
-name: 旅遊花費統計
+name: 旅遊花費統計 Travel Expense Tracker
 icon: ✈️
 tag: AI · 記帳
-desc: 出國旅遊的記帳小幫手:拍收據或信用卡截圖,AI 自動幫你記好帳、換好匯率。
+desc: 出國旅遊的 AI 記帳小幫手:拍收據或信用卡截圖,自動辨識金額品項、依刷卡當日匯率換算,免手 key。
 features:
   - 掃收據/信用卡截圖,自動抓金額、店家、品項
   - 依刷卡當日台銀匯率換算主幣別
@@ -13,15 +13,20 @@ status: live
 order: 2
 keywords:
   - 旅遊記帳 app
-  - 出國記帳 匯率
-  - travel expense tracker AI
-  - receipt scan expense app
+  - 出國記帳 app 免費
+  - 旅行花費 統計
   - 收據掃描 記帳
+  - 出國記帳 匯率換算
+  - 旅費分攤 朋友
+  - travel expense tracker AI
+  - trip expense app receipt scan
+  - travel budget tracker free
+  - receipt OCR expense tracker
 ---
 
 ## 這是什麼?
 
-出國旅遊專用的記帳工具。不用手 key——拍下收據、發票或信用卡刷卡通知截圖,AI 自動辨識金額、店家、品項和日期,並依**刷卡當日的台銀匯率**換算成台幣(或美金),一趟旅程花多少一目了然。
+出國旅遊專用的 **AI 記帳工具**。不用手 key——拍下收據、發票或信用卡刷卡通知截圖,AI 自動辨識金額、店家、品項和日期,並依**刷卡當日的台銀匯率**換算成台幣(或美金),一趟旅程花多少一目了然。
 
 ## 怎麼用?
 
@@ -35,5 +40,9 @@ keywords:
 - **交通卡邏輯**:Suica/悠遊卡只記加值,不會重複算搭車錢
 - **旅遊小幫手**:行程表(掃機票/訂房信自動建)、天氣穿衣建議、朋友分攤結算
 - 資料存在你自己的裝置,匯出備份隨時帶走
+
+## What is this? (English)
+
+An **AI travel expense tracker**: snap photos of receipts or credit-card notification screenshots and the AI extracts the amount, merchant, line items and date — then converts everything to your home currency **using the bank exchange rate of the transaction day**. Smart deduplication, transit-card top-up logic (Suica/EasyCard), itinerary builder from flight/hotel emails, weather-based packing tips, and trip cost splitting with friends. Free to use: [travel-expense-pub.angiehu.workers.dev](https://travel-expense-pub.angiehu.workers.dev)
 
 *(截圖之後補上)*
