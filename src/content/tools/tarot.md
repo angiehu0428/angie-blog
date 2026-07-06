@@ -50,6 +50,10 @@ keywords:
 3. 抽牌,AI 逐張解讀、給出整體趨勢建議;想深入的地方你可以繼續追問,AI 從牌面再解讀更多(時間點、季節、特質…)
 4. 想深入同一件事,就開一個「專案占卜」持續追蹤——等事件有變化或轉折時再重抽(短時間內別反覆抽同一件事)
 
+實際走完一次「五張無視論牌陣」的解讀畫面——五張牌分成**重點牌**與**輔助牌**,搭配整體解讀、無視論分析與關鍵結論,把牌陣融會貫通地讀成一個方向:
+
+![五張無視論牌陣的實際解讀畫面:重點牌/輔助牌、整體解讀、無視論分析與關鍵結論](/uploads/tarot-reading.png)
+
 ## What is this? (English)
 
 Most online tarot tools just *draw* cards — at best they hand you isolated single-card meanings that never connect into a coherent reading. The newer AI-powered ones go the other way: they just dump the cards on an AI and let it improvise. Mine is different — it combines **my own reading experience** with the **actual principles of the 無視論 (Wúshìlùn) spread**, tuned over many iterations into a *coherent* reading method that ties the whole spread together and shows you the full picture and direction of a situation — not memorized card meanings, not AI free-styling. It's the only tool online that reads with 無視論, a lesser-known but remarkably versatile method — and my most recommended spread.
