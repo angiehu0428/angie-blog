@@ -29,9 +29,11 @@ keywords:
 
 ## 為什麼做這個?
 
-線上塔羅工具很多,但幾乎都只能幫你「抽牌」——沒有一個真的在**解牌**,更沒有一個用**無視論牌陣**來解。
+現有的線上塔羅工具,幾乎都只是幫你「抽牌」,頂多再附上一張張**單張牌面**的意義,沒辦法把整個牌陣**融會貫通**地解讀。近年一些用 AI 做的塔羅工具則走另一個極端——把牌面**無腦丟給 AI** 自由發揮,看起來煞有其事,其實沒有章法。
 
-無視論不是主流牌陣,卻是我自己實測下來**最靈活、最萬用**的一套。我花了時間把它背後的理論邏輯拆解、教給 AI,所以這是目前**全網唯一**能用無視論邏輯解牌的工具,也是我**最推薦**的牌陣。
+我的做法不一樣。這是**搭配我自己的解牌經驗**,加上**無視論牌陣真正的原理與理論**,經過**多次調教邏輯**打磨出來的一套**融會貫通 AI 解牌法**——不是背單張牌意、也不是放給 AI 亂編,而是把整個牌陣串起來看,更能看清一件事的**全貌與方向**。這也是目前**全網唯一**用無視論邏輯解牌的工具。
+
+無視論不是主流牌陣,卻是我實測下來**最靈活、最萬用**的一套,也是我**最推薦**的牌陣。
 
 塔羅算的是**趨勢**,不是把話講死。所以我加了幾個小巧思,讓它更貼近真實占卜的樣子:
 
@@ -48,7 +50,7 @@ keywords:
 
 ## What is this? (English)
 
-Most online tarot tools only *draw* cards for you — none actually interpret with the **無視論 (Wúshìlùn) spread**, a lesser-known but remarkably versatile method I've found works for almost any question. I broke down its underlying logic and taught it to the AI, so this is the only tool online that reads with it — and my most recommended spread.
+Most online tarot tools just *draw* cards — at best they hand you isolated single-card meanings that never connect into a coherent reading. The newer AI-powered ones go the other way: they just dump the cards on an AI and let it improvise. Mine is different — it combines **my own reading experience** with the **actual principles of the 無視論 (Wúshìlùn) spread**, tuned over many iterations into a *coherent* reading method that ties the whole spread together and shows you the full picture and direction of a situation — not memorized card meanings, not AI free-styling. It's the only tool online that reads with 無視論, a lesser-known but remarkably versatile method — and my most recommended spread.
 
 Tarot reads **trends**, not fixed verdicts. So it doesn't just hand you one canned reading: **you can ask follow-up questions** and the AI reads more out of the cards — approximate timing, season, personality traits, and so on — and you can open a **project reading** to track the same matter over time — re-drawing only when the situation actually shifts or reaches a turning point (not repeatedly over a short span, which muddies the read) — and watch how the trend moves. Readings save and sync across devices (paid). Bilingual (English / Traditional Chinese): [tarot.angiehu.com](https://tarot.angiehu.com)
 
