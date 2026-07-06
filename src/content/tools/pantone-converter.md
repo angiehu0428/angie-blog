@@ -48,9 +48,11 @@ A **free web-based Pantone color converter** — convert **PANTONE ↔ HEX / RGB
 2. 輸入 Pantone 色號(例如 `PANTONE 186 C`)或任何 HEX / RGB 值
 3. 立刻拿到對應數值與最接近的色號,複製貼回你的設計軟體
 
+輸入 CMYK / RGB / HEX,馬上用 **ΔE 2000** 專業色差算出最接近的 Pantone 色號,銅版紙(Coated)與膠版紙(Uncoated)分開列、還標出配對品質:
+
+![Pantone 色票轉換器介面:輸入色 + 銅版紙/膠版紙兩欄最接近的 Pantone 色號與 ΔE 色差](/uploads/pantone-tool.png)
+
 ## 關於付費功能
 
 基本色票轉換**免費開放使用**,現在就能用 ✨
 進階的**付費解鎖功能還在製作中**,之後會推出——敬請期待!
-
-*(截圖之後補上)*
