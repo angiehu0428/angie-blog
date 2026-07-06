@@ -27,6 +27,8 @@ keywords:
   - AI tarot card interpretation
 ---
 
+![塔羅神諭 Tarot Oracle 占卜首頁——開始占卜與專案占卜兩種模式](/uploads/tarot-app.png)
+
 ## 為什麼做這個?
 
 現有的線上塔羅工具,幾乎都只是幫你「抽牌」,頂多再附上一張張**單張牌面**的意義,沒辦法把整個牌陣**融會貫通**地解讀。近年一些用 AI 做的塔羅工具則走另一個極端——把牌面**無腦丟給 AI** 自由發揮,看起來煞有其事,其實沒有章法。
@@ -53,5 +55,3 @@ keywords:
 Most online tarot tools just *draw* cards — at best they hand you isolated single-card meanings that never connect into a coherent reading. The newer AI-powered ones go the other way: they just dump the cards on an AI and let it improvise. Mine is different — it combines **my own reading experience** with the **actual principles of the 無視論 (Wúshìlùn) spread**, tuned over many iterations into a *coherent* reading method that ties the whole spread together and shows you the full picture and direction of a situation — not memorized card meanings, not AI free-styling. It's the only tool online that reads with 無視論, a lesser-known but remarkably versatile method — and my most recommended spread.
 
 Tarot reads **trends**, not fixed verdicts. So it doesn't just hand you one canned reading: **you can ask follow-up questions** and the AI reads more out of the cards — approximate timing, season, personality traits, and so on — and you can open a **project reading** to track the same matter over time — re-drawing only when the situation actually shifts or reaches a turning point (not repeatedly over a short span, which muddies the read) — and watch how the trend moves. Readings save and sync across devices (paid). Bilingual (English / Traditional Chinese): [tarot.angiehu.com](https://tarot.angiehu.com)
-
-*(截圖之後補上——在後台這篇的內文插入圖片即可)*
