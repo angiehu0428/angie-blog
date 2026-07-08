@@ -10,7 +10,8 @@ features:
   - 通用圖片工具:裁切(可鎖比例)、高品質縮放、換格式(PNG/JPEG/WebP)
   - 附 LINE 規格頁,各類型尺寸張數一次查清楚
   - 圖片全在瀏覽器端處理,不上傳伺服器
-status: soon
+href: https://sticker.hucreates.com
+status: live
 order: 7
 tags:
   - 設計工具
@@ -50,8 +51,9 @@ keywords:
 
 A one-stop **sticker & image tool**. For **LINE**, drop in your artwork and it validates spec compliance, resizes, converts formats, renames, and packages everything into a ZIP ready for **LINE Creators Market**. It also builds **WhatsApp** sticker packs (`.wastickers`), and comes with general image utilities — crop (with lockable ratio), high-quality resize, and format conversion (PNG / JPEG / WebP). All processing runs client-side in your browser; your images never leave your device.
 
-## 目前狀態
+## 關於付費功能
 
-🚧 驗證器與打包器已完成、通過測試,對外開放版本準備中。想在推出時收到通知,歡迎到 [找我合作](/contact) 留個訊息 🙂
+靜態貼圖的完整流程(驗規格、修尺寸、轉檔、打包)、LINE 動態貼圖的 Loop 與秒數調整,還有 WhatsApp 貼圖跟通用圖片工具,**免費開放使用**,現在就能用 ✨
+進階的**付費解鎖功能還在製作中**(動畫縮放、特殊貼圖類型、Brand Kit、批次處理),之後會推出。
 
 *(截圖之後補上)*

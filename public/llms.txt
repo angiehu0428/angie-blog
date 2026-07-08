@@ -17,6 +17,10 @@
 - [Pantone 色票轉換器 Pantone Color Converter](https://angiehu.com/tools/pantone-converter/): free web-based Pantone ↔ HEX / RGB / CMYK converter — a lightweight alternative for designers after Pantone libraries were removed from Photoshop / Adobe apps (no plug-in install needed). Free to use at https://pantone-converter.pages.dev (a paid unlock tier is still in development).
 - [名片掃描 Business Card Scanner → Notion](https://angiehu.com/tools/card-scanner/): photo of business cards → AI extracts fields → Notion contacts DB (public version in development)
 - [收據掃描報帳 Receipt Scanner](https://angiehu.com/tools/receipt-scanner/): receipts / invoices / PDFs → AI extracts expense data → Notion (public version in development)
+- [Ink Match 印刷特別色比對](https://angiehu.com/tools/ink-match/): Photoshop plugin — reads your foreground color and lists the closest spot/special print inks (Coated/Uncoated, ΔE2000), one-click add to swatches. In development (third-party paid plugin).
+- [LINE 貼圖工廠 Sticker Factory](https://angiehu.com/tools/line-sticker-factory/): one-stop sticker & image tool — validate/fix/pack LINE stickers for Creators Market, build WhatsApp .wastickers, plus general image utilities (crop, resize, format convert), all client-side. Free to use at https://sticker.hucreates.com (paid unlock tier in development).
+- [Hu Creates 記帳系統 Expense PWA](https://angiehu.com/tools/hucreates-expense/): mobile expense-tracking PWA with AI receipt OCR, multi-user PIN login, and Square daily-revenue sync. Internal company tool.
+- [社群管理後台 Social Console](https://angiehu.com/tools/social-console/): multi-brand social media console — cross-post to FB/IG/Threads/X/TikTok/YouTube, scheduling, approval workflow, AI writing & reply drafts, audience analytics. In development.
 
 ## Blog
 
