@@ -2,12 +2,14 @@
 name: LINE 貼圖工廠
 icon: 🧷
 tag: 設計 · 一站式製作工具
-desc: 畫貼圖很開心,上架卡在規格細節很崩潰——尺寸差一格、張數不對、動態幀數超標、檔名沒照規則,一送審就被 LINE 退件。畫好圖丟進去,自動驗規格紅綠燈、一鍵修好、打包成能直接上傳 Creators Market 的 ZIP。圖不上傳伺服器。
+desc: 畫貼圖很開心,上架卡在規格細節很崩潰——尺寸差一格、張數不對、動態幀數超標、檔名沒照規則,一送審就被 LINE 退件。畫好圖丟進去,自動驗規格、一鍵修好、打包成能直接上傳的 ZIP。現在也做 WhatsApp 貼圖,還附一套通用圖片工具(裁切、縮放、換格式)。圖都在瀏覽器裡處理,不上傳。
 features:
-  - 自動驗證規格,紅綠燈提示 + 一鍵修復
-  - 支援全部貼圖類型(一般/動態/表情貼/大貼圖…)
-  - 一鍵打包成可直接上傳的 ZIP
-  - 全部在瀏覽器端處理,圖片不上傳伺服器
+  - 自動驗規格紅綠燈 + 一鍵修復,打包成 LINE 上架用 ZIP
+  - 支援全部 LINE 貼圖類型(一般/動態/表情貼/大貼圖…)
+  - WhatsApp 貼圖也能做:驗 512² WebP、打包成 .wastickers
+  - 通用圖片工具:裁切(可鎖比例)、高品質縮放、換格式(PNG/JPEG/WebP)
+  - 附 LINE 規格頁,各類型尺寸張數一次查清楚
+  - 圖片全在瀏覽器端處理,不上傳伺服器
 status: soon
 order: 7
 tags:
@@ -16,8 +18,11 @@ keywords:
   - LINE 貼圖 製作工具
   - LINE 貼圖 打包
   - LINE Creators Market 上架
+  - WhatsApp 貼圖 製作
+  - 圖片裁切 縮放 轉檔
   - LINE sticker maker
   - LINE sticker validator
+  - WhatsApp sticker maker wastickers
 ---
 
 ## 為什麼做這個?
@@ -26,9 +31,15 @@ keywords:
 
 ## 這是什麼?
 
-一站式 **LINE 貼圖後製工具**,把「畫好圖 → 上架 LINE」中間所有煩死人的步驟自動化:驗規格、修尺寸、轉檔、命名、打包——丟進圖,吐出一包直接能上傳 **LINE Creators Market** 的 ZIP。
+一站式的**貼圖／圖片後製工具**,現在分三個部分:
 
-## 特色
+- **LINE 貼圖**:把「畫好圖 → 上架 LINE」中間所有煩死人的步驟自動化——驗規格、修尺寸、轉檔、命名、打包,吐出一包直接能上傳 **LINE Creators Market** 的 ZIP。
+- **WhatsApp 貼圖**:驗 512×512 WebP、張數,打包成 WhatsApp 專用的 `.wastickers`。
+- **通用圖片工具**:手動裁切(可鎖比例)、高品質縮放、換格式(PNG / JPEG / WebP),平常修圖也用得到。
+
+還附一頁 **LINE 規格頁**,各種貼圖類型的尺寸、張數、幀數規則都列在上面,一次查清楚。所有影像處理都在你的瀏覽器裡跑,圖片不會上傳到任何伺服器。
+
+## LINE 貼圖的細節
 
 - **驗證紅綠燈**:每張圖即時顯示規格是否符合,不符合的一鍵修復
 - **支援所有貼圖類型**:一般貼圖、動態貼圖、表情貼、大貼圖、訊息貼圖、音效貼圖等,張數不寫死
@@ -37,7 +48,7 @@ keywords:
 
 ## What is this? (English)
 
-A one-stop **LINE sticker post-production tool**: drop in your artwork and it validates spec compliance, resizes, converts formats, renames, and packages everything into a ZIP ready for **LINE Creators Market** upload. All image processing runs client-side in your browser — your art never leaves your device.
+A one-stop **sticker & image tool**. For **LINE**, drop in your artwork and it validates spec compliance, resizes, converts formats, renames, and packages everything into a ZIP ready for **LINE Creators Market**. It also builds **WhatsApp** sticker packs (`.wastickers`), and comes with general image utilities — crop (with lockable ratio), high-quality resize, and format conversion (PNG / JPEG / WebP). All processing runs client-side in your browser; your images never leave your device.
 
 ## 目前狀態
 

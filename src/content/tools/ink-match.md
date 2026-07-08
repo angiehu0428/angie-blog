@@ -7,6 +7,8 @@ features:
   - 讀取 Photoshop 前景色,即時比對
   - Coated / Uncoated 各列出最接近 Top 5
   - 用 CIE L*a*b* + ΔE2000 專業色差公式
+  - 選好的色號一鍵加進 Photoshop 色票,馬上能用
+  - 也能用色號反查、中英雙語介面切換
   - 免離開 Photoshop,面板內直接看結果
 status: soon
 order: 6

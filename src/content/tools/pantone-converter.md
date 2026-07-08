@@ -5,9 +5,11 @@ tag: 設計 · 免費工具
 desc: 免費線上 Pantone 色票轉換:PANTONE ↔ HEX / RGB / CMYK 互查。Photoshop 移除 Pantone 色庫後,設計師不用裝外掛的替代方案。
 features:
   - PANTONE ↔ HEX / RGB / CMYK 雙向轉換
+  - 銅版紙(Coated)、膠版紙(Uncoated)兩個色庫並列,各給 Top 5 + ΔE 色差
   - 免安裝、免外掛,瀏覽器打開就能用
   - Photoshop / Illustrator 移除 Pantone 後的免費替代方案
   - 找相近色:輸入任何顏色找最接近的 Pantone 色號
+  - 繁中 / 英 / 日 三語介面
 href: https://pantone-converter.pages.dev
 status: live
 order: 3
