@@ -21,6 +21,10 @@
 - [LINE 貼圖工廠 Sticker Factory](https://angiehu.com/tools/line-sticker-factory/): one-stop sticker & image tool — validate/fix/pack LINE stickers for Creators Market, build WhatsApp .wastickers, plus general image utilities (crop, resize, format convert), all client-side. Free to use at https://sticker.hucreates.com (paid unlock tier in development).
 - [Hu Creates 記帳系統 Expense PWA](https://angiehu.com/tools/hucreates-expense/): mobile expense-tracking PWA with AI receipt OCR, multi-user PIN login, and Square daily-revenue sync. Internal company tool.
 - [社群管理後台 Social Console](https://angiehu.com/tools/social-console/): multi-brand social media console — cross-post to FB/IG/Threads/X/TikTok/YouTube, scheduling, approval workflow, AI writing & reply drafts, audience analytics. In development.
+- [擲筊 Poe Divination](https://angiehu.com/tools/poe-divination/): 3D web jiaobei (moon-block) divination — shake your phone or tap, physics-simulated blocks tumble and land as 聖筊/笑筊/陰筊/立筊. Free, no login, works in the browser at https://poe-divination.pages.dev (64-hexagram module in the works).
+- [hu-meet 會議預約系統 Meeting Scheduler](https://angiehu.com/tools/hu-meet/): in-house Calendly replacement — one link with multiple durations and non-round-hour slots, multi-timezone, AI meeting notes (transcription + summary in zh/ja/en via Gemini), Notion sync, LINE notifications. Internal team tool.
+- [合約比對審閱器 Contract Diff](https://angiehu.com/tools/contract-diff/): side-by-side contract version comparison with clause-level diff, fully client-side (contracts never uploaded), supports DOCX/PDF/text, exports an HTML diff report, optional AI clause review. Internal Hu Creates tool.
+- [LINE 群組即時翻譯 Bot Group Translation Bot](https://angiehu.com/tools/line-translate-bot/): a LINE-group bot that auto-detects each message's language and translates two-way between Chinese and Korean/Japanese/Thai/Vietnamese; Gemini Flash primary with optional Claude, message content not stored, glossary keeps proper nouns consistent. Internal tool.
 
 ## Blog
 
