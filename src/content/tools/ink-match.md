@@ -11,6 +11,7 @@ features:
   - 也能用色號反查、中英雙語介面切換
   - 免離開 Photoshop,面板內直接看結果
 status: soon
+badge: update
 order: 6
 tags:
   - 設計工具

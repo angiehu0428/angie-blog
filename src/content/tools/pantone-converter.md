@@ -12,6 +12,7 @@ features:
   - 繁中 / 英 / 日 三語介面
 href: https://pantone-converter.pages.dev
 status: live
+badge: update
 order: 3
 tags:
   - 設計工具

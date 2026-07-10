@@ -12,6 +12,7 @@ features:
   - 附 LINE 規格頁,圖片全在瀏覽器端處理、不上傳伺服器
 href: https://sticker.hucreates.com
 status: live
+badge: update
 order: 7
 tags:
   - 設計工具

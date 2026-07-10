@@ -12,6 +12,7 @@ features:
   - Google Trends 熱搜關鍵字(可依國家),找題材有方向
   - 受眾分析自動寫成文字報告,含版權方 PDF 匯出
 status: soon
+badge: update
 order: 9
 tags:
   - AI 生活

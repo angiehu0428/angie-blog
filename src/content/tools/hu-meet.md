@@ -10,6 +10,7 @@ features:
   - 串接 Notion、LINE 通知
   - 出國模式:時段跟著你當地時間走
 status: internal
+badge: new
 order: 11
 tags:
   - 公司工具

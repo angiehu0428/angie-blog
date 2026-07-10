@@ -11,6 +11,7 @@ features:
   - 收支與損益即時彙整,成本/利潤兩種視圖
   - 涵蓋 Hu Creates 與姊妹公司帳務,帳目可匯出 CSV
 status: internal
+badge: update
 order: 8
 tags:
   - 記帳理財

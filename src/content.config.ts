@@ -31,6 +31,7 @@ const tools = defineCollection({
 		features: z.array(z.string()).default([]),
 		href: z.string().optional(),
 		status: z.enum(['live', 'internal', 'soon']).default('live'),
+		badge: z.enum(['new', 'update']).optional(), // 卡片右上角斜紅貼紙:new=新工具 / update=有更新
 		order: z.number().default(99),
 		keywords: z.array(z.string()).default([]), // SEO 關鍵字(中英文都放)
 		tags: z.array(z.string()).default([]), // 分類(首頁篩選用)

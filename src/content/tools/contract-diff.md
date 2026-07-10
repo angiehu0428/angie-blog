@@ -10,6 +10,7 @@ features:
   - 差異條款一鍵複製給 AI 審閱,或用內建 Gemini 分析
   - 匯出一份自足的 HTML 差異報告
 status: internal
+badge: new
 order: 12
 tags:
   - 公司工具

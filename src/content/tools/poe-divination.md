@@ -9,8 +9,9 @@ features:
   - 傳統直書籤詩紙:納音五行、屬性利季宜方位、四句籤詩、解曰四項
   - AI 深度解籤(付費訂閱):依你的問題和籤詩延伸解讀
   - 求籤紀錄可存、可換筊杯皮膚,手機/桌機都能用
-href: https://poe-divination.pages.dev
+href: https://poe.angiehu.com
 status: live
+badge: new
 order: 10
 tags:
   - AI 生活
@@ -43,7 +44,7 @@ keywords:
 
 ## 怎麼用?
 
-1. 打開 [poe-divination.pages.dev](https://poe-divination.pages.dev)
+1. 打開 [poe.angiehu.com](https://poe.angiehu.com)
 2. 選擲筊或求籤,在心裡誠心想好要請示的事
 3. 搖手機(或點畫面)擲筊/搖籤筒,看落下的筊象或抽到的籤詩
 4. 想深入解這支籤,再開 AI 深度解籤
@@ -55,4 +56,4 @@ A **3D web divination tool** for jiaobei (moon blocks) and fortune sticks. Shake
 ## 關於付費功能
 
 擲筊、三聖筊、求籤和完整籤詩,**免費開放使用**,現在就能用 ✨
-**AI 深度解籤**和進階筊杯皮膚走**付費訂閱**解鎖(之後也會上 IP 插畫皮膚)。
+**一次付費訂閱,同時解鎖兩個功能**:**AI 深度解籤**(依你的問題延伸解讀)和**換筊杯皮膚**(進階木紋皮膚,之後還會上 IP 插畫皮膚)。

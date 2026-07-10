@@ -10,6 +10,7 @@ features:
   - 隱私:不儲存訊息原文與翻譯結果
   - 可鎖定專有名詞、品牌譯名前後一致
 status: internal
+badge: new
 order: 13
 tags:
   - 公司工具

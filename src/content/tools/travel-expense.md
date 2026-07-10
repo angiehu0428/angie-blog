@@ -11,6 +11,7 @@ features:
   - 出差模式:設日支費額度,超支一眼看到
   - 還有行程表、天氣穿衣、朋友分攤、即時翻譯
 status: soon
+badge: update
 order: 2
 tags:
   - 記帳理財

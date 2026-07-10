@@ -94,6 +94,11 @@ const blocks = home.blocks ?? [];
 												data-cats={(t.tags ?? []).join(',')}
 												data-search={searchText}
 											>
+												{t.badge && (
+													<span class={`tool-badge tool-badge--${t.badge}`}>
+														{t.badge === 'update' ? 'UPDATE' : 'NEW'}
+													</span>
+												)}
 												<div class="tool-visual" data-v={i % 4}>
 													{t.cover ? (
 														<img src={t.cover} alt="" loading="lazy" />
@@ -389,6 +394,25 @@ const blocks = home.blocks ?? [];
 		margin-left: 1.6rem;
 		margin-right: 1.6rem;
 	}
+	/* 右上角斜貼的紅色小貼紙:NEW / UPDATE */
+	.tool-badge {
+		position: absolute;
+		top: 12px;
+		right: 10px;
+		z-index: 3;
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 0.6rem;
+		letter-spacing: 0.1em;
+		color: #fff;
+		background: #e5484d;
+		padding: 4px 10px;
+		border-radius: 5px;
+		transform: rotate(6deg);
+		box-shadow: 0 3px 9px rgba(200, 30, 40, 0.38);
+		pointer-events: none;
+	}
+	/* NEW / UPDATE 都用同一個紅,靠文字區分 */
 	/* 視覺區:有截圖用截圖,沒有用柔和漸層+大圖示(4 種變化輪流) */
 	.tool-visual {
 		width: 100%;

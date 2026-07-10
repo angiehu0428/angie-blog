@@ -98,6 +98,19 @@ collections:
           default: "live",
           hint: "選『開發中』或『內部』的工具:只會顯示功能介紹,不會給可點開的連結。",
         }
+      - {
+          label: "紅色小貼紙(卡片右上角,斜貼)",
+          name: "badge",
+          widget: "select",
+          required: false,
+          options:
+            [
+              { label: "無", value: "" },
+              { label: "NEW(新工具)", value: "new" },
+              { label: "UPDATE(有更新)", value: "update" },
+            ],
+          hint: "想讓某個工具在牆上被注意到就選 NEW 或 UPDATE;不用了就選『無』。",
+        }
       - { label: "排序(數字小的排前面)", name: "order", widget: "number", value_type: "int", default: 99 }
       - {
           label: "分類(首頁篩選用,可多個)",
