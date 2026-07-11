@@ -10,7 +10,7 @@ features:
   - Photoshop / Illustrator 移除 Pantone 後的免費替代方案
   - 找相近色:輸入任何顏色找最接近的 Pantone 色號
   - 繁中 / 英 / 日 三語介面
-href: https://pantone-converter.pages.dev
+href: https://color.hucreates.com
 status: live
 badge: update
 order: 3
@@ -47,7 +47,7 @@ A **free web-based Pantone color converter** — convert **PANTONE ↔ HEX / RGB
 
 ## 怎麼用?
 
-1. 點上方「打開工具」(或[直接前往](https://pantone-converter.pages.dev))
+1. 點上方「打開工具」(或[直接前往](https://color.hucreates.com))
 2. 輸入 Pantone 色號(例如 `PANTONE 186 C`)或任何 HEX / RGB 值
 3. 立刻拿到對應數值與最接近的色號,複製貼回你的設計軟體
 
