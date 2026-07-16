@@ -709,20 +709,22 @@ const blocks = home.blocks ?? [];
 
 	// 捲動進場浮現(尊重減少動態偏好)
 	if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-		const io = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((e) => {
-					if (e.isIntersecting) {
-						e.target.classList.add('in');
-						io.unobserve(e.target);
-					}
-				});
-			},
-			{ threshold: 0.12 },
-		);
-		document.querySelectorAll('.block .container').forEach((el) => {
-			el.classList.add('will-reveal');
-			io.observe(el);
-		});
+		// 用捲動位置(getBoundingClientRect)判斷顯示,不用 IntersectionObserver。
+		// ⚠️ 用 IntersectionObserver 的比例門檻(如 threshold 0.12)會害「比視窗還高的元素」
+		//    ——例如手機單欄堆疊的長工具牆(可高達 9000px+)——永遠達不到門檻、卡在 opacity:0,整區看不到。
+		//    改用「元素頂端進入視窗就顯示」,跟元素多高無關,iOS Safari 也穩。
+		const revealEls = Array.from(document.querySelectorAll<HTMLElement>('.block .container'));
+		revealEls.forEach((el) => el.classList.add('will-reveal'));
+		const reveal = () => {
+			const trigger = window.innerHeight * 0.9;
+			for (const el of revealEls) {
+				if (!el.classList.contains('in') && el.getBoundingClientRect().top < trigger) {
+					el.classList.add('in');
+				}
+			}
+		};
+		reveal(); // 載入時先顯示已在視窗內的
+		window.addEventListener('scroll', reveal, { passive: true });
+		window.addEventListener('resize', reveal, { passive: true });
 	}
 </script>
