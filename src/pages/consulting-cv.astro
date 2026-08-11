@@ -86,6 +86,23 @@ import Header from '../components/Header.astro';
 				if (data.intro) head.append(el('p', 'lede', data.intro));
 				cv.append(head);
 
+				// 圖片式履歷:整頁簡報依序排下來(Angie 的簡歷本來就是一頁一張圖)
+				if (data.slides && data.slides.length) {
+					const wrap = el('section', 'cv-slides');
+					for (const s of data.slides) {
+						const name = typeof s === 'string' ? s : s.file;
+						const fig = el('figure', null);
+						const img = document.createElement('img');
+						img.src = `/api/cv/photo/${encodeURIComponent(name)}`;
+						img.alt = (typeof s === 'object' && s.caption) || '履歷內頁';
+						img.loading = 'lazy';
+						fig.append(img);
+						if (typeof s === 'object' && s.caption) fig.append(el('figcaption', null, s.caption));
+						wrap.append(fig);
+					}
+					cv.append(wrap);
+				}
+
 				for (const job of data.experience || []) {
 					const sec = el('section', 'cv-job');
 
@@ -302,6 +319,28 @@ import Header from '../components/Header.astro';
 				line-height: 1.75;
 				color: var(--ink-soft);
 				margin: 0;
+			}
+			/* 圖片式履歷:一頁一張,整寬排下來 */
+			.cv-content :global(.cv-slides) {
+				display: grid;
+				gap: 1.6rem;
+				margin: 0 0 2.4rem;
+			}
+			.cv-content :global(.cv-slides figure) {
+				margin: 0;
+			}
+			.cv-content :global(.cv-slides img) {
+				width: 100%;
+				height: auto;
+				border-radius: 14px;
+				border: 1px solid var(--line);
+				box-shadow: 0 10px 28px rgba(38, 42, 63, 0.1);
+			}
+			.cv-content :global(.cv-slides figcaption) {
+				margin-top: 0.5rem;
+				font-size: 0.85rem;
+				color: var(--ink-soft);
+				text-align: center;
 			}
 			.cv-content :global(.cv-job) {
 				padding: 1.6rem 0 0;

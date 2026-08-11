@@ -66,6 +66,7 @@ if (badNames.length) {
 
 // 履歷裡點名的照片,檔案要真的在
 const referenced = new Set();
+for (const s of cv.slides || []) referenced.add(typeof s === 'string' ? s : s.file);
 for (const job of cv.experience || []) {
 	for (const p of job.photos || []) referenced.add(typeof p === 'string' ? p : p.file);
 }
