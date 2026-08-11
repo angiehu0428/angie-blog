@@ -1,0 +1,35 @@
+{
+  "_說明": "這是格式範本。複製成 private/cv/cv.json 再填真實內容 —— private/ 已 gitignore,不會進公開 repo。填好跑 npm run cv:push 上傳。這個範本檔本身會進公開 repo,所以不要在這裡填真實內容。",
+
+  "title": "顧問履歷 — Angie Hu",
+  "updated": "2026-08",
+  "intro": "一段開場,說明這份履歷提供給誰、涵蓋什麼。",
+
+  "experience": [
+    {
+      "period": "2019 – 現在",
+      "org": "公司或專案名稱",
+      "role": "職稱 / 角色",
+      "points": [
+        "做了什麼、負責什麼範圍。",
+        "帶來什麼結果(數字越具體越有說服力)。"
+      ],
+      "photos": [
+        "example-1.jpg",
+        { "file": "example-2.jpg", "caption": "照片說明(可省略)" }
+      ]
+    },
+    {
+      "period": "2013 – 2016",
+      "org": "另一段經歷",
+      "role": "職稱",
+      "points": ["重點一。", "重點二。"],
+      "photos": []
+    }
+  ],
+
+  "clients": ["客戶 A", "客戶 B", "客戶 C"],
+
+  "note": "補充說明,例如保密範圍、可提供的參考人等(可省略)。",
+  "contactText": "想進一步討論合作?"
+}

@@ -16,6 +16,8 @@ pnpm-debug.log*
 # environment variables
 .env
 .env.production
+# wrangler 本機測試用的 secrets
+.dev.vars
 
 # macOS-specific files
 .DS_Store
@@ -28,3 +30,6 @@ pnpm-debug.log*
 
 # 設計稿(未定稿,不進公開 repo)
 mockups/
+
+# 顧問履歷的私密內容與照片(只上傳到 Cloudflare KV,絕不進公開 repo)
+private/

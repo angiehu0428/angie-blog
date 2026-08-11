@@ -8,7 +8,8 @@ import remarkMedia from './src/plugins/remark-media.mjs';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://angiehu.com',
-	integrations: [mdx(), sitemap()],
+	// 顧問履歷是密碼保護的私人頁面,不要放進 sitemap 幫搜尋引擎指路
+	integrations: [mdx(), sitemap({ filter: (page) => !page.includes('/consulting-cv') })],
 	markdown: {
 		remarkPlugins: [remarkMedia],
 	},
