@@ -1,10 +1,13 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "angie-blog",
-  "compatibility_date": "2026-06-01",
-  "main": "worker/index.js",
-  "assets": {
-    "directory": "./dist",
-    "binding": "ASSETS"
-  }
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "angie-blog",
+	"compatibility_date": "2026-06-01",
+	"main": "worker/index.js",
+	"assets": {
+		"directory": "./dist",
+		"binding": "ASSETS"
+	},
+	// 顧問履歷的內容與照片存這裡(不進 repo)。namespace id 不是密碼,
+	// 要存取仍需 Cloudflare 帳號權限。secrets 另外設:CV_PASSWORD / CV_SESSION_SECRET
+	"kv_namespaces": [{ "binding": "CV", "id": "4f65381a88c2484db1d4a8995aa979a9" }]
 }
