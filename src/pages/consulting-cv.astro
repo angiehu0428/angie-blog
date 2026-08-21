@@ -1,0 +1,459 @@
+---
+// 顧問履歷(密碼保護)。
+// ⚠️ 這個檔案裡刻意「不放任何履歷內容」——內容與照片都存在 Cloudflare KV,
+//    由 worker/index.js 的 /api/cv/* 驗證密碼後才吐出來。
+//    這個 repo 是公開的,任何寫在這裡的東西等於公開。要改內容請改 private/cv/,
+//    再跑 `npm run cv:push` 上傳到 KV。
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+	<head>
+		<BaseHead title="顧問履歷｜Angie Hu" description="需要密碼才能瀏覽的顧問履歷。" />
+		<meta name="robots" content="noindex, nofollow" />
+	</head>
+	<body>
+		<Header />
+
+		<main class="cv-main">
+			<!-- 密碼閘門 -->
+			<section class="cv-gate" id="gate">
+				<div class="cv-blob" aria-hidden="true"></div>
+				<div class="gate-card">
+					<span class="kicker">PRIVATE · 顧問履歷</span>
+					<h1>這頁需要密碼</h1>
+					<p class="lede">
+						完整的工作經歷與作品照片僅提供給洽談中的合作對象。請輸入 Angie 給您的密碼。
+					</p>
+					<form id="gate-form" autocomplete="off">
+						<label class="sr-only" for="cv-password">密碼</label>
+						<input
+							id="cv-password"
+							name="password"
+							type="password"
+							inputmode="numeric"
+							placeholder="請輸入密碼"
+							required
+							maxlength="100"
+						/>
+						<button class="btn btn-primary" type="submit" id="gate-submit">進入</button>
+					</form>
+					<p class="gate-msg" id="gate-msg" role="status" aria-live="polite"></p>
+					<p class="gate-foot">
+						還沒有密碼?<a href="/contact">來信洽談</a>,Angie 會回覆您。
+					</p>
+				</div>
+			</section>
+
+			<!-- 履歷內容(登入後由 JS 填入) -->
+			<section class="cv-content" id="cv" hidden></section>
+		</main>
+
+		<Footer />
+
+		<script>
+			const gate = document.getElementById('gate');
+			const form = document.getElementById('gate-form');
+			const input = document.getElementById('cv-password');
+			const submit = document.getElementById('gate-submit');
+			const msg = document.getElementById('gate-msg');
+			const cv = document.getElementById('cv');
+
+			const ERRORS = {
+				bad_password: '密碼不對,請再確認一次。',
+				too_many_tries: '嘗試太多次了,請一小時後再試。',
+				not_configured: '這個頁面還在設定中,請稍後再來。',
+				empty: '履歷內容還沒上傳,請聯絡 Angie。',
+			};
+
+			function el(tag, className, text) {
+				const n = document.createElement(tag);
+				if (className) n.className = className;
+				if (text != null) n.textContent = text;
+				return n;
+			}
+
+			function render(data) {
+				cv.textContent = '';
+
+				const head = el('header', 'cv-head');
+				head.append(el('span', 'kicker', 'PRIVATE · 顧問履歷'));
+				head.append(el('h1', null, data.title || '顧問履歷'));
+				if (data.updated) head.append(el('p', 'cv-updated', `更新於 ${data.updated}`));
+				if (data.intro) head.append(el('p', 'lede', data.intro));
+				cv.append(head);
+
+				// 圖片式履歷:整頁簡報依序排下來(Angie 的簡歷本來就是一頁一張圖)
+				if (data.slides && data.slides.length) {
+					const wrap = el('section', 'cv-slides');
+					for (const s of data.slides) {
+						const name = typeof s === 'string' ? s : s.file;
+						const fig = el('figure', null);
+						const img = document.createElement('img');
+						img.src = `/api/cv/photo/${encodeURIComponent(name)}`;
+						img.alt = (typeof s === 'object' && s.caption) || '履歷內頁';
+						img.loading = 'lazy';
+						fig.append(img);
+						if (typeof s === 'object' && s.caption) fig.append(el('figcaption', null, s.caption));
+						wrap.append(fig);
+					}
+					cv.append(wrap);
+				}
+
+				for (const job of data.experience || []) {
+					const sec = el('section', 'cv-job');
+
+					const top = el('div', 'cv-job-top');
+					if (job.period) top.append(el('span', 'cv-period', job.period));
+					const heads = el('div', null);
+					if (job.org) heads.append(el('h2', null, job.org));
+					if (job.role) heads.append(el('p', 'cv-role', job.role));
+					top.append(heads);
+					sec.append(top);
+
+					if (job.points && job.points.length) {
+						const ul = el('ul', 'cv-points');
+						for (const p of job.points) ul.append(el('li', null, p));
+						sec.append(ul);
+					}
+
+					if (job.photos && job.photos.length) {
+						const grid = el('div', 'cv-photos');
+						for (const p of job.photos) {
+							const name = typeof p === 'string' ? p : p.file;
+							const fig = el('figure', null);
+							const img = document.createElement('img');
+							img.src = `/api/cv/photo/${encodeURIComponent(name)}`;
+							img.alt = (typeof p === 'object' && p.caption) || job.org || '';
+							img.loading = 'lazy';
+							fig.append(img);
+							if (typeof p === 'object' && p.caption) fig.append(el('figcaption', null, p.caption));
+							grid.append(fig);
+						}
+						sec.append(grid);
+					}
+
+					cv.append(sec);
+				}
+
+				if (data.clients && data.clients.length) {
+					const sec = el('section', 'cv-job');
+					sec.append(el('h2', null, '顧問客戶'));
+					const ul = el('ul', 'cv-clients');
+					for (const c of data.clients) ul.append(el('li', null, c));
+					sec.append(ul);
+					cv.append(sec);
+				}
+
+				if (data.note) cv.append(el('p', 'cv-note', data.note));
+
+				const foot = el('section', 'cv-cta');
+				foot.append(el('p', null, data.contactText || '想進一步討論合作?'));
+				const a = el('a', 'btn btn-primary', '來信洽談');
+				a.href = '/contact';
+				foot.append(a);
+				cv.append(foot);
+
+				gate.hidden = true;
+				cv.hidden = false;
+				cv.scrollIntoView({ block: 'start' });
+			}
+
+			async function load() {
+				const r = await fetch('/api/cv/data', { credentials: 'same-origin' });
+				if (!r.ok) {
+					const e = await r.json().catch(() => ({}));
+					msg.textContent = ERRORS[e.error] || '讀取失敗,請稍後再試。';
+					return;
+				}
+				render(await r.json());
+			}
+
+			form.addEventListener('submit', async (ev) => {
+				ev.preventDefault();
+				msg.textContent = '';
+				submit.disabled = true;
+				submit.textContent = '確認中…';
+				try {
+					const r = await fetch('/api/cv/login', {
+						method: 'POST',
+						headers: { 'content-type': 'application/json' },
+						credentials: 'same-origin',
+						body: JSON.stringify({ password: input.value }),
+					});
+					if (r.ok) {
+						await load();
+					} else {
+						const e = await r.json().catch(() => ({}));
+						msg.textContent = ERRORS[e.error] || '無法進入,請稍後再試。';
+						input.select();
+					}
+				} catch {
+					msg.textContent = '連線出了問題,請檢查網路後再試。';
+				} finally {
+					submit.disabled = false;
+					submit.textContent = '進入';
+				}
+			});
+
+			// 12 小時內看過的人,重新整理不用再輸入一次
+			fetch('/api/cv/data', { credentials: 'same-origin' })
+				.then((r) => (r.ok ? r.json() : null))
+				.then((d) => d && render(d))
+				.catch(() => {});
+		</script>
+
+		<style>
+			.cv-main {
+				width: 820px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 2.5rem 1em 3rem;
+			}
+
+			/* ── 密碼閘門 ── */
+			.cv-gate {
+				position: relative;
+				display: grid;
+				place-items: center;
+				min-height: 60vh;
+			}
+			.cv-blob {
+				position: absolute;
+				inset: -10% 10% auto 10%;
+				height: 320px;
+				background: var(--accent-gradient);
+				filter: blur(80px);
+				opacity: 0.35;
+				border-radius: 50%;
+				pointer-events: none;
+			}
+			.gate-card {
+				position: relative;
+				width: 100%;
+				max-width: 440px;
+				background: rgba(255, 254, 251, 0.75);
+				backdrop-filter: blur(12px);
+				border: 1px solid var(--line);
+				border-radius: var(--r);
+				box-shadow: 0 18px 40px rgba(38, 42, 63, 0.1);
+				padding: 2.2rem 1.8rem;
+				text-align: center;
+			}
+			.gate-card h1 {
+				font-size: 1.9rem;
+				font-weight: 800;
+				margin: 0.6rem 0 0.8rem;
+			}
+			.gate-card .lede {
+				color: var(--ink-soft);
+				font-size: 0.98rem;
+				line-height: 1.7;
+				margin: 0 0 1.4rem;
+			}
+			#gate-form {
+				display: grid;
+				gap: 0.7rem;
+			}
+			#cv-password {
+				width: 100%;
+				padding: 0.85rem 1rem;
+				font: inherit;
+				font-size: 1.05rem;
+				letter-spacing: 0.12em;
+				text-align: center;
+				color: var(--ink);
+				background: var(--paper-2);
+				border: 1px solid var(--line);
+				border-radius: 12px;
+			}
+			#cv-password:focus {
+				outline: none;
+				border-color: var(--peri);
+				box-shadow: 0 0 0 3px rgba(var(--accent-soft), 0.22);
+			}
+			.gate-msg {
+				min-height: 1.4em;
+				margin: 0.9rem 0 0;
+				font-size: 0.9rem;
+				font-weight: 600;
+				color: #c2453f;
+			}
+			.gate-foot {
+				margin: 0.6rem 0 0;
+				font-size: 0.86rem;
+				color: var(--ink-soft);
+			}
+			.gate-foot a {
+				color: var(--accent-dark);
+				font-weight: 600;
+			}
+			.sr-only {
+				position: absolute;
+				width: 1px;
+				height: 1px;
+				overflow: hidden;
+				clip: rect(0 0 0 0);
+				white-space: nowrap;
+			}
+
+			/* ── 履歷內容 ── */
+			.cv-content :global(.cv-head) {
+				margin: 0 0 2.6rem;
+			}
+			.cv-content :global(.cv-head h1) {
+				font-size: 2.4rem;
+				font-weight: 800;
+				margin: 0.5rem 0 0.4rem;
+			}
+			.cv-content :global(.cv-updated) {
+				font-size: 0.85rem;
+				color: var(--ink-soft);
+				margin: 0 0 0.9rem;
+			}
+			.cv-content :global(.lede) {
+				font-size: 1.05rem;
+				line-height: 1.75;
+				color: var(--ink-soft);
+				margin: 0;
+			}
+			/* 圖片式履歷:一頁一張,整寬排下來 */
+			.cv-content :global(.cv-slides) {
+				display: grid;
+				gap: 1.6rem;
+				margin: 0 0 2.4rem;
+			}
+			.cv-content :global(.cv-slides figure) {
+				margin: 0;
+			}
+			.cv-content :global(.cv-slides img) {
+				width: 100%;
+				height: auto;
+				border-radius: 14px;
+				border: 1px solid var(--line);
+				box-shadow: 0 10px 28px rgba(38, 42, 63, 0.1);
+			}
+			.cv-content :global(.cv-slides figcaption) {
+				margin-top: 0.5rem;
+				font-size: 0.85rem;
+				color: var(--ink-soft);
+				text-align: center;
+			}
+			.cv-content :global(.cv-job) {
+				padding: 1.6rem 0 0;
+				border-top: 1px solid var(--line);
+				margin: 0 0 1.8rem;
+			}
+			.cv-content :global(.cv-job-top) {
+				display: flex;
+				gap: 1.2rem;
+				align-items: baseline;
+				flex-wrap: wrap;
+			}
+			.cv-content :global(.cv-period) {
+				flex: 0 0 auto;
+				font-family: var(--font-display, inherit);
+				font-size: 0.85rem;
+				font-weight: 700;
+				letter-spacing: 0.06em;
+				color: var(--accent-dark);
+				background: rgba(var(--accent-soft), 0.1);
+				border-radius: 999px;
+				padding: 0.3rem 0.85rem;
+			}
+			.cv-content :global(.cv-job h2) {
+				font-size: 1.4rem;
+				font-weight: 800;
+				margin: 0;
+			}
+			.cv-content :global(.cv-role) {
+				margin: 0.2rem 0 0;
+				color: var(--ink-soft);
+				font-size: 0.95rem;
+			}
+			.cv-content :global(.cv-points) {
+				margin: 1rem 0 0;
+				padding-left: 1.2rem;
+				display: grid;
+				gap: 0.5rem;
+				line-height: 1.7;
+			}
+			.cv-content :global(.cv-photos) {
+				margin: 1.3rem 0 0;
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+				gap: 1rem;
+			}
+			.cv-content :global(.cv-photos figure) {
+				margin: 0;
+			}
+			.cv-content :global(.cv-photos img) {
+				width: 100%;
+				height: auto;
+				border-radius: 14px;
+				border: 1px solid var(--line);
+				box-shadow: 0 8px 20px rgba(38, 42, 63, 0.08);
+			}
+			.cv-content :global(.cv-photos figcaption) {
+				margin-top: 0.45rem;
+				font-size: 0.82rem;
+				color: var(--ink-soft);
+			}
+			.cv-content :global(.cv-clients) {
+				list-style: none;
+				padding: 0;
+				margin: 0.9rem 0 0;
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.6rem;
+			}
+			.cv-content :global(.cv-clients li) {
+				background: rgba(var(--accent-soft), 0.12);
+				color: var(--accent-dark);
+				border: 1px solid rgba(var(--accent-soft), 0.3);
+				border-radius: 999px;
+				padding: 0.4rem 1rem;
+				font-size: 0.9rem;
+				font-weight: 600;
+			}
+			.cv-content :global(.cv-note) {
+				font-size: 0.88rem;
+				color: var(--ink-soft);
+				line-height: 1.7;
+			}
+			.cv-content :global(.cv-cta) {
+				margin-top: 2.4rem;
+				padding: 1.8rem;
+				text-align: center;
+				background: rgba(var(--accent-soft), 0.07);
+				border: 1px solid var(--line);
+				border-radius: var(--r);
+			}
+			.cv-content :global(.cv-cta p) {
+				margin: 0 0 1rem;
+				font-weight: 600;
+			}
+
+			@media (max-width: 520px) {
+				.cv-main {
+					padding: 1.5rem 1em 2rem;
+				}
+				.gate-card {
+					padding: 1.8rem 1.2rem;
+				}
+				.gate-card h1 {
+					font-size: 1.6rem;
+				}
+				.cv-content :global(.cv-head h1) {
+					font-size: 1.9rem;
+				}
+				.cv-content :global(.cv-photos) {
+					grid-template-columns: 1fr;
+				}
+			}
+		</style>
+	</body>
+</html>
