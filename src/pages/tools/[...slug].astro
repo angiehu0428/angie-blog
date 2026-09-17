@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 
 const tool = Astro.props;
 const { Content } = await render(tool);
-const { name, icon, tag, desc, cover, features, href, status, keywords } = tool.data;
+const { name, icon, tag, tag_en, desc, desc_en, cover, features, features_en, href, status, keywords } = tool.data;
 const isOpen = status === 'live';
 const badge =
 	status === 'internal' ? '🔒 內部工具 · 對外版本開發中' : '🚧 對外版本開發中,敬請期待';
@@ -38,24 +38,49 @@ const schema = toolSchema({ name, desc, pageUrl, href, cover, keywords, isOpen }
 	<body>
 		<Header />
 		<main class="tool-main">
-			<a class="back" href="/#tools">← 所有工具</a>
+			<a class="back" href="/#tools">
+				<span class="i18n-zh">← 所有工具</span>
+				<span class="i18n-en" hidden>
+					← All tools
+				</span>
+			</a>
 
 			<header class="tool-head">
 				<div class="tool-icon">{icon}</div>
 				<div>
-					{tag && <span class="tool-tag">{tag}</span>}
+					{tag && (
+						<span class="tool-tag">
+							<span class="i18n-zh">{tag}</span>
+							<span class="i18n-en" hidden>
+								{tag_en || tag}
+							</span>
+						</span>
+					)}
 					<h1>{name}</h1>
-					<p class="lede">{desc}</p>
+					<p class="lede i18n-zh">{desc}</p>
+					<p class="lede i18n-en" hidden>
+						{desc_en || desc}
+					</p>
 					<div class="cta-row">
 						{
 							isOpen ? (
 								href && (
 									<a class="btn btn-primary" href={href} target="_blank" rel="noopener">
-										打開工具 →
+										<span class="i18n-zh">打開工具 →</span>
+										<span class="i18n-en" hidden>
+											Open tool →
+										</span>
 									</a>
 								)
 							) : (
-								<span class="tool-status">{badge}</span>
+								<span class="tool-status">
+									<span class="i18n-zh">{badge}</span>
+									<span class="i18n-en" hidden>
+										{status === 'internal'
+											? '🔒 Internal tool · public version in development'
+											: '🚧 Public version in development'}
+									</span>
+								</span>
 							)
 						}
 					</div>
@@ -64,8 +89,17 @@ const schema = toolSchema({ name, desc, pageUrl, href, cover, keywords, isOpen }
 
 			{
 				features.length > 0 && (
-					<ul class="tool-features">
+					<ul class="tool-features i18n-zh">
 						{features.map((f) => (
+							<li>{f}</li>
+						))}
+					</ul>
+				)
+			}
+			{
+				features_en.length > 0 && (
+					<ul class="tool-features i18n-en" hidden>
+						{features_en.map((f) => (
 							<li>{f}</li>
 						))}
 					</ul>
@@ -82,7 +116,10 @@ const schema = toolSchema({ name, desc, pageUrl, href, cover, keywords, isOpen }
 				isOpen && href && (
 					<p class="bottom-cta">
 						<a class="btn btn-primary" href={href} target="_blank" rel="noopener">
-							試用 {name} →
+							<span class="i18n-zh">試用 {name} →</span>
+							<span class="i18n-en" hidden>
+								Try {name} →
+							</span>
 						</a>
 					</p>
 				)
@@ -91,7 +128,10 @@ const schema = toolSchema({ name, desc, pageUrl, href, cover, keywords, isOpen }
 				!isOpen && (
 					<p class="bottom-cta">
 						<a class="btn btn-primary" href="/contact">
-							有興趣?推出時通知我 →
+							<span class="i18n-zh">有興趣?推出時通知我 →</span>
+							<span class="i18n-en" hidden>
+								Interested? Notify me when it launches →
+							</span>
 						</a>
 					</p>
 				)

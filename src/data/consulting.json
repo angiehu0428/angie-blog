@@ -1,76 +1,115 @@
 {
   "title": "顧問諮詢",
+  "title_en": "Consulting",
   "intro": "設計、IP 授權、跨國市場、AI 工具——二十年橫跨創意與商業的實戰經驗,幫你把好點子變成能落地、能賺錢的計畫。",
+  "intro_en": "Design, IP licensing, cross-border markets, AI tools — two decades of hands-on experience spanning creative work and business, helping you turn a good idea into a plan that ships and makes money.",
   "credentials": {
     "heading": "為什麼找我",
+    "heading_en": "Why work with me",
     "items": [
       {
         "icon": "🎨",
         "title": "頂尖設計背景",
-        "text": "洛杉磯 Art Center College of Design 畢業,曾任迪士尼(Disney)、社交遊戲大廠 Zynga 資深概念設計師。"
+        "title_en": "Top-tier design background",
+        "text": "洛杉磯 Art Center College of Design 畢業,曾任迪士尼(Disney)、社交遊戲大廠 Zynga 資深概念設計師。",
+        "text_en": "Graduate of Art Center College of Design in Los Angeles; former senior concept designer at Disney and social-game giant Zynga."
       },
       {
         "icon": "🐯",
         "title": "IP 授權經紀實戰",
-        "text": "Hu Creates 胡創創辦人,專業藝術與 IP 授權經紀;代理《胖虎》《鯊魚先生》《Sharkitty》等 IP。"
+        "title_en": "Hands-on IP licensing",
+        "text": "Hu Creates 胡創創辦人,專業藝術與 IP 授權經紀;代理《胖虎》《鯊魚先生》《Sharkitty》等 IP。",
+        "text_en": "Founder of Hu Creates, a professional art & IP licensing agency representing IP including Alexander the Fat Tiger, Mr. Shark, and Sharkitty."
       },
       {
         "icon": "🌏",
         "title": "連結亞洲與國際",
-        "text": "長期把亞洲藝術家帶向歐美市場、也把歐美 IP 引進亞洲,熟悉跨國授權與合作眉角。"
+        "title_en": "Bridging Asia and the world",
+        "text": "長期把亞洲藝術家帶向歐美市場、也把歐美 IP 引進亞洲,熟悉跨國授權與合作眉角。",
+        "text_en": "Years of bringing Asian artists to Western markets and Western IP into Asia — fluent in the details of cross-border licensing and partnerships."
       },
       {
         "icon": "💼",
         "title": "企業顧問經歷",
-        "text": "曾任 遊戲橘子、網銀國際、ASUS、紅心辣椒、夢想動畫、好奇心創意 等企業顧問。"
+        "title_en": "Corporate consulting experience",
+        "text": "曾任 遊戲橘子、網銀國際、ASUS、紅心辣椒、夢想動畫、好奇心創意 等企業顧問。",
+        "text_en": "Consulting experience with Gamania, WANIN International, ASUS, Cayenne Entertainment, Moonshine Animation, and Curiosity Creative."
       }
     ]
   },
   "areas": {
     "heading": "我可以幫你什麼",
+    "heading_en": "What I can help with",
     "items": [
       {
         "icon": "📜",
         "title": "IP 授權策略",
-        "desc": "角色 / 圖像怎麼商業化、找對合作對象、談授權條件與分潤,避開常見的法律與合約地雷。"
+        "title_en": "IP Licensing Strategy",
+        "desc": "角色 / 圖像怎麼商業化、找對合作對象、談授權條件與分潤,避開常見的法律與合約地雷。",
+        "desc_en": "How to commercialize a character or artwork, find the right partners, negotiate licensing terms and royalty splits, and avoid the common legal and contract pitfalls."
       },
       {
         "icon": "🤝",
         "title": "藝術家經紀與媒合",
-        "desc": "幫創作者評估作品的市場潛力,規劃如何把作品帶進品牌合作與國際市場。"
+        "title_en": "Artist Representation & Matchmaking",
+        "desc": "幫創作者評估作品的市場潛力,規劃如何把作品帶進品牌合作與國際市場。",
+        "desc_en": "Helping creators assess their work's market potential and plan how to bring it into brand collaborations and international markets."
       },
       {
         "icon": "✏️",
         "title": "概念設計 / 藝術指導",
-        "desc": "遊戲、動畫、角色的美術方向與風格定調,從概念到落地的製作流程建議。"
+        "title_en": "Concept Design / Art Direction",
+        "desc": "遊戲、動畫、角色的美術方向與風格定調,從概念到落地的製作流程建議。",
+        "desc_en": "Art direction and style for games, animation, and character design — from concept through production process guidance."
       },
       {
         "icon": "🤖",
         "title": "AI 工具導入",
-        "desc": "用 AI 優化你的創作與營運流程——就像我幫自己做的那些工具,幫你找出可以自動化的地方。"
+        "title_en": "AI Tool Adoption",
+        "desc": "用 AI 優化你的創作與營運流程——就像我幫自己做的那些工具,幫你找出可以自動化的地方。",
+        "desc_en": "Using AI to streamline your creative and operational workflows — the same way I built the tools I use myself — helping you find what can be automated."
       }
     ]
   },
   "pricing": {
     "heading": "IP 顧問服務方案",
+    "heading_en": "IP Consulting Plans",
     "note": "填一下需求,即可看到完整報價;實際方案可依需求討論調整(以下均為未稅)。",
+    "note_en": "Fill in your needs to see the full pricing; plans can be adjusted based on your requirements (all prices below are pre-tax).",
     "tiers": [
       {
         "name": "方案一｜小時制顧問",
+        "name_en": "Plan 1 | Hourly Consulting",
         "label": "按小時計費",
+        "label_en": "Billed hourly",
         "desc": "適合臨時需要專業建議、短期專案或階段性諮詢。",
+        "desc_en": "Best for ad-hoc professional advice, short-term projects, or milestone-based consulting.",
         "included": ["彈性、按需計費", "會前先了解你的需求", "會後重點與建議整理"],
+        "included_en": [
+          "Flexible, pay-as-you-go",
+          "Requirements reviewed before the session",
+          "Key takeaways and recommendations summarized afterward"
+        ],
         "highlight": false
       },
       {
         "name": "方案二｜固定月顧問",
+        "name_en": "Plan 2 | Monthly Retainer",
         "label": "月費制",
+        "label_en": "Monthly",
         "desc": "穩定、持續的深度合作,追蹤並優化你的 IP 策略。",
+        "desc_en": "Ongoing, in-depth collaboration to track and refine your IP strategy over time.",
         "included": [
           "每週一次會議(1.5–2 小時)",
           "或涵蓋 2 個 IP 的顧問服務",
           "深入討論市場、授權、策略",
           "附帶基礎提案與規劃建議"
+        ],
+        "included_en": [
+          "Weekly meeting (1.5–2 hours)",
+          "Or covers consulting for 2 IPs",
+          "In-depth discussion on market, licensing, and strategy",
+          "Includes basic proposal and planning recommendations"
         ],
         "highlight": true
       }
@@ -78,8 +117,11 @@
   },
   "cta": {
     "heading": "預約諮詢",
+    "heading_en": "Book a Consultation",
     "text": "想聊聊?先填一份簡單的諮詢需求,我看到後會親自跟你聯繫、確認方向與時間。為了讓諮詢更有效率,建議先把相關資料與想問的問題整理好。",
+    "text_en": "Want to talk? Fill in a short form first — I'll personally follow up to confirm direction and timing. To make the conversation more effective, it helps to have your background info and questions ready beforehand.",
     "buttonLabel": "填寫諮詢需求 →",
+    "buttonLabel_en": "Submit a consulting request →",
     "buttonHref": "/contact?subject=顧問諮詢"
   }
 }

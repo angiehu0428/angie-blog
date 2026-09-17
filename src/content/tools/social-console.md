@@ -2,7 +2,9 @@
 name: 社群管理後台
 icon: 📣
 tag: AI · 社群經營
+tag_en: "AI · Social media management"
 desc: 同時經營好幾個品牌 IP 的社群,一篇貼文要在六個平台各發一次、私訊回不完、月報寫到天亮。一次撰寫多平台發布,AI 幫你寫文案、生私訊回覆草稿、把數據寫成看得懂的報告——小編的重複工作交給 AI。
+desc_en: "Running social for several brand IPs at once means posting the same content six times across platforms, an endless DM queue, and writing monthly reports until dawn. Write once and publish everywhere, let AI draft captions and DM reply drafts, and turn analytics into a readable report — handing the repetitive parts of social management to AI."
 features:
   - 一次撰寫,跨 FB / IG / Threads / X / TikTok / YouTube 發布
   - 發文排程 + 內容行事曆,改期、編輯都在同一頁
@@ -11,6 +13,14 @@ features:
   - AI 客服草稿:私訊自動生成回覆,真人審核後送出
   - Google Trends 熱搜關鍵字(可依國家),找題材有方向
   - 受眾分析自動寫成文字報告,含版權方 PDF 匯出
+features_en:
+  - "Write once, publish across FB / IG / Threads / X / TikTok / YouTube"
+  - "Post scheduling + content calendar — reschedule and edit on the same page"
+  - "Approval workflow: staff submit, managers approve and publish with one click"
+  - "AI writing assistant: caption from an image, polish, translate, or rewrite in a different tone"
+  - "AI-drafted customer replies for DMs, sent only after human review"
+  - "Google Trends keyword lookup (by country) for content ideas"
+  - "Audience analytics auto-written as a readable report, with PDF export for rights holders"
 status: soon
 badge: update
 order: 9

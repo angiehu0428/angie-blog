@@ -10,25 +10,36 @@
         { "text": "IP 授權", "chip": "peach" },
         { "text": " 🐯 談成生意。" }
       ],
+      "statementEn": [
+        { "text": "Trained as an artist. Went from 🎨 concept art to shipping " },
+        { "text": "AI tools", "chip": "peri" },
+        { "text": " 🤖, and turned " },
+        { "text": "IP licensing", "chip": "peach" },
+        { "text": " 🐯 into a business." }
+      ],
       "enSubtitle": "From concept art to AI tools — turning creative instinct into IP that ships.",
       "chips": [
-        { "year": "2007", "text": "Disney・Zynga 概念設計" },
-        { "year": "2019", "text": "Hu Creates IP 授權" },
-        { "year": "NOW", "text": "AI 工具製作中" }
+        { "year": "2007", "text": "Disney・Zynga 概念設計", "textEn": "Disney・Zynga concept design" },
+        { "year": "2019", "text": "Hu Creates IP 授權", "textEn": "Hu Creates IP licensing" },
+        { "year": "NOW", "text": "AI 工具製作中", "textEn": "Building AI tools" }
       ],
       "sideRoles": [
-        { "text": "🎓 講師" },
-        { "text": "💼 顧問", "href": "/consulting" },
-        { "text": "🎪 活動策劃" },
-        { "text": "🖼️ 畫展籌備中" }
+        { "text": "🎓 講師", "textEn": "🎓 Speaker" },
+        { "text": "💼 顧問", "textEn": "💼 Consultant", "href": "/consulting" },
+        { "text": "🎪 活動策劃", "textEn": "🎪 Event Producer" },
+        { "text": "🖼️ 畫展籌備中", "textEn": "🖼️ Art Show (in prep)" }
       ],
       "primaryLabel": "看看我做的東西",
+      "primaryLabelEn": "See what I've made",
       "primaryHref": "#tools",
       "ghostLabel": "我的故事",
+      "ghostLabelEn": "My story",
       "ghostHref": "/about",
       "credits": ["Disney", "Zynga", "TheRealStanLee.com", "INSIDE", "ASUS", "Gamania"],
       "badge": "跟 AI 一起,",
+      "badgeEn": "With AI,",
       "badgeBold": "每天都在出貨",
+      "badgeBoldEn": "shipping every day",
       "heroImage": "/uploads/angie-hero.jpg",
       "conceptImage": "/uploads/concept-art-cars2.jpg",
       "conceptCredit": "Test painting,《Cars 2》(Disney/Pixar),個人職涯作品集用"
@@ -36,11 +47,14 @@
     {
       "type": "tools",
       "heading": "我的 AI 工具",
-      "subtitle": "用 AI 把重複、麻煩的事變簡單。可以用分類或關鍵字找工具。"
+      "headingEn": "My AI Tools",
+      "subtitle": "用 AI 把重複、麻煩的事變簡單。可以用分類或關鍵字找工具。",
+      "subtitleEn": "Using AI to make repetitive, tedious work simple. Browse by category or search by keyword."
     },
     {
       "type": "latestPosts",
       "heading": "最新文章",
+      "headingEn": "Latest Posts",
       "count": 3
     }
   ]

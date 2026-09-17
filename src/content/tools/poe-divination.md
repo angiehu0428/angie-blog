@@ -2,13 +2,21 @@
 name: 擲筊求籤 Poe Divination
 icon: 🥠
 tag: AI · 占卜
+tag_en: "AI · Divination"
 desc: 想擲筊、求籤問事,人不一定在廟裡,手邊也沒筊杯籤筒。這個線上版:搖手機就擲 3D 筊杯,還能搖籤筒求「天上聖母六十甲子籤」,抽到籤有完整籤詩,想深入還有 AI 幫你依問題解籤。
+desc_en: "Want to cast divination blocks or draw a temple fortune stick but you're not at a temple, and there's no jiaobei or fortune canister on hand? This is the online version: shake your phone to cast 3D jiaobei blocks, or shake a 3D canister to draw from the \"Sixty Jiazi\" fortune sticks of Mazu, complete with the full fortune poem — and AI can interpret it against your specific question if you want to go deeper."
 features:
   - 3D 物理擲筊(聖筊/笑筊/陰筊/立筊),三種模式:單擲、三聖筊、求籤
   - 求籤:搖 3D 籤筒抽竹籤,天上聖母六十甲子籤(籤詩經考據)
   - 傳統直書籤詩紙:納音五行、屬性利季宜方位、四句籤詩、解曰四項
   - AI 深度解籤(付費訂閱):依你的問題和籤詩延伸解讀
   - 求籤紀錄可存、可換筊杯皮膚,手機/桌機都能用
+features_en:
+  - "3D physics-based jiaobei casting (yes/laughing/no/standing), in three modes: single cast, three-of-a-kind, and fortune drawing"
+  - "Fortune drawing: shake a 3D canister to draw a stick — Mazu's researched \"Sixty Jiazi\" fortune set"
+  - "Traditional vertical fortune slip: elemental reading, favorable attributes/season/direction, the four-line poem, and a four-part interpretation"
+  - "AI deep interpretation (paid): reads the fortune poem against your specific question"
+  - "Save your reading history and switch jiaobei skins; works on mobile and desktop"
 href: https://poe.angiehu.com
 status: live
 badge: new

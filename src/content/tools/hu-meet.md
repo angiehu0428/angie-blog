@@ -2,13 +2,21 @@
 name: hu-meet 會議預約系統
 icon: 📅
 tag: AI · 會議預約
+tag_en: "AI · Scheduling"
 desc: Calendly 要錢,時段還綁整點,60 分的會不能從 :15 開始。這個自己做的預約系統:一條連結給多種時長、slot 不綁整點,還會用 AI 把會議記錄整理成中日英摘要、自動進 Notion、LINE 通知。
+desc_en: "Calendly costs money and locks slots to the hour, so a 60-minute meeting can't start at :15. This self-built booking system gives one link for multiple durations, slots that aren't locked to the hour, and uses AI to turn meeting notes into Chinese/Japanese/English summaries, auto-filed to Notion with LINE notifications."
 features:
   - 一條連結多種時長,時段不綁整點(60 分會議也能從 :15 開始)
   - AI 會議記錄:中日英自動轉錄 + 摘要
   - 會前 AI briefing,先幫你掌握重點
   - 串接 Notion、LINE 通知
   - 出國模式:時段跟著你當地時間走
+features_en:
+  - "One link, multiple durations — slots aren't locked to the hour (a 60-min meeting can start at :15)"
+  - "AI meeting notes: automatic transcription + summary in Chinese, Japanese, and English"
+  - "Pre-meeting AI briefing so you're up to speed beforehand"
+  - "Connects to Notion and sends LINE notifications"
+  - "Travel mode: available slots follow your local time zone"
 status: internal
 badge: new
 order: 11

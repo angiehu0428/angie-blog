@@ -1,7 +1,7 @@
 ---
 import { SITE_TITLE, SITE_NAV, SITE_CTA } from '../consts';
 import HeaderLink from './HeaderLink.astro';
-import LanguageSwitcher from './LanguageSwitcher.astro';
+import LangSwitch from './LangSwitch.astro';
 ---
 
 <header>
@@ -18,16 +18,25 @@ import LanguageSwitcher from './LanguageSwitcher.astro';
 					SITE_NAV.map((item) =>
 						item.external ? (
 							<a class="ext-link" href={item.href} target="_blank" rel="noopener">
-								{item.label} ↗
+								<span class="i18n-zh">{item.label}</span>
+								<span class="i18n-en" hidden>
+									{item.label_en || item.label}
+								</span>{' '}
+								↗
 							</a>
 						) : (
-							<HeaderLink href={item.href}>{item.label}</HeaderLink>
+							<HeaderLink href={item.href}>
+								<span class="i18n-zh">{item.label}</span>
+								<span class="i18n-en" hidden>
+									{item.label_en || item.label}
+								</span>
+							</HeaderLink>
 						),
 					)
 				}
 			</div>
 			<div class="right">
-				<LanguageSwitcher />
+				<LangSwitch />
 				{
 					SITE_CTA.label && SITE_CTA.href && (
 						<a
@@ -36,7 +45,10 @@ import LanguageSwitcher from './LanguageSwitcher.astro';
 							target={SITE_CTA.href.startsWith('http') ? '_blank' : undefined}
 							rel={SITE_CTA.href.startsWith('http') ? 'noopener' : undefined}
 						>
-							{SITE_CTA.label}
+							<span class="i18n-zh">{SITE_CTA.label}</span>
+							<span class="i18n-en" hidden>
+								{SITE_CTA.label_en || SITE_CTA.label}
+							</span>
 						</a>
 					)
 				}

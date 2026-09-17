@@ -2,7 +2,9 @@
 name: Hu Creates 記帳系統
 icon: 💰
 tag: AI · 財務管理
+tag_en: "AI · Finance"
 desc: 公司帳最怕等月底才知道賺賠,發現時已來不及調整。手機拍收據、AI 讀金額,收支與損益即時看得到,一次涵蓋 Hu Creates 與姊妹公司,隨手記、隨時清楚。
+desc_en: "Company books are scariest when you only find out you lost money at month-end close — by then it's too late to adjust. Snap a receipt on your phone, let AI read the amount, and see income, expenses, and P&L in real time — covering Hu Creates and its sister company in one place, logged on the spot, clear anytime."
 features:
   - 手機優先的記帳 PWA,隨手記
   - AI 讀取收據金額,減少手動輸入
@@ -10,6 +12,13 @@ features:
   - 多人記帳:不同 PIN 各自登入,自動記誰輸入的
   - 收支與損益即時彙整,成本/利潤兩種視圖
   - 涵蓋 Hu Creates 與姊妹公司帳務,帳目可匯出 CSV
+features_en:
+  - "Mobile-first bookkeeping PWA — log an expense on the spot"
+  - "AI reads receipt amounts, cutting down manual entry"
+  - "Square daily revenue auto-syncs — no manual income entry needed"
+  - "Multi-user entry: separate PIN logins, auto-attributed to whoever entered it"
+  - "Real-time income/expense and P&L rollups, with cost and profit views"
+  - "Covers both Hu Creates and its sister company; ledgers export to CSV"
 status: internal
 badge: update
 order: 8

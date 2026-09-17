@@ -2,12 +2,19 @@
 name: 收據掃描報帳 AI Receipt Scanner
 icon: 🧾
 tag: AI · OCR
+tag_en: "AI · OCR"
 desc: 代墊花錢還好,煩的是平常太忙沒空整理,收據堆著,事後還要一筆筆手 key 發票號碼、自己編憑證號,會計每個月追著你哇哇叫。當場拍一張丟進去,AI 全讀出來、自動編號換匯、連電子檔一起歸進 Notion 代墊總表,會計要什麼有什麼。
+desc_en: "Fronting expenses is fine — the annoyance is being too busy to sort receipts, letting them pile up, then manually keying in invoice numbers and voucher IDs after the fact while accounting chases you every month. Snap one photo and AI reads everything, auto-numbers it, converts currency, and files it — receipt image included — straight into the Notion expense ledger, ready for accounting."
 features:
   - 支援照片、截圖與 PDF(電子發票/機票)
   - AI 讀出事由/金額/幣別/發票號碼
   - 自動編憑證編號、換算匯率
   - 一鍵存進 Notion 代墊總表
+features_en:
+  - "Works with photos, screenshots, and PDFs (e-invoices/flight tickets)"
+  - "AI reads the purpose / amount / currency / invoice number"
+  - "Auto-generates a voucher number and converts currency"
+  - "One click to save into the Notion expense ledger"
 status: internal
 order: 5
 tags:
