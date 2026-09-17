@@ -2,12 +2,19 @@
 name: 名片掃描 Business Card Scanner → Notion
 icon: 📇
 tag: AI · 自動化
+tag_en: "AI · Automation"
 desc: 跑一場展會收一疊名片,回辦公室一張張建檔是惡夢,拖到最後乾脆不建了、人脈就斷了。拍照(可一次多張),AI 讀出所有欄位、提醒重複、依展會分類,一鍵進 Notion 聯絡人庫。
+desc_en: "Come back from a trade show with a stack of business cards, and entering them one by one is a nightmare — so it keeps getting put off, and the contacts get lost. Snap a photo (multiple at once), let AI read every field, flag duplicates, sort by event, and push straight into your Notion contacts database."
 features:
   - 一次可拍多張名片
   - AI 讀出姓名/公司/職稱/聯絡方式
   - 存檔前可編輯、重複聯絡人提醒
   - 可依活動、展會自動分類
+features_en:
+  - "Photograph multiple business cards at once"
+  - "AI reads name / company / title / contact info"
+  - "Editable before saving, with duplicate-contact alerts"
+  - "Auto-sorts by event or trade show"
 status: internal
 order: 4
 tags:

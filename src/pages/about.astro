@@ -17,23 +17,52 @@ const blocks = about.blocks ?? [];
 	<body>
 		<Header />
 		<main class="about-main">
-			<h1>{about.title}</h1>
+			<h1 class="i18n-zh">{about.title}</h1>
+			<h1 class="i18n-en" hidden>
+				{about.title_en || about.title}
+			</h1>
 
 			{
 				blocks.map((block) => {
 					if (block.type === 'richText') {
 						return (
 							<section class="ab-block prose-block">
-								{block.heading && <h2>{block.heading}</h2>}
-								{block.body && <div set:html={marked.parse(block.body)} />}
+								{block.heading && (
+									<>
+										<h2 class="i18n-zh">{block.heading}</h2>
+										<h2 class="i18n-en" hidden>
+											{block.heading_en || block.heading}
+										</h2>
+									</>
+								)}
+								{block.body && (
+									<div class="i18n-zh" set:html={marked.parse(block.body)} />
+								)}
+								{block.body && (
+									<div class="i18n-en" hidden set:html={marked.parse(block.body_en || block.body)} />
+								)}
 							</section>
 						);
 					}
 					if (block.type === 'clients') {
 						return (
 							<section class="ab-block">
-								{block.heading && <h2>{block.heading}</h2>}
-								{block.intro && <p>{block.intro}</p>}
+								{block.heading && (
+									<>
+										<h2 class="i18n-zh">{block.heading}</h2>
+										<h2 class="i18n-en" hidden>
+											{block.heading_en || block.heading}
+										</h2>
+									</>
+								)}
+								{block.intro && (
+									<>
+										<p class="i18n-zh">{block.intro}</p>
+										<p class="i18n-en" hidden>
+											{block.intro_en || block.intro}
+										</p>
+									</>
+								)}
 								<ul class="clients">
 									{(block.items ?? []).map((c) => (
 										<li>{c}</li>
@@ -46,18 +75,39 @@ const blocks = about.blocks ?? [];
 						return (
 							<figure class="ab-block">
 								<img src={block.image} alt={block.caption || ''} loading="lazy" />
-								{block.caption && <figcaption>{block.caption}</figcaption>}
+								{block.caption && (
+									<>
+										<figcaption class="i18n-zh">{block.caption}</figcaption>
+										<figcaption class="i18n-en" hidden>
+											{block.caption_en || block.caption}
+										</figcaption>
+									</>
+								)}
 							</figure>
 						);
 					}
 					if (block.type === 'audio') {
 						return (
 							<section class="ab-block">
-								{block.title && <p class="audio-title">{block.title}</p>}
+								{block.title && (
+									<>
+										<p class="audio-title i18n-zh">{block.title}</p>
+										<p class="audio-title i18n-en" hidden>
+											{block.title_en || block.title}
+										</p>
+									</>
+								)}
 								{block.file ? (
 									<audio controls preload="metadata" src={block.file} />
 								) : (
-									block.note && <div class="audio-placeholder">{block.note}</div>
+									block.note && (
+										<>
+											<div class="audio-placeholder i18n-zh">{block.note}</div>
+											<div class="audio-placeholder i18n-en" hidden>
+												{block.note_en || block.note}
+											</div>
+										</>
+									)
 								)}
 							</section>
 						);
@@ -65,12 +115,22 @@ const blocks = about.blocks ?? [];
 					if (block.type === 'links') {
 						return (
 							<section class="ab-block">
-								{block.heading && <h2>{block.heading}</h2>}
+								{block.heading && (
+									<>
+										<h2 class="i18n-zh">{block.heading}</h2>
+										<h2 class="i18n-en" hidden>
+											{block.heading_en || block.heading}
+										</h2>
+									</>
+								)}
 								<ul class="contact-links">
 									{(block.items ?? []).map((l) => (
 										<li>
 											<a href={l.url} target={l.url.startsWith('http') ? '_blank' : undefined} rel="noopener">
-												{l.label}
+												<span class="i18n-zh">{l.label}</span>
+												<span class="i18n-en" hidden>
+													{l.label_en || l.label}
+												</span>
 											</a>
 										</li>
 									))}

@@ -2,7 +2,9 @@
 name: LINE 貼圖工廠
 icon: 🧷
 tag: 設計 · 一站式製作工具
+tag_en: "Design · All-in-one production tool"
 desc: 畫貼圖很開心,上架卡在規格細節很崩潰——尺寸差一格、張數不對、動態幀數超標、檔名沒照規則,一送審就被 LINE 退件。畫好圖丟進去,自動驗規格、一鍵修好、打包成能直接上傳的 ZIP。現在也做 WhatsApp、Telegram 貼圖,還附一套通用圖片工具(裁切、縮放、換格式)。圖都在瀏覽器裡處理,不上傳。
+desc_en: "Drawing stickers is fun; getting submission specs right is misery — one size off, wrong sticker count, animated frames over the limit, filenames not following the rules, and LINE rejects the whole submission. Drop your artwork in and it auto-checks specs, fixes issues in one click, and packages everything into an upload-ready ZIP. Now also supports WhatsApp and Telegram stickers, plus a general-purpose image toolkit (crop, resize, convert format). Everything runs in your browser — nothing is uploaded."
 features:
   - 自動驗規格紅綠燈 + 一鍵修復(可一次全部修好),打包成 LINE 上架用 ZIP
   - 支援全部 LINE 貼圖類型(一般/動態/表情貼/大貼圖…)
@@ -10,6 +12,13 @@ features:
   - WhatsApp、Telegram 貼圖也能做——各自驗格式、打包成上傳用的檔案
   - 通用圖片工具:裁切(可鎖比例)、高品質縮放、換格式、加字做文字貼圖
   - 附 LINE 規格頁,圖片全在瀏覽器端處理、不上傳伺服器
+features_en:
+  - "Automatic spec-check traffic lights + one-click fix-all, packaged into a LINE-ready ZIP"
+  - "Supports every LINE sticker type (static / animated / emoji / big stickers…)"
+  - "One click converts a GIF to a LINE animated sticker (APNG), keeping the motion"
+  - "Also builds WhatsApp and Telegram stickers — each validated and packaged for upload"
+  - "General image toolkit: crop (with locked ratio), high-quality resize, format conversion, add-text stickers"
+  - "Includes a LINE spec reference page; all image processing happens client-side, nothing is uploaded"
 href: https://sticker.hucreates.com
 status: live
 badge: update

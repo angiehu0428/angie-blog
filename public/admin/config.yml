@@ -7,6 +7,10 @@
 #   → 選「Work with Local Repository」→ 授權 angie-blog 資料夾。
 # ▸ 注意:Sveltia 與舊版 Decap 有相容性差異(例如不支援 allow_multiple、
 #   select 尚不能動態新增選項,所以分類用自由輸入的 list)。
+# ▸ 英文欄位:2026-09 全站加了語言切換(右上角 EN/中 按鈕)。中文跟英文
+#   內容都存在同一個檔案裡,不是分開兩個網址——每個中文欄位旁邊都有一個
+#   對應的「(英文)」欄位,兩個一起改就好,不用去別的地方維護英文版。
+#   英文欄位留空的話,畫面會自動借用中文內容頂著,不會空白。
 # ─────────────────────────────────────────────────────────────
 
 backend:
@@ -60,7 +64,7 @@ collections:
           label: "內文",
           name: "body",
           widget: "markdown",
-          hint: "圖片/GIF 直接插入;影片(mp4)與音檔(mp3)先上傳,再用插入圖片的方式選它,會自動變成播放器;YouTube 連結單獨貼一行會自動嵌入影片。",
+          hint: "圖片/GIF 直接插入;影片(mp4)與音檔(mp3)先上傳,再用插入圖片的方式選它,會自動變成播放器;YouTube 連結單獨貼一行會自動嵌入影片。文章目前只有中文版,英文版還沒做。",
         }
 
   # ── AI 工具:每個工具一頁,含介紹與截圖 ──
@@ -75,15 +79,22 @@ collections:
     format: "yaml-frontmatter"
     sortable_fields: ["order", "name"]
     fields:
-      - { label: "工具名稱", name: "name", widget: "string" }
+      - { label: "工具名稱", name: "name", widget: "string", hint: "習慣上中英文寫在同一行,例如「名片掃描 Business Card Scanner」" }
       - { label: "Emoji 圖示", name: "icon", widget: "string", default: "🛠️" }
       - { label: "標籤(例如 AI · 記帳)", name: "tag", widget: "string", required: false }
+      - { label: "標籤(英文)", name: "tag_en", widget: "string", required: false }
       - { label: "一句介紹(顯示在首頁卡片)", name: "desc", widget: "text" }
+      - { label: "一句介紹(英文)", name: "desc_en", widget: "text", required: false }
       - { label: "封面截圖(選填,顯示在介紹頁頂部)", name: "cover", widget: "image", required: false }
       - label: "功能點(顯示成 ✓ 清單)"
         name: "features"
         widget: "list"
         required: false
+      - label: "功能點(英文)"
+        name: "features_en"
+        widget: "list"
+        required: false
+        hint: "順序建議跟上面中文版一一對應"
       - { label: "工具網址(內部工具可留空)", name: "href", widget: "string", required: false }
       - {
           label: "狀態",
@@ -130,7 +141,7 @@ collections:
           label: "使用介紹(可插入截圖/GIF/影片)",
           name: "body",
           widget: "markdown",
-          hint: "圖片/GIF 直接插入;影片(mp4)與音檔(mp3)上傳後用插入圖片的方式選它會自動變播放器;YouTube 連結單獨貼一行會自動嵌入。",
+          hint: "圖片/GIF 直接插入;影片(mp4)與音檔(mp3)上傳後用插入圖片的方式選它會自動變播放器;YouTube 連結單獨貼一行會自動嵌入。這段目前是中英文寫在同一篇裡(中文在前、英文段落標「(English)」),還沒做成語言切換。",
         }
 
   # ── 全站設定:站名、導覽列、頁尾、社群連結 ──
@@ -143,21 +154,26 @@ collections:
         fields:
           - { label: "網站名稱", name: "title", widget: "string" }
           - { label: "網站描述(SEO)", name: "description", widget: "text" }
+          - { label: "網站描述(英文)", name: "description_en", widget: "text", required: false }
           - label: "導覽列連結(可拖曳排序)"
             name: "nav"
             widget: "list"
             fields:
               - { label: "文字", name: "label", widget: "string" }
+              - { label: "文字(英文)", name: "label_en", widget: "string", required: false }
               - { label: "連結", name: "href", widget: "string" }
               - { label: "外部連結(新分頁開啟、顯示 ↗)", name: "external", widget: "boolean", default: false }
           - { label: "「找我合作」按鈕文字(留空=不顯示)", name: "ctaLabel", widget: "string", required: false }
+          - { label: "「找我合作」按鈕文字(英文)", name: "ctaLabel_en", widget: "string", required: false }
           - { label: "「找我合作」按鈕連結(例如 Calendly)", name: "ctaHref", widget: "string", required: false }
           - { label: "頁尾版權文字(年份會自動加)", name: "footerText", widget: "string" }
+          - { label: "頁尾版權文字(英文,通常跟中文一樣就好)", name: "footerText_en", widget: "string", required: false }
           - label: "頁尾社群連結"
             name: "socials"
             widget: "list"
             fields:
               - { label: "名稱", name: "label", widget: "string" }
+              - { label: "名稱(英文)", name: "label_en", widget: "string", required: false }
               - { label: "網址", name: "url", widget: "string" }
 
   # ── 頁面排版:一塊塊「區塊」,可新增/刪除/拖曳排序 ──
@@ -192,7 +208,21 @@ collections:
                           required: false,
                           options: [{ label: "無(一般文字)", value: "" }, { label: "藍色", value: "peri" }, { label: "蜜桃色", value: "peach" }],
                         }
-                  - { label: "英文副標(標題下方小字)", name: "enSubtitle", widget: "string", required: false }
+                  - label: "定位句(英文版,拖曳排序,句中可插色塊標籤)"
+                    name: "statementEn"
+                    widget: "list"
+                    required: false
+                    hint: "跟上面中文版是分開的兩句話,不用逐字對應,順順翻成一句英文標語即可;標籤顏色設定同上"
+                    fields:
+                      - { label: "文字", name: "text", widget: "string" }
+                      - {
+                          label: "標籤顏色",
+                          name: "chip",
+                          widget: "select",
+                          required: false,
+                          options: [{ label: "無(一般文字)", value: "" }, { label: "藍色", value: "peri" }, { label: "蜜桃色", value: "peach" }],
+                        }
+                  - { label: "英文副標(標題下方小字,兩種語言都會顯示,是設計上的裝飾字)", name: "enSubtitle", widget: "string", required: false }
                   - label: "時間膠囊(拖曳排序)"
                     name: "chips"
                     widget: "list"
@@ -200,20 +230,26 @@ collections:
                     fields:
                       - { label: "年份", name: "year", widget: "string" }
                       - { label: "文字", name: "text", widget: "string" }
+                      - { label: "文字(英文)", name: "textEn", widget: "string", required: false }
                   - label: "斜槓角色標籤(拖曳排序,講師/顧問/活動策劃等並行身份)"
                     name: "sideRoles"
                     widget: "list"
                     required: false
                     fields:
                       - { label: "文字(可加 emoji)", name: "text", widget: "string" }
+                      - { label: "文字(英文)", name: "textEn", widget: "string", required: false }
                       - { label: "連結(選填,例如顧問頁 /consulting)", name: "href", widget: "string", required: false }
                   - { label: "主按鈕文字", name: "primaryLabel", widget: "string", required: false }
+                  - { label: "主按鈕文字(英文)", name: "primaryLabelEn", widget: "string", required: false }
                   - { label: "主按鈕連結", name: "primaryHref", widget: "string", required: false }
                   - { label: "次按鈕文字", name: "ghostLabel", widget: "string", required: false }
+                  - { label: "次按鈕文字(英文)", name: "ghostLabelEn", widget: "string", required: false }
                   - { label: "次按鈕連結", name: "ghostHref", widget: "string", required: false }
-                  - { label: "CREDITS 列(媒體/合作名)", name: "credits", widget: "list", required: false }
+                  - { label: "CREDITS 列(媒體/合作名,中英文都通用不用翻譯)", name: "credits", widget: "list", required: false }
                   - { label: "漂浮徽章:前段", name: "badge", widget: "string", required: false }
+                  - { label: "漂浮徽章:前段(英文)", name: "badgeEn", widget: "string", required: false }
                   - { label: "漂浮徽章:亮色字", name: "badgeBold", widget: "string", required: false }
+                  - { label: "漂浮徽章:亮色字(英文)", name: "badgeBoldEn", widget: "string", required: false }
                   - { label: "主視覺圖(4:5,建議 800×1000 以上)", name: "heroImage", widget: "image", required: false, hint: "沒上傳時會顯示漸層佔位" }
                   - { label: "概念藝術小卡圖(16:10)", name: "conceptImage", widget: "image", required: false, hint: "沒上傳時會顯示漸層佔位" }
                   - { label: "概念藝術小卡圖說(版權/測試稿標註等)", name: "conceptCredit", widget: "string", required: false }
@@ -222,13 +258,16 @@ collections:
                 widget: "object"
                 fields:
                   - { label: "標題", name: "heading", widget: "string" }
+                  - { label: "標題(英文)", name: "headingEn", widget: "string", required: false }
                   - { label: "副標", name: "subtitle", widget: "string", required: false, hint: "工具卡片內容請到左邊選單的「AI 工具」編輯(每個工具有自己的介紹頁)" }
+                  - { label: "副標(英文)", name: "subtitleEn", widget: "string", required: false }
                   - { label: "提示小字(可留空)", name: "note", widget: "string", required: false }
               - label: "最新文章"
                 name: "latestPosts"
                 widget: "object"
                 fields:
                   - { label: "標題", name: "heading", widget: "string" }
+                  - { label: "標題(英文)", name: "headingEn", widget: "string", required: false }
                   - { label: "顯示幾篇", name: "count", widget: "number", default: 3, value_type: "int" }
               - label: "文字區塊"
                 name: "richText"
@@ -251,7 +290,9 @@ collections:
         description: "關於頁的內容區塊,可拖曳排序、新增、刪除"
         fields:
           - { label: "頁面標題", name: "title", widget: "string" }
+          - { label: "頁面標題(英文)", name: "title_en", widget: "string", required: false }
           - { label: "頁面描述(SEO)", name: "description", widget: "text" }
+          - { label: "頁面描述(英文)", name: "description_en", widget: "text", required: false }
           - label: "區塊(拖曳排序)"
             name: "blocks"
             label_singular: "區塊"
@@ -262,37 +303,46 @@ collections:
                 widget: "object"
                 fields:
                   - { label: "標題(可留空)", name: "heading", widget: "string", required: false }
+                  - { label: "標題(英文)", name: "heading_en", widget: "string", required: false }
                   - { label: "內文", name: "body", widget: "markdown" }
+                  - { label: "內文(英文)", name: "body_en", widget: "markdown", required: false }
               - label: "顧問客戶(標籤牆)"
                 name: "clients"
                 widget: "object"
                 fields:
                   - { label: "標題", name: "heading", widget: "string" }
+                  - { label: "標題(英文)", name: "heading_en", widget: "string", required: false }
                   - { label: "說明(可留空)", name: "intro", widget: "string", required: false }
-                  - { label: "客戶名單(可拖曳排序)", name: "items", widget: "list" }
+                  - { label: "說明(英文)", name: "intro_en", widget: "string", required: false }
+                  - { label: "客戶名單(可拖曳排序,公司名通常中英通用不用翻譯)", name: "items", widget: "list" }
               - label: "圖片(含說明)"
                 name: "figure"
                 widget: "object"
                 fields:
                   - { label: "圖片", name: "image", widget: "image" }
                   - { label: "圖說(可留空)", name: "caption", widget: "string", required: false }
+                  - { label: "圖說(英文)", name: "caption_en", widget: "string", required: false }
               - label: "音檔播放器"
                 name: "audio"
                 widget: "object"
                 fields:
                   - { label: "標題", name: "title", widget: "string", required: false }
+                  - { label: "標題(英文)", name: "title_en", widget: "string", required: false }
                   - { label: "音檔(mp3,上傳後自動顯示播放器)", name: "file", widget: "file", required: false }
                   - { label: "還沒上傳時顯示的文字", name: "note", widget: "string", required: false }
+                  - { label: "還沒上傳時顯示的文字(英文)", name: "note_en", widget: "string", required: false }
               - label: "連結清單"
                 name: "links"
                 widget: "object"
                 fields:
                   - { label: "標題", name: "heading", widget: "string", required: false }
+                  - { label: "標題(英文)", name: "heading_en", widget: "string", required: false }
                   - label: "連結(可拖曳排序)"
                     name: "items"
                     widget: "list"
                     fields:
                       - { label: "顯示文字", name: "label", widget: "string" }
+                      - { label: "顯示文字(英文)", name: "label_en", widget: "string", required: false }
                       - { label: "網址", name: "url", widget: "string" }
 
       - name: "consulting"
@@ -301,51 +351,68 @@ collections:
         description: "顧問諮詢頁的資歷、諮詢領域、價位方案、預約說明"
         fields:
           - { label: "頁面標題", name: "title", widget: "string" }
+          - { label: "頁面標題(英文)", name: "title_en", widget: "string", required: false }
           - { label: "開頭介紹", name: "intro", widget: "text" }
+          - { label: "開頭介紹(英文)", name: "intro_en", widget: "text", required: false }
           - label: "資歷區"
             name: "credentials"
             widget: "object"
             fields:
               - { label: "區塊標題", name: "heading", widget: "string" }
+              - { label: "區塊標題(英文)", name: "heading_en", widget: "string", required: false }
               - label: "資歷卡(可拖曳排序)"
                 name: "items"
                 widget: "list"
                 fields:
                   - { label: "Emoji 圖示", name: "icon", widget: "string" }
                   - { label: "小標", name: "title", widget: "string" }
+                  - { label: "小標(英文)", name: "title_en", widget: "string", required: false }
                   - { label: "說明", name: "text", widget: "text" }
+                  - { label: "說明(英文)", name: "text_en", widget: "text", required: false }
           - label: "諮詢領域區"
             name: "areas"
             widget: "object"
             fields:
               - { label: "區塊標題", name: "heading", widget: "string" }
+              - { label: "區塊標題(英文)", name: "heading_en", widget: "string", required: false }
               - label: "領域卡(可拖曳排序)"
                 name: "items"
                 widget: "list"
                 fields:
                   - { label: "Emoji 圖示", name: "icon", widget: "string" }
                   - { label: "小標", name: "title", widget: "string" }
+                  - { label: "小標(英文)", name: "title_en", widget: "string", required: false }
                   - { label: "說明", name: "desc", widget: "text" }
+                  - { label: "說明(英文)", name: "desc_en", widget: "text", required: false }
           - label: "價位區"
             name: "pricing"
             widget: "object"
             fields:
               - { label: "區塊標題", name: "heading", widget: "string" }
+              - { label: "區塊標題(英文)", name: "heading_en", widget: "string", required: false }
               - { label: "小字說明(可留空)", name: "note", widget: "text", required: false }
+              - { label: "小字說明(英文)", name: "note_en", widget: "text", required: false }
               - label: "方案(可拖曳排序)"
                 name: "tiers"
                 widget: "list"
                 fields:
                   - { label: "方案名稱", name: "name", widget: "string" }
+                  - { label: "方案名稱(英文)", name: "name_en", widget: "string", required: false }
                   - { label: "計費方式標籤(例如 按小時計費 / 月費制)", name: "label", widget: "string", required: false }
+                  - { label: "計費方式標籤(英文)", name: "label_en", widget: "string", required: false }
                   - { label: "方案說明", name: "desc", widget: "text", required: false }
+                  - { label: "方案說明(英文)", name: "desc_en", widget: "text", required: false }
                   - { label: "包含項目(每行一項,一般人就看得到)", name: "included", widget: "list", required: false }
+                  - { label: "包含項目(英文,順序建議跟中文一一對應)", name: "included_en", widget: "list", required: false }
                   - { label: "標記為「最多人選」(醒目框)", name: "highlight", widget: "boolean", default: false }
           - label: "預約區"
             name: "cta"
             widget: "object"
             fields:
               - { label: "標題", name: "heading", widget: "string" }
+              - { label: "標題(英文)", name: "heading_en", widget: "string", required: false }
               - { label: "說明", name: "text", widget: "text" }
+              - { label: "說明(英文)", name: "text_en", widget: "text", required: false }
               - { label: "按鈕文字", name: "buttonLabel", widget: "string" }
+              - { label: "按鈕文字(英文)", name: "buttonLabel_en", widget: "string", required: false }
               - { label: "按鈕連結", name: "buttonHref", widget: "string" }

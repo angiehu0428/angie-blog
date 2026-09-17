@@ -46,14 +46,29 @@ const blocks = home.blocks ?? [];
 						<section id="tools" class="block">
 							<div class="container">
 								<div class="block-head">
-									<h2>{block.heading}</h2>
-									{block.subtitle && <p class="muted">{block.subtitle}</p>}
+									<h2>
+										<span class="i18n-zh">{block.heading}</span>
+										<span class="i18n-en" hidden>
+											{block.headingEn || block.heading}
+										</span>
+									</h2>
+									{block.subtitle && (
+										<p class="muted">
+											<span class="i18n-zh">{block.subtitle}</span>
+											<span class="i18n-en" hidden>
+												{block.subtitleEn || block.subtitle}
+											</span>
+										</p>
+									)}
 								</div>
 
 								<div class="tool-controls">
 									<div class="cat-chips" role="tablist">
 										<button class="cchip is-active" data-cat="__all">
-											全部
+											<span class="i18n-zh">全部</span>
+											<span class="i18n-en" hidden>
+												All
+											</span>
 										</button>
 										{allCats.map((c) => (
 											<button class="cchip" data-cat={c}>
@@ -66,6 +81,10 @@ const blocks = home.blocks ?? [];
 										type="search"
 										placeholder="🔍 搜尋工具…"
 										aria-label="搜尋工具"
+										data-ph-zh="🔍 搜尋工具…"
+										data-ph-en="🔍 Search tools…"
+										data-label-zh="搜尋工具"
+										data-label-en="Search tools"
 									/>
 								</div>
 
@@ -80,11 +99,15 @@ const blocks = home.blocks ?? [];
 										const searchText = [
 											t.name,
 											t.desc,
+											t.desc_en,
 											t.tag,
+											t.tag_en,
 											...(t.features ?? []),
+											...(t.features_en ?? []),
 											...(t.keywords ?? []),
 											...(t.tags ?? []),
 										]
+											.filter(Boolean)
 											.join(' ')
 											.toLowerCase();
 										return (
@@ -109,28 +132,60 @@ const blocks = home.blocks ?? [];
 													)}
 												</div>
 												<div class="tool-body">
-													{t.tag && <span class="tool-tag">{t.tag}</span>}
+													{t.tag && (
+														<span class="tool-tag">
+															<span class="i18n-zh">{t.tag}</span>
+															<span class="i18n-en" hidden>
+																{t.tag_en || t.tag}
+															</span>
+														</span>
+													)}
 													<h3>{t.name}</h3>
-													<p>{t.desc}</p>
+													<p class="i18n-zh">{t.desc}</p>
+													<p class="i18n-en" hidden>
+														{t.desc_en || t.desc}
+													</p>
 													{t.features && t.features.length > 0 && (
-														<ul class="tool-features">
+														<ul class="tool-features i18n-zh">
 															{t.features.map((f) => (
+																<li>{f}</li>
+															))}
+														</ul>
+													)}
+													{t.features_en && t.features_en.length > 0 && (
+														<ul class="tool-features i18n-en" hidden>
+															{t.features_en.map((f) => (
 																<li>{f}</li>
 															))}
 														</ul>
 													)}
 												</div>
 												{isOpen ? (
-													<span class="tool-go">了解更多 →</span>
+													<span class="tool-go">
+														<span class="i18n-zh">了解更多 →</span>
+														<span class="i18n-en" hidden>
+															Learn more →
+														</span>
+													</span>
 												) : (
-													<span class="tool-status">{badge}</span>
+													<span class="tool-status">
+														<span class="i18n-zh">{badge}</span>
+														<span class="i18n-en" hidden>
+															{t.status === 'internal'
+																? '🔒 Internal tool · public version in development'
+																: '🚧 Public version in development'}
+														</span>
+													</span>
 												)}
 											</a>
 										);
 									})}
 								</div>
 								<p class="tool-empty muted" hidden>
-									沒有符合的工具 🔍 換個關鍵字試試
+									<span class="i18n-zh">沒有符合的工具 🔍 換個關鍵字試試</span>
+									<span class="i18n-en" hidden>
+										No matching tools 🔍 try a different keyword
+									</span>
 								</p>
 								{block.note && <p class="placeholder-note">{block.note}</p>}
 							</div>
@@ -145,13 +200,26 @@ const blocks = home.blocks ?? [];
 						<section class="block">
 							<div class="container">
 								<div class="block-head">
-									<h2>{block.heading}</h2>
+									<h2>
+										<span class="i18n-zh">{block.heading}</span>
+										<span class="i18n-en" hidden>
+											{block.headingEn || block.heading}
+										</span>
+									</h2>
 									<a class="see-all" href="/blog">
-										看全部 →
+										<span class="i18n-zh">看全部 →</span>
+										<span class="i18n-en" hidden>
+											See all →
+										</span>
 									</a>
 								</div>
 								{posts.length === 0 ? (
-									<p class="muted">文章搬家中,敬請期待 ✨</p>
+									<p class="muted">
+										<span class="i18n-zh">文章搬家中,敬請期待 ✨</span>
+										<span class="i18n-en" hidden>
+											Posts are moving in, stay tuned ✨
+										</span>
+									</p>
 								) : (
 									<div class="home-posts">
 										{posts.map((post, i) => (

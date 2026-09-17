@@ -2,13 +2,21 @@
 name: LINE 群組即時翻譯 Bot
 icon: 🌐
 tag: AI · 翻譯
+tag_en: "AI · Translation"
 desc: 跟不同語言的夥伴開 LINE 群組溝通,訊息一句句丟去翻譯很累、也容易斷了節奏。這個 bot 掛在群組裡,自動偵測語言、中文↔韓/日/泰/越即時雙向翻譯,而且不儲存訊息內容。
+desc_en: "Chatting in a LINE group with people who speak different languages means copy-pasting every line into a translator, which kills the flow of conversation. This bot lives in the group, auto-detects language, and translates Chinese ↔ Korean/Japanese/Thai/Vietnamese instantly both ways — without storing any message content."
 features:
   - 掛在 LINE 群組,自動偵測發言語言即時翻譯
   - 中文 ↔ 韓 / 日 / 泰 / 越 雙向
   - Gemini Flash 為主,重要場合可切 Claude 提升品質
   - 隱私:不儲存訊息原文與翻譯結果
   - 可鎖定專有名詞、品牌譯名前後一致
+features_en:
+  - "Lives in a LINE group, auto-detects the speaker's language and translates instantly"
+  - "Chinese ↔ Korean / Japanese / Thai / Vietnamese, both directions"
+  - "Runs on Gemini Flash by default, switchable to Claude for higher quality on important occasions"
+  - "Privacy-first: original messages and translations are never stored"
+  - "Can lock proper nouns and brand names for consistent translation"
 status: internal
 badge: new
 order: 13

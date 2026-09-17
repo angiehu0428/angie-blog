@@ -5,7 +5,7 @@ import Header from '../components/Header.astro';
 import { personPageSchema } from '../utils/schema';
 import consulting from '../data/consulting.json';
 
-const { title, intro, credentials, areas, pricing, cta } = consulting;
+const { title, title_en, intro, intro_en, credentials, areas, pricing, cta } = consulting;
 ---
 
 <!doctype html>
@@ -25,23 +25,43 @@ const { title, intro, credentials, areas, pricing, cta } = consulting;
 			<div class="c-blob" aria-hidden="true"></div>
 			<div class="c-inner">
 				<span class="kicker">CONSULTING · 顧問諮詢</span>
-				<h1>{title}</h1>
-				<p class="lede">{intro}</p>
-				<a class="btn btn-primary" href={cta.buttonHref}>{cta.buttonLabel}</a>
+				<h1 class="i18n-zh">{title}</h1>
+				<h1 class="i18n-en" hidden>
+					{title_en || title}
+				</h1>
+				<p class="lede i18n-zh">{intro}</p>
+				<p class="lede i18n-en" hidden>
+					{intro_en || intro}
+				</p>
+				<a class="btn btn-primary" href={cta.buttonHref}>
+					<span class="i18n-zh">{cta.buttonLabel}</span>
+					<span class="i18n-en" hidden>
+						{cta.buttonLabel_en || cta.buttonLabel}
+					</span>
+				</a>
 			</div>
 		</section>
 
 		<main class="c-main">
 			<!-- 資歷 -->
 			<section class="c-block">
-				<h2>{credentials.heading}</h2>
+				<h2 class="i18n-zh">{credentials.heading}</h2>
+				<h2 class="i18n-en" hidden>
+					{credentials.heading_en || credentials.heading}
+				</h2>
 				<div class="cred-grid">
 					{
 						credentials.items.map((it) => (
 							<div class="cred-card">
 								<span class="cred-icon">{it.icon}</span>
-								<h3>{it.title}</h3>
-								<p>{it.text}</p>
+								<h3 class="i18n-zh">{it.title}</h3>
+								<h3 class="i18n-en" hidden>
+									{it.title_en || it.title}
+								</h3>
+								<p class="i18n-zh">{it.text}</p>
+								<p class="i18n-en" hidden>
+									{it.text_en || it.text}
+								</p>
 							</div>
 						))
 					}
@@ -50,15 +70,24 @@ const { title, intro, credentials, areas, pricing, cta } = consulting;
 
 			<!-- 諮詢領域 -->
 			<section class="c-block">
-				<h2>{areas.heading}</h2>
+				<h2 class="i18n-zh">{areas.heading}</h2>
+				<h2 class="i18n-en" hidden>
+					{areas.heading_en || areas.heading}
+				</h2>
 				<div class="area-grid">
 					{
 						areas.items.map((it) => (
 							<div class="area-card">
 								<span class="area-icon">{it.icon}</span>
 								<div>
-									<h3>{it.title}</h3>
-									<p>{it.desc}</p>
+									<h3 class="i18n-zh">{it.title}</h3>
+									<h3 class="i18n-en" hidden>
+										{it.title_en || it.title}
+									</h3>
+									<p class="i18n-zh">{it.desc}</p>
+									<p class="i18n-en" hidden>
+										{it.desc_en || it.desc}
+									</p>
 								</div>
 							</div>
 						))
@@ -68,23 +97,67 @@ const { title, intro, credentials, areas, pricing, cta } = consulting;
 
 			<!-- 價位(填表後解鎖) -->
 			<section class="c-block" id="pricing">
-				<h2>{pricing.heading}</h2>
-				{pricing.note && <p class="muted price-note">{pricing.note}</p>}
+				<h2 class="i18n-zh">{pricing.heading}</h2>
+				<h2 class="i18n-en" hidden>
+					{pricing.heading_en || pricing.heading}
+				</h2>
+				{pricing.note && (
+					<>
+						<p class="muted price-note i18n-zh">{pricing.note}</p>
+						<p class="muted price-note i18n-en" hidden>
+							{pricing.note_en || pricing.note}
+						</p>
+					</>
+				)}
 				<div class="price-grid" data-locked="true">
 					{
 						pricing.tiers.map((t) => (
 							<div class:list={['price-card', { hot: t.highlight }]}>
-								{t.highlight && <span class="hot-tag">最多人選</span>}
-								<h3>{t.name}</h3>
-								{t.label && <div class="price-label">{t.label}</div>}
-								{t.desc && <p class="price-desc">{t.desc}</p>}
-								<ul class="price-feats">
+								{t.highlight && (
+									<span class="hot-tag">
+										<span class="i18n-zh">最多人選</span>
+										<span class="i18n-en" hidden>
+											Most popular
+										</span>
+									</span>
+								)}
+								<h3 class="i18n-zh">{t.name}</h3>
+								<h3 class="i18n-en" hidden>
+									{t.name_en || t.name}
+								</h3>
+								{t.label && (
+									<>
+										<div class="price-label i18n-zh">{t.label}</div>
+										<div class="price-label i18n-en" hidden>
+											{t.label_en || t.label}
+										</div>
+									</>
+								)}
+								{t.desc && (
+									<>
+										<p class="price-desc i18n-zh">{t.desc}</p>
+										<p class="price-desc i18n-en" hidden>
+											{t.desc_en || t.desc}
+										</p>
+									</>
+								)}
+								<ul class="price-feats i18n-zh">
 									{(t.included ?? []).map((f) => (
 										<li>{f}</li>
 									))}
 								</ul>
+								<ul class="price-feats i18n-en" hidden>
+									{(t.included_en ?? t.included ?? []).map((f) => (
+										<li>{f}</li>
+									))}
+								</ul>
 								<div class="price-gate">
-									<div class="gate-lock">🔒 填表後查看報價</div>
+									<div class="gate-lock">
+										<span class="i18n-zh">🔒 填表後查看報價</span>
+										<span class="i18n-en" hidden>
+											🔒 Fill in the form to see pricing
+										</span>
+									</div>
 									<div class="gate-prices"></div>
 								</div>
 							</div>
@@ -94,18 +167,52 @@ const { title, intro, credentials, areas, pricing, cta } = consulting;
 
 				<!-- 解鎖表單 -->
 				<div class="quote-box" id="quote-box">
-					<h3>💬 看完整報價</h3>
-					<p>留下聯絡方式與簡單需求,馬上看到價目——我也會親自跟你聯繫、討論最適合的方案。</p>
+					<h3 class="i18n-zh">💬 看完整報價</h3>
+					<h3 class="i18n-en" hidden>
+						💬 Get the full pricing
+					</h3>
+					<p class="i18n-zh">留下聯絡方式與簡單需求,馬上看到價目——我也會親自跟你聯繫、討論最適合的方案。</p>
+					<p class="i18n-en" hidden>
+						Leave your contact info and a quick note about your needs to see pricing right away — I'll personally follow up to discuss the best plan for you.
+					</p>
 					<form id="quote-form" novalidate>
 						<div class="q-grid">
-							<input type="text" name="name" placeholder="怎麼稱呼你 *" required maxlength="100" />
-							<input type="email" name="email" placeholder="你的 Email *" required maxlength="200" />
+							<input
+								type="text"
+								name="name"
+								placeholder="怎麼稱呼你 *"
+								required
+								maxlength="100"
+								data-ph-zh="怎麼稱呼你 *"
+								data-ph-en="Your name *"
+							/>
+							<input
+								type="email"
+								name="email"
+								placeholder="你的 Email *"
+								required
+								maxlength="200"
+								data-ph-zh="你的 Email *"
+								data-ph-en="Your email *"
+							/>
 						</div>
-						<textarea name="message" rows="3" placeholder="簡單說說你的需求(選填):想諮詢什麼、公司類型…" maxlength="2000"></textarea>
+						<textarea
+							name="message"
+							rows="3"
+							placeholder="簡單說說你的需求(選填):想諮詢什麼、公司類型…"
+							maxlength="2000"
+							data-ph-zh="簡單說說你的需求(選填):想諮詢什麼、公司類型…"
+							data-ph-en="Briefly describe what you need (optional): what you'd like to discuss, your company type…"
+						></textarea>
 						<label class="q-hp" aria-hidden="true">
 							Website <input type="text" name="website" tabindex="-1" autocomplete="off" />
 						</label>
-						<button type="submit" class="btn btn-primary">看報價 →</button>
+						<button type="submit" class="btn btn-primary">
+							<span class="i18n-zh">看報價 →</span>
+							<span class="i18n-en" hidden>
+								See pricing →
+							</span>
+						</button>
 						<p class="q-msg" hidden></p>
 					</form>
 				</div>
@@ -113,9 +220,20 @@ const { title, intro, credentials, areas, pricing, cta } = consulting;
 
 			<!-- 預約 CTA -->
 			<section class="c-cta">
-				<h2>{cta.heading}</h2>
-				<p>{cta.text}</p>
-				<a class="btn btn-primary" href={cta.buttonHref}>{cta.buttonLabel}</a>
+				<h2 class="i18n-zh">{cta.heading}</h2>
+				<h2 class="i18n-en" hidden>
+					{cta.heading_en || cta.heading}
+				</h2>
+				<p class="i18n-zh">{cta.text}</p>
+				<p class="i18n-en" hidden>
+					{cta.text_en || cta.text}
+				</p>
+				<a class="btn btn-primary" href={cta.buttonHref}>
+					<span class="i18n-zh">{cta.buttonLabel}</span>
+					<span class="i18n-en" hidden>
+						{cta.buttonLabel_en || cta.buttonLabel}
+					</span>
+				</a>
 			</section>
 		</main>
 		<Footer />
@@ -478,12 +596,13 @@ const { title, intro, credentials, areas, pricing, cta } = consulting;
 				qform.addEventListener('submit', async (e) => {
 					e.preventDefault();
 					const data = Object.fromEntries(new FormData(qform).entries()) as Record<string, string>;
+					const en = document.documentElement.dataset.lang === 'en';
 					if (!data.name || !data.email) {
-						show('err', '請填「稱呼」和「Email」才能看報價 🙏');
+						show('err', en ? 'Please fill in your name and email to see pricing 🙏' : '請填「稱呼」和「Email」才能看報價 🙏');
 						return;
 					}
 					qbtn.disabled = true;
-					qbtn.textContent = '送出中…';
+					qbtn.textContent = en ? 'Sending…' : '送出中…';
 					try {
 						const r = await fetch('/api/contact', {
 							method: 'POST',
@@ -514,15 +633,25 @@ const { title, intro, credentials, areas, pricing, cta } = consulting;
 						show('ok', '');
 						const box = document.getElementById('quote-box');
 						if (box) {
-							box.querySelector('h3')!.textContent = '✅ 報價已顯示在上方';
-							box.querySelector('p')!.textContent =
-								'謝謝!完整價目已經解鎖(往上看方案)。我也收到你的訊息了,會親自跟你聯繫討論最適合的方案 😊';
+							box.querySelectorAll('h3').forEach((h) => {
+								h.textContent = en ? '✅ Pricing shown above' : '✅ 報價已顯示在上方';
+							});
+							box.querySelectorAll('p').forEach((p) => {
+								p.textContent = en
+									? "Thanks! The full pricing is now unlocked above. I've also received your message and will follow up personally to discuss the best plan 😊"
+									: '謝謝!完整價目已經解鎖(往上看方案)。我也收到你的訊息了,會親自跟你聯繫討論最適合的方案 😊';
+							});
 						}
 						grid.scrollIntoView({ behavior: 'smooth', block: 'center' });
 					} catch {
-						show('err', '送出失敗了 😥 請稍後再試,或到 Instagram @huisangie 私訊我');
+						show(
+							'err',
+							en
+								? 'Something went wrong 😥 please try again later, or DM me on Instagram @huisangie'
+								: '送出失敗了 😥 請稍後再試,或到 Instagram @huisangie 私訊我',
+						);
 						qbtn.disabled = false;
-						qbtn.textContent = '看報價 →';
+						qbtn.textContent = en ? 'See pricing →' : '看報價 →';
 					}
 				});
 				function show(kind: 'ok' | 'err', text: string) {
