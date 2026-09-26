@@ -27,6 +27,7 @@
 - [LINE 群組即時翻譯 Bot Group Translation Bot](https://angiehu.com/tools/line-translate-bot/): LINE-group bot that auto-detects each message's language and translates two-way between Chinese and English/Korean/Japanese/Thai/Vietnamese; message content not stored. Internal tool.
 - [Expo Studio 展位 3D 設計工具 Booth Designer](https://angiehu.com/tools/expo-3d-studio/): browser-based 3D trade-show booth designer — drag-and-drop booth modules, apply artwork to printable faces, export renders and print dimensions. Internal tool.
 - [圖庫整理工具 Asset Catalog Automation](https://angiehu.com/tools/asset-preview/): Illustrator plugin that splits a full vector artwork file into numbered, editable files with a cover and preview PDF, leaving the original untouched. Internal tool.
+- [傳送門 Link in Bio](https://angiehu.com/tools/hu-link/): in-house link-in-bio page builder — one page per IP, drag-and-drop editing with live phone preview, multilingual pages and dark mode, plus short links and trackable QR codes. Internal tool.
 
 ## Blog
 

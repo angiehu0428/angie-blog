@@ -39,6 +39,7 @@ Angie 的個人網站(Astro 靜態站,網域 angiehu.com)。**這份是專案交
 - 本機完整制度在 `/Users/angiehu/Claude/CLAUDE.md` 與 `claude-ops/`(雲端 session 看不到就照本段執行)。
 
 ## 變更紀錄
+- 2026-09-27:**新工具「傳送門 Link in Bio」**(`hu-link.md`,對應 repo `hu-link`)。團隊內部用的一頁式傳送門+短網址+可追蹤 QR code,後台只有團隊能登入 → 照「內部工具不寫公司機密」規則:`status: internal`、不放網址、不寫串接系統與團隊資訊,只寫問題與大方向功能(每項都對過 repo 已上線的 commit)。`llms.txt` 同步。(模型:Opus 5.5)
 - 2026-09-26(晚):**依 Angie 指示「內部工具不要分享太多公司機密」,收斂所有內部工具的公開內容。** 7 個內部工具頁(Expo、圖庫整理、hu-meet、合約比對、LINE 翻譯 bot、收據掃描、Skuld)改寫成只講問題與大方向功能,拿掉內部系統串接、AI 引擎、公司實體/展會/權限/會計流程、合作夥伴國家、內部網址;Skuld 是 Angie 自己寫的,只刪敏感處、保留她的文字。名片掃描刪掉「公司內部版」段落;社群後台狀態改成「對外版本準備中」。`llms.txt` 與本交接檔同步清理,並在「規則」加上一條。**Skuld 的示範圖(`skuld-expense-demo.png`)裡還有公司名與內部網址,需要 Angie 自己決定要不要換圖。**(模型:Opus 5.5)
 - 2026-09-26:**名片掃描公開付費版上架+五個工具內容更新+修正英文版一個顯示 bug。**
   - **名片掃描器 Card Scanner**(`card-scanner.md`)從內部工具改成公開產品:`status: live`、`href: https://scan.hucreates.com`、`badge: new`、去掉「公司工具」分類。方案事實取自 card-scanner repo 的 README 與 `wrangler.public.toml`:免費每天 10 張/一次 5 張照片;Pro US$5/月(Stripe)每天 200 張/一次 20 張、名單累積+跨裝置同步、自動找重複、Excel 統計分頁、自訂欄位;免帳號(訂閱序號)。「照片不存伺服器」是查過公開版 worker 的 KV 寫入(只有額度、訂閱、文字名單)才寫的。(內部版的段落已於 9/26 依 Angie 指示移除,見下一條規則。)
