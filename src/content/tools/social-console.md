@@ -7,20 +7,20 @@ desc: 同時經營好幾個品牌 IP 的社群,一篇貼文要在六個平台各
 desc_en: "Running social for several brand IPs at once means posting the same content six times across platforms, an endless DM queue, and writing monthly reports until dawn. Write once and publish everywhere, let AI draft captions and DM reply drafts, and turn analytics into a readable report — handing the repetitive parts of social management to AI."
 features:
   - 一次撰寫,跨 FB / IG / Threads / X / TikTok / YouTube 發布
-  - 發文排程 + 內容行事曆,改期、編輯都在同一頁
+  - 聰明排程:品牌固定時段、首則留言自動發、CSV 批次排程、最佳時段建議
   - 送審核准流程:小編送審、主管一鍵核准發布
   - AI 寫作助手:看圖寫文案、潤稿、翻譯、依語氣改寫
-  - AI 客服草稿:私訊自動生成回覆,真人審核後送出
-  - Google Trends 熱搜關鍵字(可依國家),找題材有方向
-  - 受眾分析自動寫成文字報告,含版權方 PDF 匯出
+  - 圖文設計+迷因產生器:模板、AI 商品文案、瀏覽器端去背
+  - 客服收件匣:指派負責人、Q&A 範本、AI 回覆草稿真人審核後送出
+  - 留言抽獎、受眾分析自動寫成文字報告,含版權方 PDF 匯出
 features_en:
   - "Write once, publish across FB / IG / Threads / X / TikTok / YouTube"
-  - "Post scheduling + content calendar — reschedule and edit on the same page"
+  - "Smart scheduling: brand posting slots, auto first comment, CSV bulk scheduling, best-time suggestions"
   - "Approval workflow: staff submit, managers approve and publish with one click"
   - "AI writing assistant: caption from an image, polish, translate, or rewrite in a different tone"
-  - "AI-drafted customer replies for DMs, sent only after human review"
-  - "Google Trends keyword lookup (by country) for content ideas"
-  - "Audience analytics auto-written as a readable report, with PDF export for rights holders"
+  - "Graphic designer + meme maker: templates, AI product copy, in-browser background removal"
+  - "Shared inbox: assign owners, Q&A templates, AI reply drafts sent only after human review"
+  - "Comment giveaways, plus audience analytics auto-written as a readable report with PDF export for rights holders"
 status: soon
 badge: update
 order: 9
@@ -48,13 +48,19 @@ keywords:
 - **AI 客服**:粉專/私訊自動生成回覆草稿,人工審核後才送出,不失控
 - **會寫字的分析報告**:除了畫圖表,還自動偵測數據變化、寫出文字解讀
 - **版權方報告**:一鍵匯出品牌 PDF 報告
+- **圖文設計**:圖框模板+可替換格子、AI 商品文案、瀏覽器端去背,還有迷因產生器(圖片、影片都能加上下標題)
+- **排程更聰明**:品牌固定發文時段+「下一個空檔」自動排、首則留言自動發、Hashtag 群組、CSV 批次排程,依自家貼文數據建議最佳時段
+- **留言抽獎**:貼上留言名單,用加密等級的亂數抽出中獎者
+- **客服收件匣**:對話指派負責人、Q&A 回覆範本、AI 讀整串對話生草稿(只填不送)
+- **成效分析**:IG 讚率/留言率/分享率/收藏率、影片完成率、粉絲 vs 非粉絲觀看拆解
+- 手機版介面、中英雙語介面、指紋/Face ID(passkey)登入
 
 ## What is this? (English)
 
-A **multi-brand social media management console** built for agencies: write once, cross-post to Facebook, Instagram, Threads, X, TikTok and YouTube, with approval workflows, content calendars, audience analytics, and licensor reports — powered by an AI assistant that drafts captions, replies, and written insights so the team doesn't have to do it all manually.
+A **multi-brand social media management console** built for agencies: write once, cross-post to Facebook, Instagram, Threads, X, TikTok and YouTube, with approval workflows, content calendars, audience analytics, and licensor reports — powered by an AI assistant that drafts captions, replies, and written insights so the team doesn't have to do it all manually. It also includes a graphic designer (templates, AI product copy, background removal, a meme maker), smart scheduling (brand posting slots, first-comment scheduling, hashtag groups, CSV bulk scheduling, best-time suggestions from your own data), comment giveaways, a shared inbox with assignment and AI reply drafts, and passkey login. Already in use by the team internally; public access is waiting on platform API reviews (Meta, YouTube).
 
 ## 目前狀態
 
-🚧 核心功能已開發完成,準備部署上線中。想在推出時收到通知,歡迎到 [找我合作](/contact) 留個訊息 🙂
+🚧 團隊內部已經在使用;對外開放還在等各平台(Meta、YouTube 等)的 API 審核。想在推出時收到通知,歡迎到 [找我合作](/contact) 留個訊息 🙂
 
 *(截圖之後補上)*

@@ -38,6 +38,13 @@ Angie 的個人網站(Astro 靜態站,網域 angiehu.com)。**這份是專案交
 - 本機完整制度在 `/Users/angiehu/Claude/CLAUDE.md` 與 `claude-ops/`(雲端 session 看不到就照本段執行)。
 
 ## 變更紀錄
+- 2026-09-26:**名片掃描公開付費版上架+五個工具內容更新+修正英文版一個顯示 bug。**
+  - **名片掃描器 Card Scanner**(`card-scanner.md`)從內部工具改成公開產品:`status: live`、`href: https://scan.hucreates.com`、`badge: new`、去掉「公司工具」分類。方案事實取自 card-scanner repo 的 README 與 `wrangler.public.toml`:免費每天 10 張/一次 5 張照片;Pro US$5/月(Stripe)每天 200 張/一次 20 張、名單累積+跨裝置同步、自動找重複、Excel 統計分頁、自訂欄位;免帳號(訂閱序號)。「照片不存伺服器」是查過公開版 worker 的 KV 寫入(只有額度、訂閱、文字名單)才寫的。內部版(Notion)在內文一段帶過。
+  - **示範圖做法**(之後其他工具照這套):格式對齊 Angie 9/23 做的 `skuld-expense-demo.png`——1440×860、深藍底、三支手機、上方 HU CREATES+工具名、底部網址+「示意畫面」註記。畫面是在本機跑該工具**真正的程式**(`wrangler dev --local`)用 Chromium 截的,只把 AI 讀取的 API 回應換成**明顯虛構**的名片(範例公司、example.com、555 電話),方案資訊用正式設定值。中英各一張,英文版放新欄位 `cover_en`(schema/工具頁/首頁卡片/CMS 都已支援,沒給就沿用中文封面)。
+  - **其他工具內容更新**(都是查各 repo 自上次網站更新以來的 commit,只寫使用者看得到、已上線的功能):收據掃描(自動裁切、跨幣別重複偵測、差旅自動分流)、LINE 翻譯 bot(加英文、第三語言兩段都翻、`/翻中` 等強制指令)、LINE 貼圖工廠(動態貼圖逐幀去背、裝置上 AI 去背+魔術棒/筆刷、分頁標籤自由裁切;**隱私說法改精準**:不送 AI、不訓練,但主動發布到 WhatsApp 貼圖小舖會上傳)、社群管理後台(圖文設計/迷因、聰明排程、留言抽獎、客服收件匣、passkey;狀態改「團隊內部已使用、等平台 API 審核」)。**塔羅刻意沒動**:點數儲值程式有了但商品清單還是註解掉(沒開賣),不能寫。Expo Studio 的 main 自 9/17 後沒新 commit。
+  - `public/llms.txt` 同步:名片掃描公開版+方案、Skuld 改名、補上 9/17 漏列的 Expo Studio 與圖庫整理工具、各工具新功能。
+  - ⚠️ **修 9/17 英文版的 bug**:元件自己設了 `display:grid/flex/inline-block` 的元素(例如工具特色清單),會蓋掉瀏覽器預設的 `[hidden]{display:none}`,結果**中英文清單同時顯示**。已在 `global.css` 加 `[hidden]{display:none !important}` 全站修掉。教訓:9/17 只檢查了 HTML 裡有沒有 `hidden`,沒實際開瀏覽器看。這次改用 Playwright 在真實瀏覽器逐頁檢查(19 頁×中英=38 組合,0 洩漏、0 JS 錯誤),並故意把 bug 放回去確認檢查抓得到。**之後動到語言切換,請用瀏覽器實測,不要只看 HTML。**
+  - 另合併了 main 上 Angie 9/23 的 Skuld 更新:以她的新版為準,再補英文欄位。(模型:Opus 5.5)
 - 2026-09-17:**兩個新工具上架 + 全站真英文版(語言切換,不是機器翻譯)。**
   - 新工具:**Expo Studio 展位 3D 設計工具**(`expo-3d-studio.md`,對應 repo `expo-3d-studio`,已部署 https://expo.hucreates.com 但團隊密碼保護)、**圖庫整理工具 Asset Catalog Automation**(`asset-preview.md`,對應 repo `asset-preview`,Mac + Illustrator 外掛)。兩者都是公司內部工具,`status: internal`、不放 `href`——跟現有內部工具(記帳系統、hu-meet 等)同一套規則,resource 內容是從各自 repo 的 README/Specification 查證後如實寫的,不是編的。
   - **移除 Google Translate 外掛**(`LanguageSwitcher.astro` 已刪除),改成**中英同檔案並存、前端 `hidden` 屬性切換**的真英文版(`LangSwitch.astro` + `public/lang.js`)。做法跟 Angie 的塔羅站(`tarot-reading` repo 的 `L(zh,en)` 寫法)同一個精神:**不開 `/en` 分開路徑**,每個中文欄位旁邊直接放對應的英文欄位(`_en`/`En` 後綴),CMS 表單裡兩個一起編輯,不用兩邊分別維護。

@@ -86,6 +86,7 @@ collections:
       - { label: "一句介紹(顯示在首頁卡片)", name: "desc", widget: "text" }
       - { label: "一句介紹(英文)", name: "desc_en", widget: "text", required: false }
       - { label: "封面截圖(選填,顯示在介紹頁頂部)", name: "cover", widget: "image", required: false }
+      - { label: "封面截圖(英文版,選填;沒上傳就沿用中文封面)", name: "cover_en", widget: "image", required: false }
       - label: "功能點(顯示成 ✓ 清單)"
         name: "features"
         widget: "list"

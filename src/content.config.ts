@@ -30,6 +30,7 @@ const tools = defineCollection({
 		desc: z.string(),
 		desc_en: z.string().optional(), // 英文版描述(語言切換用)
 		cover: z.string().optional(), // 封面截圖 (/uploads/...)
+		cover_en: z.string().optional(), // 英文版封面(語言切換用;沒給就沿用 cover)
 		features: z.array(z.string()).default([]),
 		features_en: z.array(z.string()).default([]), // 英文版特色列表(語言切換用)
 		href: z.string().optional(),

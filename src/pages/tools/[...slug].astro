@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 
 const tool = Astro.props;
 const { Content } = await render(tool);
-const { name, icon, tag, tag_en, desc, desc_en, cover, features, features_en, href, status, keywords } = tool.data;
+const { name, icon, tag, tag_en, desc, desc_en, cover, cover_en, features, features_en, href, status, keywords } = tool.data;
 const isOpen = status === 'live';
 const badge =
 	status === 'internal' ? '🔒 內部工具 · 對外版本開發中' : '🚧 對外版本開發中,敬請期待';
@@ -106,7 +106,8 @@ const schema = toolSchema({ name, desc, pageUrl, href, cover, keywords, isOpen }
 				)
 			}
 
-			{cover && <img class="cover" src={cover} alt={`${name} 截圖`} />}
+			{cover && <img class:list={['cover', { 'i18n-zh': cover_en }]} src={cover} alt={`${name} 截圖`} />}
+			{cover && cover_en && <img class="cover i18n-en" hidden src={cover_en} alt={`${name} screenshot`} />}
 
 			<article class="prose-block">
 				<Content />

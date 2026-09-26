@@ -124,7 +124,10 @@ const blocks = home.blocks ?? [];
 												)}
 												<div class="tool-visual" data-v={i % 4}>
 													{t.cover ? (
-														<img src={t.cover} alt="" loading="lazy" />
+														<>
+															<img class:list={[{ 'i18n-zh': t.cover_en }]} src={t.cover} alt="" loading="lazy" />
+															{t.cover_en && <img class="i18n-en" hidden src={t.cover_en} alt="" loading="lazy" />}
+														</>
 													) : (
 														<span class="tv-icon" aria-hidden="true">
 															{t.icon}
