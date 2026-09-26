@@ -2,13 +2,21 @@
 name: 合約比對審閱器 Contract Diff
 icon: 📑
 tag: AI · 合約
+tag_en: "AI · Contracts"
 desc: 授權合約改了好幾版,要一條條比哪裡不一樣、很容易漏看。這個工具把兩版左右並排、自動標出差異,合約不上傳(全在瀏覽器本機跑),還能把差異條款一鍵交給 AI 審閱。
+desc_en: "A licensing contract goes through several revisions, and comparing them line by line to spot every change is easy to get wrong. This tool puts two versions side by side, automatically highlights the differences, never uploads the contract (everything runs locally in your browser), and can hand the changed clauses straight to AI for review."
 features:
   - 兩版合約左右並排,自動標出新增/刪改的條款
   - 合約不上傳,比對全在你的瀏覽器本機跑
   - 支援 DOCX / PDF / 純文字,DOCX 追蹤修訂會提示
   - 差異條款一鍵複製給 AI 審閱,或用內建 Gemini 分析
   - 匯出一份自足的 HTML 差異報告
+features_en:
+  - "Two contract versions side by side, additions/deletions auto-highlighted"
+  - "Nothing is uploaded — comparison runs entirely in your browser"
+  - "Supports DOCX / PDF / plain text, flags DOCX tracked changes"
+  - "One click to copy changed clauses to AI for review, or use the built-in Gemini analysis"
+  - "Exports a self-contained HTML diff report"
 status: internal
 badge: new
 order: 12

@@ -2,13 +2,21 @@
 name: 塔羅占卜 AI Tarot Reading
 icon: 🔮
 tag: AI · 占卜
+tag_en: "AI · Divination"
 desc: 現有的線上塔羅多半只幫你抽牌,頂多給一張張單張牌意、兜不起來;近年的 AI 塔羅又常常把牌無腦丟給 AI 自由發揮。這個工具搭配我自己的解牌經驗,用「無視論牌陣」的原理把整個牌陣融會貫通地解,全網唯一這樣做。無視論是我實測下來最靈活萬用的牌陣。還開放你自己追問細節(AI 從牌面再解讀時間點、季節、特質等),也能對同一件事做專案占卜、追蹤趨勢。
+desc_en: "Most online tarot tools just draw cards and give you isolated, disconnected meanings per card; newer AI tarot tools often just dump the cards on an AI and let it improvise. This tool combines my own reading experience with the \"Wushilun\" spread method to read the whole spread as one coherent story — the only place online doing it this way. Wushilun is, in my own practice, the most flexible, all-purpose spread. You can also follow up for detail (AI re-reads the cards for timing, season, traits, etc.), and run project-based readings to track how a situation evolves over time."
 features:
   - 全網唯一「無視論牌陣」AI 解讀(我最推薦的牌陣)
   - 開放你自己追問細節,AI 從牌面再解讀更多——時間點、季節、對方特質這些
   - 專案占卜:同一件事在有變化/轉折時再重抽追蹤趨勢(不建議短時間反覆抽)
   - 占卜紀錄可儲存、跨裝置同步(付費)
   - 中英雙語介面,正逆位看牌義不簡化成吉凶
+features_en:
+  - "The only AI reading online built on the \"Wushilun\" spread (my most-recommended spread)"
+  - "Ask follow-up questions and AI re-reads the cards for more — timing, season, the other person's traits"
+  - "Project readings: re-draw for the same situation when it shifts or turns, to track the trend (not recommended to re-draw repeatedly in a short time)"
+  - "Save your reading history, synced across devices (paid)"
+  - "Bilingual Chinese/English interface; upright/reversed meanings aren't flattened into simple good/bad"
 href: https://tarot.angiehu.com
 status: live
 order: 1

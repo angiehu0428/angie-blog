@@ -1,0 +1,36 @@
+---
+// 語言切換鈕:中英內容同時存在原始碼裡(見各頁 .i18n-zh / .i18n-en),
+// 這顆按鈕只是切換顯示——不是機器翻譯外掛。邏輯在 public/lang.js。
+---
+
+<button type="button" class="lang-switch" data-lang-btn aria-label="Switch language">EN</button>
+
+<style>
+	.lang-switch {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 2.4rem;
+		padding: 0.3rem 0.7rem;
+		border: 1px solid rgb(var(--gray-light));
+		background: var(--surface);
+		color: rgb(var(--gray-dark));
+		border-radius: 999px;
+		font-size: 0.85rem;
+		font-weight: 700;
+		font-family: inherit;
+		cursor: pointer;
+	}
+	.lang-switch:hover {
+		border-color: var(--accent);
+		color: var(--accent-dark);
+	}
+</style>
+
+<script is:inline>
+	document.querySelectorAll('.lang-switch').forEach(function (btn) {
+		btn.addEventListener('click', function () {
+			window.__toggleLang();
+		});
+	});
+</script>

@@ -2,7 +2,9 @@
 name: Ink Match 印刷特別色比對
 icon: 🖌️
 tag: 設計 · Photoshop 外掛
+tag_en: "Design · Photoshop plugin"
 desc: 在 Photoshop 調好色,要找最接近的印刷特別色,傳統得翻實體色票本(Guidebook)憑肉眼對半天還不準。這個外掛直接讀你的前景色,選色當下就即時列出最接近的特別色(銅版/道林各 Top 5),用專業色差公式算,馬上就能用、不用離開 PS。
+desc_en: "You've matched a color in Photoshop and need the closest print spot color — traditionally that means flipping through a physical swatch guidebook and eyeballing it, never quite accurately. This plugin reads your foreground color directly and instantly lists the closest spot colors (top 5 for coated/uncoated each) using a professional color-difference formula, ready to use without leaving Photoshop."
 features:
   - 讀取 Photoshop 前景色,即時比對
   - Coated / Uncoated 各列出最接近 Top 5
@@ -10,6 +12,13 @@ features:
   - 選好的色號一鍵加進 Photoshop 色票,馬上能用
   - 也能用色號反查、中英雙語介面切換
   - 免離開 Photoshop,面板內直接看結果
+features_en:
+  - "Reads your Photoshop foreground color for instant matching"
+  - "Top 5 closest matches listed separately for Coated / Uncoated"
+  - "Uses the CIE L*a*b* + ΔE2000 professional color-difference formula"
+  - "One click to add a matched color straight into your Photoshop swatches"
+  - "Also works in reverse — look up by color code — with a bilingual EN/中 interface"
+  - "Never leave Photoshop — results shown right in the panel"
 status: soon
 badge: update
 order: 6

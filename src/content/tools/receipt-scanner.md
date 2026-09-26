@@ -2,13 +2,27 @@
 name: 收據掃描報帳 AI Receipt Scanner
 icon: 🧾
 tag: AI · OCR
+tag_en: "AI · OCR"
 desc: 代墊花錢還好,煩的是平常太忙沒空整理,收據堆著,事後還要一筆筆手 key 發票號碼、自己編憑證號,會計每個月追著你哇哇叫。當場拍一張丟進去,AI 全讀出來、自動編號換匯、連電子檔一起歸進 Notion 代墊總表,會計要什麼有什麼。
+desc_en: "Fronting expenses is fine — the annoyance is being too busy to sort receipts, letting them pile up, then manually keying in invoice numbers and voucher IDs after the fact while accounting chases you every month. Snap one photo and AI reads everything, auto-numbers it, converts currency, and files it — receipt image included — straight into the Notion expense ledger, ready for accounting."
 features:
   - 支援照片、截圖與 PDF(電子發票/機票)
   - AI 讀出事由/金額/幣別/發票號碼
+  - 收據自動裁切:AI 抓出邊界,去掉背景雜物
   - 自動編憑證編號、換算匯率
+  - 重複偵測:發票號碼、金額與日期比對,外幣也能跨幣別認出同一筆
+  - 差旅自動分流:機票、住宿、eSIM 進差旅總表,出差期間的雜項也歸到該趟出差
   - 一鍵存進 Notion 代墊總表
+features_en:
+  - "Works with photos, screenshots, and PDFs (e-invoices/flight tickets)"
+  - "AI reads the purpose / amount / currency / invoice number"
+  - "Auto-crops the receipt: AI finds the edges and removes the background clutter"
+  - "Auto-generates a voucher number and converts currency"
+  - "Duplicate detection by invoice number, amount, and date — even across currencies"
+  - "Travel routing: flights, hotels, and eSIMs go to the travel ledger, and misc receipts during a trip are filed under that trip"
+  - "One click to save into the Notion expense ledger"
 status: internal
+badge: update
 order: 5
 tags:
   - 掃描自動化
@@ -40,11 +54,14 @@ keywords:
 - **什麼都能讀**:紙本收據拍照、手機截圖、PDF 電子發票/電子機票
 - **台灣發票友善**:自動抓統一發票號碼
 - **自動編號**:憑證編號依日期+流水號自動生成
+- **自動裁切**:AI 偵測收據邊界,裁掉桌面等背景,存檔更乾淨
+- **防重複報帳**:同一張發票(或金額、日期對得上的外幣收據)再掃一次會提醒
+- **差旅自動分流**:機票、住宿、eSIM 等進差旅費總表;國外出差期間的雜項收據,自動歸到那一趟出差
 - 也支援從 Slack 丟檔案自動匯入
 
 ## What is this? (English)
 
-An **AI receipt scanner for expense reports**: photograph paper receipts, drop in screenshots or PDF e-invoices/e-tickets, and the AI extracts purpose, amount, currency, date and invoice number — auto-numbers the voucher, converts currency, and files everything (with the receipt image) into a **Notion expense database**. Taiwan uniform-invoice friendly; also ingests files dropped into Slack.
+An **AI receipt scanner for expense reports**: photograph paper receipts, drop in screenshots or PDF e-invoices/e-tickets, and the AI extracts purpose, amount, currency, date and invoice number — auto-numbers the voucher, converts currency, and files everything (with the receipt image) into a **Notion expense database**. It auto-crops receipts, flags duplicates (even across currencies), and routes travel expenses — flights, hotels, eSIMs, and misc receipts during a trip — to the right trip. Taiwan uniform-invoice friendly; also ingests files dropped into Slack.
 
 ## 目前狀態 / Status
 

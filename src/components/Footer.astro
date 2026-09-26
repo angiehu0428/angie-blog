@@ -12,7 +12,10 @@ const today = new Date();
 				const external = s.url.startsWith('http');
 				return (
 					<a href={s.url} target={external ? '_blank' : undefined} rel={external ? 'noopener' : undefined}>
-						{s.label}
+						<span class="i18n-zh">{s.label}</span>
+						<span class="i18n-en" hidden>
+							{s.label_en || s.label}
+						</span>
 					</a>
 				);
 			})

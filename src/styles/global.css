@@ -4,6 +4,12 @@
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
 
+/* 語言切換靠 hidden 屬性(public/lang.js);元件自己設的 display:grid/flex 會蓋掉瀏覽器預設的
+   [hidden]{display:none},所以這裡強制讓 hidden 永遠生效 */
+[hidden] {
+	display: none !important;
+}
+
 :root {
 	/* 柔和科技風(2026-07-05 Angie 拍板,見 CLAUDE.md):暖瓷白+長春花藍+蜜桃/薰衣草 */
 	--paper: #f7f5f0; /* 暖瓷白 */

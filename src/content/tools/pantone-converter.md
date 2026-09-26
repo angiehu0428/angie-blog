@@ -2,7 +2,9 @@
 name: Pantone 色票轉換器 Pantone Color Converter
 icon: 🎨
 tag: 設計 · 免費工具
+tag_en: "Design · Free tool"
 desc: 免費線上 Pantone 色票轉換:PANTONE ↔ HEX / RGB / CMYK 互查。Photoshop 移除 Pantone 色庫後,設計師不用裝外掛的替代方案。
+desc_en: "A free online Pantone color converter: look up PANTONE ↔ HEX / RGB / CMYK in either direction. A plugin-free alternative for designers since Adobe removed the Pantone library from Photoshop."
 features:
   - PANTONE ↔ HEX / RGB / CMYK 雙向轉換
   - 銅版紙(Coated)、膠版紙(Uncoated)兩個色庫並列,各給 Top 5 + ΔE 色差
@@ -10,6 +12,13 @@ features:
   - Photoshop / Illustrator 移除 Pantone 後的免費替代方案
   - 找相近色:輸入任何顏色找最接近的 Pantone 色號
   - 繁中 / 英 / 日 三語介面
+features_en:
+  - "Two-way PANTONE ↔ HEX / RGB / CMYK conversion"
+  - "Coated and Uncoated libraries listed side by side, each with a Top 5 + ΔE color difference"
+  - "No install, no plugin — works straight in the browser"
+  - "A free alternative after Photoshop / Illustrator removed Pantone"
+  - "Find the nearest match: enter any color to get the closest Pantone code"
+  - "Traditional Chinese / English / Japanese interface"
 href: https://color.hucreates.com
 status: live
 badge: update

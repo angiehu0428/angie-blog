@@ -4,9 +4,11 @@
 interface Chip {
 	year: string;
 	text: string;
+	textEn?: string;
 }
 interface SideRole {
 	text: string;
+	textEn?: string;
 	href?: string;
 }
 interface StatementPart {
@@ -18,17 +20,23 @@ interface Props {
 	kicker?: string;
 	/** 整句定位巨字,句中可插色塊標籤(取代舊的 headline1/2 欄位) */
 	statement?: StatementPart[];
+	/** statement 的英文版(語言切換用,非小字幕) */
+	statementEn?: StatementPart[];
 	enSubtitle?: string;
 	chips?: Chip[];
 	/** 斜槓角色標籤(講師/顧問/活動策劃等並行身份,非時間軸) */
 	sideRoles?: SideRole[];
 	primaryLabel?: string;
+	primaryLabelEn?: string;
 	primaryHref?: string;
 	ghostLabel?: string;
+	ghostLabelEn?: string;
 	ghostHref?: string;
 	credits?: string[];
 	badge?: string;
+	badgeEn?: string;
 	badgeBold?: string;
+	badgeBoldEn?: string;
 	/** 主視覺 4:5 圖(後台上傳);沒給就用設計稿的漸層佔位 */
 	heroImage?: string;
 	/** 概念藝術小卡的圖(16:10);沒給就用設計稿的漸層佔位 */
@@ -39,16 +47,21 @@ interface Props {
 const {
 	kicker,
 	statement = [],
+	statementEn = [],
 	enSubtitle,
 	chips = [],
 	sideRoles = [],
 	primaryLabel,
+	primaryLabelEn,
 	primaryHref,
 	ghostLabel,
+	ghostLabelEn,
 	ghostHref,
 	credits = [],
 	badge,
+	badgeEn,
 	badgeBold,
+	badgeBoldEn,
 	heroImage,
 	conceptImage,
 	conceptCredit,
@@ -63,15 +76,16 @@ const {
 		<div>
 			{kicker && <span class="kicker rv d1">{kicker}</span>}
 			<h1 class="rv d2">
-				{
-					statement.map((part) =>
-						part.chip ? (
-							<span class={`stmt-chip ${part.chip}`}>{part.text}</span>
-						) : (
-							part.text
-						),
-					)
-				}
+				<span class="i18n-zh">
+					{statement.map((part) =>
+						part.chip ? <span class={`stmt-chip ${part.chip}`}>{part.text}</span> : part.text,
+					)}
+				</span>
+				<span class="i18n-en" hidden>
+					{statementEn.map((part) =>
+						part.chip ? <span class={`stmt-chip ${part.chip}`}>{part.text}</span> : part.text,
+					)}
+				</span>
 			</h1>
 
 			{enSubtitle && <p class="en-sub rv d4">{enSubtitle}</p>}
@@ -83,7 +97,11 @@ const {
 							<span class="tl-item">
 								{i > 0 && <span class="arrow">→</span>}
 								<span class="chip">
-									<b>{c.year}</b> {c.text}
+									<b>{c.year}</b>{' '}
+									<span class="i18n-zh">{c.text}</span>
+									<span class="i18n-en" hidden>
+										{c.textEn || c.text}
+									</span>
 								</span>
 							</span>
 						))}
@@ -94,15 +112,23 @@ const {
 			{
 				sideRoles.length > 0 && (
 					<div class="roles rv d4" aria-label="斜槓角色">
-						{sideRoles.map((r) =>
-							r.href ? (
+						{sideRoles.map((r) => {
+							const label = (
+								<>
+									<span class="i18n-zh">{r.text}</span>
+									<span class="i18n-en" hidden>
+										{r.textEn || r.text}
+									</span>
+								</>
+							);
+							return r.href ? (
 								<a class="role-tag" href={r.href}>
-									{r.text}
+									{label}
 								</a>
 							) : (
-								<span class="role-tag">{r.text}</span>
-							),
-						)}
+								<span class="role-tag">{label}</span>
+							);
+						})}
 					</div>
 				)
 			}
@@ -111,14 +137,20 @@ const {
 				{
 					primaryLabel && (
 						<a class="btn btn-solid" href={primaryHref || '#'}>
-							{primaryLabel}
+							<span class="i18n-zh">{primaryLabel}</span>
+							<span class="i18n-en" hidden>
+								{primaryLabelEn || primaryLabel}
+							</span>
 						</a>
 					)
 				}
 				{
 					ghostLabel && (
 						<a class="btn btn-ghost" href={ghostHref || '#'}>
-							{ghostLabel}
+							<span class="i18n-zh">{ghostLabel}</span>
+							<span class="i18n-en" hidden>
+								{ghostLabelEn || ghostLabel}
+							</span>
 						</a>
 					)
 				}
@@ -197,8 +229,14 @@ const {
 			{
 				badge && (
 					<div class="badge" data-plx="-0.09">
-						{badge}
-						{badgeBold && <b>{badgeBold}</b>}
+						<span class="i18n-zh">
+							{badge}
+							{badgeBold && <b>{badgeBold}</b>}
+						</span>
+						<span class="i18n-en" hidden>
+							{badgeEn || badge}
+							{(badgeBoldEn || badgeBold) && <b>{badgeBoldEn || badgeBold}</b>}
+						</span>
 					</div>
 				)
 			}

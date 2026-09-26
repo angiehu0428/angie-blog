@@ -2,8 +2,10 @@
 name: Skuld Expenses 展會記帳
 icon: 💰
 tag: AI · 展會損益
+tag_en: "AI · Per-event P&L"
 cover: /uploads/skuld-expense-demo.png
 desc: 美國參展一場一場算，攤位上就想知道這場到底賺還賠。手機拍收據 AI 讀金額、Square 每天營收自動進來、收攤點現金當場對帳，單場損益和 ROI 隨時打開就看得到。
+desc_en: "Working US trade shows one at a time, you want to know right at the booth whether this show is making or losing money. Snap a receipt and AI reads the amount, Square takings flow in daily, count the cash at close to reconcile on the spot — per-event P&L and ROI are always one tap away."
 features:
   - 單場損益、ROI、目標進度一頁看完
   - 拍收據 AI 讀金額、店家、日期、分類
@@ -11,6 +13,13 @@ features:
   - 收攤現金清點對帳，差多少一眼看到
   - 幫手看不到財務數字，只記帳、看行程
   - 行程待辦＋代墊追蹤，帳目可匯出 CSV
+features_en:
+  - "Per-event P&L, ROI, and goal progress on one screen"
+  - "Snap a receipt — AI reads the amount, merchant, date, and category"
+  - "Square daily revenue auto-syncs, split into cash and card"
+  - "Count the cash drawer at close and see any difference at a glance"
+  - "Helpers can log expenses and see the schedule, but never the financials"
+  - "Schedule to-dos + out-of-pocket tracking; ledger exports to CSV"
 status: internal
 badge: update
 order: 8

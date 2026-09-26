@@ -2,7 +2,9 @@
 name: 旅遊花費統計 Travel Expense Tracker
 icon: ✈️
 tag: AI · 記帳
+tag_en: "AI · Expense tracking"
 desc: 出國玩很爽、回來對帳很痛——收據一疊、幣別全不同、收據上的外文根本看不懂是什麼、還要回頭查當天匯率。拍收據或刷卡截圖丟進去,AI 自動讀懂內容(連外文)、辨識金額品項、用刷卡當日匯率換算,還會自動去重、交通卡只記加值,免手 key。
+desc_en: "The trip is fun; reconciling it afterward is painful — a pile of receipts in different currencies, foreign text you can't read, and having to look up that day's exchange rate. Drop in a receipt or card-statement screenshot and AI reads it (foreign languages included), extracts the amount and items, converts using that day's exchange rate, de-duplicates automatically, and only logs top-ups for transit cards — no manual entry."
 features:
   - 掃收據/信用卡截圖,自動抓金額、店家、品項
   - 讀得懂外文收據,幫你翻譯出這筆買的是什麼
@@ -10,6 +12,13 @@ features:
   - 自動偵測重複、交通卡只記加值
   - 出差模式:設日支費額度,超支一眼看到
   - 還有行程表、天氣穿衣、朋友分攤、即時翻譯
+features_en:
+  - "Scan receipts or credit card screenshots — auto-extracts amount, merchant, and items"
+  - "Reads foreign-language receipts and tells you what you bought"
+  - "Converts to your home currency using that day's Bank of Taiwan exchange rate"
+  - "Auto-detects duplicates; transit cards only log top-ups"
+  - "Trip mode: set a daily budget and see overspending at a glance"
+  - "Also includes an itinerary, weather-based outfit tips, expense splitting with friends, and live translation"
 status: soon
 badge: update
 order: 2

@@ -1,15 +1,20 @@
 {
   "title": "關於 Angie",
+  "title_en": "About Angie",
   "description": "Art Center 畢業,曾任 Disney、Zynga 資深概念設計師;現為胡創有限公司負責人,專注亞洲與國際的圖像代理授權,並用 AI 打造實用工具。",
+  "description_en": "Art Center graduate and former senior concept designer at Disney and Zynga; now founder of Hu Creates, focused on art & IP licensing between Asia and the international market, and building practical AI tools.",
   "blocks": [
     {
       "type": "richText",
-      "body": "我是 **Angie Hu**。\n\n畢業於洛杉磯 Art Center College of Design 設計藝術中心學院。在台時曾有多媒體網頁設計相關資歷,曾任**迪士尼(Disney)**、社交遊戲大廠 **Zynga** 資深概念設計師。2016 年回台後成立外包美術工作室,參與歐美與中國大陸遊戲動畫美術設計案,並舉辦大型設計藝術相關活動與課程。2019 年成立**胡創有限公司**,2020 年轉型為圖像代理授權,致力連結亞洲與國際市場的藝術家與 IP。"
+      "body": "我是 **Angie Hu**。\n\n畢業於洛杉磯 Art Center College of Design 設計藝術中心學院。在台時曾有多媒體網頁設計相關資歷,曾任**迪士尼(Disney)**、社交遊戲大廠 **Zynga** 資深概念設計師。2016 年回台後成立外包美術工作室,參與歐美與中國大陸遊戲動畫美術設計案,並舉辦大型設計藝術相關活動與課程。2019 年成立**胡創有限公司**,2020 年轉型為圖像代理授權,致力連結亞洲與國際市場的藝術家與 IP。",
+      "body_en": "I'm **Angie Hu**.\n\nI graduated from Art Center College of Design in Los Angeles. Before that, I worked in multimedia web design in Taiwan, and later served as a senior concept designer at **Disney** and social-game giant **Zynga**. After returning to Taiwan in 2016, I founded an outsourced art studio, working on game and animation art for Western and Mainland Chinese productions, and organizing large-scale design and art events and courses. I founded **Hu Creates** in 2019, and pivoted it to art & IP licensing in 2020, focused on connecting artists and IP between Asia and the international market."
     },
     {
       "type": "clients",
       "heading": "顧問客戶",
+      "heading_en": "Consulting Clients",
       "intro": "曾擔任以下企業的顧問:",
+      "intro_en": "Consulting experience with:",
       "items": [
         "遊戲橘子 Gamania",
         "網銀國際 WANIN International",
@@ -22,48 +27,60 @@
     {
       "type": "richText",
       "heading": "Hu Creates —— 藝術與 IP 授權",
-      "body": "我經營 **[Hu Creates 胡創](https://www.hucreates.com)**,一間位於台北的**專業藝術與 IP 授權經紀公司**,代理來自亞洲與國際的藝術家,處理角色授權、圖像版權與跨產業合作——把亞洲的優秀創作帶向歐美市場,也把歐美的 IP 引進亞洲。\n\n代理的 IP 包括 Bu2ma 的《胖虎 Alexander the Fat Tiger》、台灣原創《鯊魚先生 Mr. Shark》,以及《Sharkitty》、《Annoying Birds》等。 👉 合作洽詢:[www.hucreates.com](https://www.hucreates.com)"
+      "heading_en": "Hu Creates — Art & IP Licensing",
+      "body": "我經營 **[Hu Creates 胡創](https://www.hucreates.com)**,一間位於台北的**專業藝術與 IP 授權經紀公司**,代理來自亞洲與國際的藝術家,處理角色授權、圖像版權與跨產業合作——把亞洲的優秀創作帶向歐美市場,也把歐美的 IP 引進亞洲。\n\n代理的 IP 包括 Bu2ma 的《胖虎 Alexander the Fat Tiger》、台灣原創《鯊魚先生 Mr. Shark》,以及《Sharkitty》、《Annoying Birds》等。 👉 合作洽詢:[www.hucreates.com](https://www.hucreates.com)",
+      "body_en": "I run **[Hu Creates](https://www.hucreates.com)**, a **professional art & IP licensing agency** based in Taipei, representing artists from Asia and internationally. We handle character licensing, image rights, and cross-industry collaborations — bringing great Asian creative work to Western markets, and bringing Western IP into Asia.\n\nIP we represent includes Bu2ma's *Alexander the Fat Tiger*, the Taiwan-original *Mr. Shark*, *Sharkitty*, and *Annoying Birds*. 👉 For business inquiries: [www.hucreates.com](https://www.hucreates.com)"
     },
     {
       "type": "richText",
       "heading": "AI 工具",
-      "body": "因為喜歡一直學新東西,我也用 **AI 打造能解決日常麻煩的小工具**——掃收據自動記帳、名片自動整理進 Notion、AI 塔羅等等。這個網站就是放我的工具與想法的地方。"
+      "heading_en": "AI Tools",
+      "body": "因為喜歡一直學新東西,我也用 **AI 打造能解決日常麻煩的小工具**——掃收據自動記帳、名片自動整理進 Notion、AI 塔羅等等。這個網站就是放我的工具與想法的地方。",
+      "body_en": "Because I enjoy constantly learning new things, I also use **AI to build small tools that solve everyday annoyances** — scanning receipts into automatic bookkeeping, sorting business cards into Notion, AI tarot readings, and more. This site is where I keep my tools and ideas."
     },
     {
       "type": "richText",
       "heading": "媒體 / 過去專訪",
-      "body": "**INSIDE 硬塞的網路趨勢觀察**(2012)—— [如何進入頂尖社交遊戲公司:專訪來自台灣的 Angie Hu](https://www.inside.com.tw/2012/08/15/how-to-get-in-top-social-game-company-angie-hu)。台灣媒體報導亦可見 [INCG Media](https://www.incgmedia.com/people/hu-creates-studio)。"
+      "heading_en": "Press & Past Interviews",
+      "body": "**INSIDE 硬塞的網路趨勢觀察**(2012)—— [如何進入頂尖社交遊戲公司:專訪來自台灣的 Angie Hu](https://www.inside.com.tw/2012/08/15/how-to-get-in-top-social-game-company-angie-hu)。台灣媒體報導亦可見 [INCG Media](https://www.incgmedia.com/people/hu-creates-studio)。",
+      "body_en": "**INSIDE** (Taiwan tech/trend media, 2012) — [How to get into a top social game company: an interview with Angie Hu from Taiwan](https://www.inside.com.tw/2012/08/15/how-to-get-in-top-social-game-company-angie-hu). Also covered by Taiwan media at [INCG Media](https://www.incgmedia.com/people/hu-creates-studio)."
     },
     {
       "type": "figure",
       "image": "/uploads/interview-us.jpg",
-      "caption": "美國媒體專訪"
+      "caption": "美國媒體專訪",
+      "caption_en": "US media interview"
     },
     {
       "type": "audio",
       "title": "ICRT 廣播專訪(2020/04/28)",
+      "title_en": "ICRT radio interview (2020/04/28)",
       "file": "",
-      "note": "🎧 音檔整理中——在後台這個區塊上傳 mp3 後,這裡就會出現播放器。"
+      "note": "🎧 音檔整理中——在後台這個區塊上傳 mp3 後,這裡就會出現播放器。",
+      "note_en": "🎧 Audio coming soon — once an mp3 is uploaded for this block in the CMS, a player will appear here."
     },
     {
       "type": "richText",
-      "body": "**Stan Lee 官方網站專訪**(2014,網站已隨 Stan Lee 過世而註銷)"
+      "body": "**Stan Lee 官方網站專訪**(2014,網站已隨 Stan Lee 過世而註銷)",
+      "body_en": "**Interview on Stan Lee's official website** (2014; the site was taken down after Stan Lee's passing)"
     },
     {
       "type": "figure",
       "image": "/uploads/interview-stanlee.jpg",
-      "caption": "Stan Lee 官方網站專訪截圖(2014)"
+      "caption": "Stan Lee 官方網站專訪截圖(2014)",
+      "caption_en": "Screenshot of the interview on Stan Lee's official website (2014)"
     },
     {
       "type": "links",
       "heading": "聯絡我",
+      "heading_en": "Get in Touch",
       "items": [
-        { "label": "✉️ 找我合作(聯絡表單)", "url": "/contact" },
-        { "label": "公司官網 Hu Creates", "url": "https://www.hucreates.com" },
-        { "label": "Instagram(生活)@huisangie", "url": "https://www.instagram.com/huisangie" },
-        { "label": "Instagram(繪圖)@hupaints", "url": "https://www.instagram.com/hupaints" },
-        { "label": "Facebook angiehu", "url": "https://www.facebook.com/angiehu" },
-        { "label": "早期作品集 Behance", "url": "https://www.behance.net/angiehu" }
+        { "label": "✉️ 找我合作(聯絡表單)", "label_en": "✉️ Work with me (contact form)", "url": "/contact" },
+        { "label": "公司官網 Hu Creates", "label_en": "Company site: Hu Creates", "url": "https://www.hucreates.com" },
+        { "label": "Instagram(生活)@huisangie", "label_en": "Instagram (life) @huisangie", "url": "https://www.instagram.com/huisangie" },
+        { "label": "Instagram(繪圖)@hupaints", "label_en": "Instagram (art) @hupaints", "url": "https://www.instagram.com/hupaints" },
+        { "label": "Facebook angiehu", "label_en": "Facebook angiehu", "url": "https://www.facebook.com/angiehu" },
+        { "label": "早期作品集 Behance", "label_en": "Early portfolio: Behance", "url": "https://www.behance.net/angiehu" }
       ]
     }
   ]

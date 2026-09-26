@@ -15,34 +15,48 @@ import Header from '../components/Header.astro';
 	<body>
 		<Header />
 		<main class="contact-main">
-			<h1>找我合作</h1>
-			<p class="lede">
+			<h1 class="i18n-zh">找我合作</h1>
+			<h1 class="i18n-en" hidden>
+				Work with me
+			</h1>
+			<p class="lede i18n-zh">
 				想聊 <strong>IP 授權</strong>、<strong>藝術合作</strong>、<strong>顧問</strong>,或對我的
 				<strong>AI 工具</strong>有興趣?留下訊息,我會用 Email 回覆你 📮
+			</p>
+			<p class="lede i18n-en" hidden>
+				Want to talk <strong>IP licensing</strong>, <strong>art collaboration</strong>,
+				<strong>consulting</strong>, or one of my <strong>AI tools</strong>? Leave a message and
+				I'll reply by email 📮
 			</p>
 
 			<form id="contact-form" novalidate>
 				<div class="grid2">
 					<label>
-						<span>怎麼稱呼你 *</span>
+						<span class="i18n-zh">怎麼稱呼你 *</span>
+						<span class="i18n-en" hidden>Your name *</span>
 						<input type="text" name="name" required maxlength="100" autocomplete="name" />
 					</label>
 					<label>
-						<span>你的 Email *</span>
+						<span class="i18n-zh">你的 Email *</span>
+						<span class="i18n-en" hidden>Your email *</span>
 						<input type="email" name="email" required maxlength="200" autocomplete="email" />
 					</label>
 				</div>
 				<label>
-					<span>主題</span>
+					<span class="i18n-zh">主題</span>
+					<span class="i18n-en" hidden>Subject</span>
 					<input
 						type="text"
 						name="subject"
 						maxlength="150"
 						placeholder="例如:IP 授權合作、工具詢問…"
+						data-ph-zh="例如:IP 授權合作、工具詢問…"
+						data-ph-en="e.g. IP licensing partnership, a question about a tool…"
 					/>
 				</label>
 				<label>
-					<span>想說的話 *</span>
+					<span class="i18n-zh">想說的話 *</span>
+					<span class="i18n-en" hidden>Your message *</span>
 					<textarea name="message" required rows="7" maxlength="4000"></textarea>
 				</label>
 				<!-- 蜜罐:人類看不到,機器人會填 -->
@@ -50,15 +64,26 @@ import Header from '../components/Header.astro';
 					<span>Website</span>
 					<input type="text" name="website" tabindex="-1" autocomplete="off" />
 				</label>
-				<button type="submit" class="btn-send">送出訊息 →</button>
+				<button type="submit" class="btn-send">
+					<span class="i18n-zh">送出訊息 →</span>
+					<span class="i18n-en" hidden>
+						Send message →
+					</span>
+				</button>
 				<p class="form-msg" hidden></p>
 			</form>
 
-			<p class="alt">
+			<p class="alt i18n-zh">
 				表單怪怪的?也可以在
 				<a href="https://www.instagram.com/huisangie" target="_blank" rel="noopener">Instagram @huisangie</a>
 				或
 				<a href="https://www.facebook.com/angiehu" target="_blank" rel="noopener">Facebook</a> 私訊我。
+			</p>
+			<p class="alt i18n-en" hidden>
+				Form acting up? You can also DM me on
+				<a href="https://www.instagram.com/huisangie" target="_blank" rel="noopener">Instagram @huisangie</a>
+				or
+				<a href="https://www.facebook.com/angiehu" target="_blank" rel="noopener">Facebook</a>.
 			</p>
 		</main>
 		<Footer />
@@ -189,12 +214,13 @@ import Header from '../components/Header.astro';
 			form.addEventListener('submit', async (e) => {
 				e.preventDefault();
 				const data = Object.fromEntries(new FormData(form).entries());
+				const en = document.documentElement.dataset.lang === 'en';
 				if (!data.name || !data.email || !data.message) {
-					show('err', '請至少填「稱呼、Email、想說的話」三格 🙏');
+					show('err', en ? 'Please fill in name, email, and message 🙏' : '請至少填「稱呼、Email、想說的話」三格 🙏');
 					return;
 				}
 				btn.disabled = true;
-				btn.textContent = '送出中…';
+				btn.textContent = en ? 'Sending…' : '送出中…';
 				try {
 					const r = await fetch('/api/contact', {
 						method: 'POST',
@@ -204,18 +230,20 @@ import Header from '../components/Header.astro';
 					const j = await r.json();
 					if (j.ok) {
 						form.reset();
-						show('ok', '收到了!我會盡快用 Email 回覆你 😊');
-						btn.textContent = '已送出 ✓';
+						show('ok', en ? "Got it! I'll reply by email soon 😊" : '收到了!我會盡快用 Email 回覆你 😊');
+						btn.textContent = en ? 'Sent ✓' : '已送出 ✓';
 					} else {
 						throw new Error(j.error || 'failed');
 					}
 				} catch {
 					show(
 						'err',
-						'送出失敗了 😥 請稍後再試一次,或到 Instagram @huisangie 私訊我',
+						en
+							? 'Something went wrong 😥 please try again, or DM me on Instagram @huisangie'
+							: '送出失敗了 😥 請稍後再試一次,或到 Instagram @huisangie 私訊我',
 					);
 					btn.disabled = false;
-					btn.textContent = '送出訊息 →';
+					btn.textContent = en ? 'Send message →' : '送出訊息 →';
 				}
 			});
 
