@@ -46,7 +46,7 @@ keywords:
 
 跑一場展會、開一天會,手上一疊名片。回辦公室要一張張打進 Excel 或 CRM——姓名、公司、職稱、電話、Email,還要記得這個人是哪個場合認識的。太花時間,結果大多數人就是拖著不建,幾週後名片變成一疊想不起來是誰的紙,人脈就這樣斷了。
 
-這工具原本是我自己業務在用的內部版,現在做成**任何人都能用的公開版**:收完名片當場拍一拍,整批變成一份整理好的試算表。
+這工具原本是我自己在用的,現在做成**任何人都能用的公開版**:收完名片當場拍一拍,整批變成一份整理好的試算表。
 
 ## 怎麼用?
 
@@ -77,7 +77,3 @@ keywords:
 A **free AI business card scanner** at [scan.hucreates.com](https://scan.hucreates.com). Photograph or upload business cards — several per photo is fine, and front/back photos are paired automatically — and AI extracts name, company, title, phone, email, website, and address. Review each card, tag it for follow-up, then export everything to **Excel** or **Google Sheets** (or vCard / CSV). No sign-up; card photos are sent to the AI for reading and never stored.
 
 **Free:** 10 cards a day, up to 5 photos per scan. **Pro (US$5/month):** 200 cards a day, 20 photos per scan, a running list synced across your devices, duplicate detection, an Excel summary sheet, and custom fields. No account needed — you get a subscription key after checkout via Stripe, and can cancel anytime.
-
-## 公司內部版
-
-Hu Creates 自己另外用一個內部版,讀完直接存進公司的 Notion 聯絡人資料庫(含客戶類型、展會分類)。公開版與內部版是兩個完全分開的系統,不共用資料。
