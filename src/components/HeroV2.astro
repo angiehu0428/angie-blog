@@ -77,14 +77,20 @@ const {
 			{kicker && <span class="kicker rv d1">{kicker}</span>}
 			<h1 class="rv d2">
 				<span class="i18n-zh">
-					{statement.map((part) =>
-						part.chip ? <span class={`stmt-chip ${part.chip}`}>{part.text}</span> : part.text,
-					)}
+					{statement.map((part, i) => (
+						<>
+							{i > 0 && ' '}
+							{part.chip ? <span class={`stmt-chip ${part.chip}`}>{part.text.trim()}</span> : part.text.trim()}
+						</>
+					))}
 				</span>
 				<span class="i18n-en" hidden>
-					{statementEn.map((part) =>
-						part.chip ? <span class={`stmt-chip ${part.chip}`}>{part.text}</span> : part.text,
-					)}
+					{statementEn.map((part, i) => (
+						<>
+							{i > 0 && ' '}
+							{part.chip ? <span class={`stmt-chip ${part.chip}`}>{part.text.trim()}</span> : part.text.trim()}
+						</>
+					))}
 				</span>
 			</h1>
 
