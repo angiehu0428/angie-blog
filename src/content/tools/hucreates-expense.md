@@ -4,6 +4,7 @@ icon: 💰
 tag: AI · 展會損益
 tag_en: "AI · Per-event P&L"
 cover: /uploads/skuld-expense-demo.png
+cover_en: /uploads/skuld-expense-demo-en.png
 desc: 參展一場一場算，攤位上就想知道這場到底賺還賠。手機拍收據 AI 讀金額、收銀營收每天自動進來、收攤點現金當場對帳，單場損益和 ROI 隨時打開就看得到。
 desc_en: "Working trade shows one at a time, you want to know right at the booth whether this show is making or losing money. Snap a receipt and AI reads the amount, register takings flow in daily, count the cash at close to reconcile on the spot — per-event P&L and ROI are always one tap away."
 features:

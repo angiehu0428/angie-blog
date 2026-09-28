@@ -7,6 +7,11 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import home from '../data/home.json';
+
+// 履歷頁的大頭照直接沿用首頁主視覺那張(本來就是公開照片,不用放 KV)。
+// 首頁從後台換照片,這裡會跟著換。
+const portrait = home.blocks.find((b) => b.type === 'hero')?.heroImage ?? '';
 ---
 
 <!doctype html>
@@ -49,7 +54,7 @@ import Header from '../components/Header.astro';
 			</section>
 
 			<!-- 履歷內容(登入後由 JS 填入) -->
-			<section class="cv-content" id="cv" hidden></section>
+			<section class="cv-content" id="cv" data-portrait={portrait} hidden></section>
 		</main>
 
 		<Footer />
@@ -80,10 +85,20 @@ import Header from '../components/Header.astro';
 				cv.textContent = '';
 
 				const head = el('header', 'cv-head');
-				head.append(el('span', 'kicker', 'PRIVATE · 顧問履歷'));
-				head.append(el('h1', null, data.title || '顧問履歷'));
-				if (data.updated) head.append(el('p', 'cv-updated', `更新於 ${data.updated}`));
-				if (data.intro) head.append(el('p', 'lede', data.intro));
+				const portrait = cv.dataset.portrait;
+				if (portrait) {
+					const ph = document.createElement('img');
+					ph.className = 'cv-portrait';
+					ph.src = portrait;
+					ph.alt = 'Angie Hu';
+					head.append(ph);
+				}
+				const headText = el('div', 'cv-head-text');
+				headText.append(el('span', 'kicker', 'PRIVATE · 顧問履歷'));
+				headText.append(el('h1', null, data.title || '顧問履歷'));
+				if (data.updated) headText.append(el('p', 'cv-updated', `更新於 ${data.updated}`));
+				if (data.intro) headText.append(el('p', 'lede', data.intro));
+				head.append(headText);
 				cv.append(head);
 
 				// 圖片式履歷:整頁簡報依序排下來(Angie 的簡歷本來就是一頁一張圖)
@@ -303,6 +318,29 @@ import Header from '../components/Header.astro';
 			/* ── 履歷內容 ── */
 			.cv-content :global(.cv-head) {
 				margin: 0 0 2.6rem;
+				display: flex;
+				gap: 2rem;
+				align-items: center;
+			}
+			.cv-content :global(.cv-portrait) {
+				flex: none;
+				width: 180px;
+				aspect-ratio: 4 / 5;
+				object-fit: cover;
+				object-position: 50% 22%;
+				border-radius: 20px;
+				border: 1px solid var(--line);
+				box-shadow: 0 10px 28px rgba(38, 42, 63, 0.12);
+			}
+			@media (max-width: 640px) {
+				.cv-content :global(.cv-head) {
+					flex-direction: column;
+					align-items: flex-start;
+					gap: 1.2rem;
+				}
+				.cv-content :global(.cv-portrait) {
+					width: 140px;
+				}
 			}
 			.cv-content :global(.cv-head h1) {
 				font-size: 2.4rem;
