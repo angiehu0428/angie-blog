@@ -332,6 +332,9 @@ collections:
                   - { label: "音檔(mp3,上傳後自動顯示播放器)", name: "file", widget: "file", required: false }
                   - { label: "還沒上傳時顯示的文字", name: "note", widget: "string", required: false }
                   - { label: "還沒上傳時顯示的文字(英文)", name: "note_en", widget: "string", required: false }
+                  - { label: "節目連結(SoundOn / Spotify 等,顯示成「收聽這集」按鈕)", name: "link", widget: "string", required: false }
+                  - { label: "連結按鈕文字", name: "link_label", widget: "string", required: false }
+                  - { label: "連結按鈕文字(英文)", name: "link_label_en", widget: "string", required: false }
               - label: "連結清單"
                 name: "links"
                 widget: "object"
