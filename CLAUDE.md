@@ -38,6 +38,7 @@ Angie 的個人網站(Astro 靜態站,網域 angiehu.com)。**這份是專案交
 - 本機完整制度在 `/Users/angiehu/Claude/CLAUDE.md` 與 `claude-ops/`(雲端 session 看不到就照本段執行)。
 
 ## 變更紀錄
+- 2026-09-28:**「我的故事」頁的「媒體 / 過去專訪」改成條列並補上新找到的報導**(Angie 要求搜「胡安之」與「Angie Hu」)。新增:2025 臺灣文博會「角色IP論壇」主持人(文策院主辦)、北美智權報 2025/8/8 報導、The Pop Insider(美國,貓咪超級英雄)專訪;InCG Media 改成顯示完整標題。**篩選原則**:美國有多位同名的 Angie Hu(企業公關、行銷等不同領域),只收內容明確對得上她經歷(Art Center/Disney/Zynga/胡創/貓咪插畫)的報導;搜尋摘要裡出現但查不到原始報導的說法(獎項、Comic-Con 講者等)沒放,等 Angie 確認。雲端 session 連不到這些網站本身,連結是從搜尋結果取得,上線後請實際點過。(模型:Opus 5.5)
 - 2026-09-26:**名片掃描公開付費版上架+五個工具內容更新+修正英文版一個顯示 bug。**
   - **名片掃描器 Card Scanner**(`card-scanner.md`)從內部工具改成公開產品:`status: live`、`href: https://scan.hucreates.com`、`badge: new`、去掉「公司工具」分類。方案事實取自 card-scanner repo 的 README 與 `wrangler.public.toml`:免費每天 10 張/一次 5 張照片;Pro US$5/月(Stripe)每天 200 張/一次 20 張、名單累積+跨裝置同步、自動找重複、Excel 統計分頁、自訂欄位;免帳號(訂閱序號)。「照片不存伺服器」是查過公開版 worker 的 KV 寫入(只有額度、訂閱、文字名單)才寫的。內部版(Notion)在內文一段帶過。
   - **示範圖做法**(之後其他工具照這套):格式對齊 Angie 9/23 做的 `skuld-expense-demo.png`——1440×860、深藍底、三支手機、上方 HU CREATES+工具名、底部網址+「示意畫面」註記。畫面是在本機跑該工具**真正的程式**(`wrangler dev --local`)用 Chromium 截的,只把 AI 讀取的 API 回應換成**明顯虛構**的名片(範例公司、example.com、555 電話),方案資訊用正式設定值。中英各一張,英文版放新欄位 `cover_en`(schema/工具頁/首頁卡片/CMS 都已支援,沒給就沿用中文封面)。
