@@ -57,10 +57,10 @@ keywords:
 
 ## What is this? (English)
 
-A **multi-brand social media management console** built for agencies: write once, cross-post to Facebook, Instagram, Threads, X, TikTok and YouTube, with approval workflows, content calendars, audience analytics, and licensor reports — powered by an AI assistant that drafts captions, replies, and written insights so the team doesn't have to do it all manually. It also includes a graphic designer (templates, AI product copy, background removal, a meme maker), smart scheduling (brand posting slots, first-comment scheduling, hashtag groups, CSV bulk scheduling, best-time suggestions from your own data), comment giveaways, a shared inbox with assignment and AI reply drafts, and passkey login. Already in use by the team internally; public access is waiting on platform API reviews (Meta, YouTube).
+A **multi-brand social media management console** built for agencies: write once, cross-post to Facebook, Instagram, Threads, X, TikTok and YouTube, with approval workflows, content calendars, audience analytics, and licensor reports — powered by an AI assistant that drafts captions, replies, and written insights so the team doesn't have to do it all manually. It also includes a graphic designer (templates, AI product copy, background removal, a meme maker), smart scheduling (brand posting slots, first-comment scheduling, hashtag groups, CSV bulk scheduling, best-time suggestions from your own data), comment giveaways, a shared inbox with assignment and AI reply drafts, and passkey login.
 
 ## 目前狀態
 
-🚧 團隊內部已經在使用;對外開放還在等各平台(Meta、YouTube 等)的 API 審核。想在推出時收到通知,歡迎到 [找我合作](/contact) 留個訊息 🙂
+🚧 對外版本準備中。想在推出時收到通知,歡迎到 [找我合作](/contact) 留個訊息 🙂
 
 *(截圖之後補上)*

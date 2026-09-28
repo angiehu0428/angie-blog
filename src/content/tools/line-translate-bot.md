@@ -4,23 +4,19 @@ icon: 🌐
 tag: AI · 翻譯
 tag_en: "AI · Translation"
 desc: 跟不同語言的夥伴開 LINE 群組溝通,訊息一句句丟去翻譯很累、也容易斷了節奏。這個 bot 掛在群組裡,自動偵測語言、中文↔英/韓/日/泰/越即時雙向翻譯,而且不儲存訊息內容。
-desc_en: "Chatting in a LINE group with people who speak different languages means copy-pasting every line into a translator, which kills the flow of conversation. This bot lives in the group, auto-detects language, and translates Chinese ↔ English/Korean/Japanese/Thai/Vietnamese instantly both ways — without storing any message content."
+desc_en: "Chatting in a LINE group with people who speak different languages means copy-pasting every line into a translator, which kills the flow. This bot lives in the group, auto-detects language, and translates Chinese ↔ English/Korean/Japanese/Thai/Vietnamese instantly both ways — without storing any message content."
 features:
   - 掛在 LINE 群組,自動偵測發言語言即時翻譯
   - 中文 ↔ 英 / 韓 / 日 / 泰 / 越 雙向
-  - 第三種語言同時翻成中文和群組外語兩段,雙方都看得懂
-  - 偵測誤判時,可用 /翻日、/翻英 等指令強制指定方向
-  - Gemini Flash 為主,重要場合可切 Claude 提升品質
-  - 隱私:不儲存訊息原文與翻譯結果
-  - 可鎖定專有名詞、品牌譯名前後一致
+  - 第三種語言同時翻成兩段,雙方都看得懂
+  - 偵測誤判時可以手動指定翻譯方向
+  - 不儲存訊息原文與翻譯結果
 features_en:
   - "Lives in a LINE group, auto-detects the speaker's language and translates instantly"
   - "Chinese ↔ English / Korean / Japanese / Thai / Vietnamese, both directions"
-  - "A third language is translated into both Chinese and the group's language, so everyone follows"
-  - "When detection guesses wrong, commands like /翻英 force the target language"
-  - "Runs on Gemini Flash by default, switchable to Claude for higher quality on important occasions"
-  - "Privacy-first: original messages and translations are never stored"
-  - "Can lock proper nouns and brand names for consistent translation"
+  - "A third language is translated both ways, so everyone follows"
+  - "Manually force the direction when detection guesses wrong"
+  - "Original messages and translations are never stored"
 status: internal
 badge: update
 order: 13
@@ -34,29 +30,20 @@ keywords:
   - LINE translation bot
   - group chat live translation
 ---
-
 ## 為什麼做這個?
 
-跟不同語言的夥伴用 LINE 群組溝通,每一句都要自己複製去翻譯軟體、再貼回來,很累也很卡,對話的節奏整個斷掉。這個 bot 直接掛在群組裡,誰發言就自動偵測語言、即時翻出來,大家用各自的語言講話就好。它只用被動 Reply 回覆,成本壓到最低。
+跟不同語言的夥伴用 LINE 群組溝通,每一句都要自己複製去翻譯軟體、再貼回來,很累也很卡。這個 bot 直接掛在群組裡,誰發言就自動翻出來,大家用各自的語言講話就好。
 
 ## 這是什麼?
 
-一個掛在 **LINE 群組**裡的**即時翻譯 bot**。自動偵測發言的語言,在中文和英、韓、日、泰、越之間雙向即時翻譯。主力引擎是 Gemini Flash(亞洲語言強、延遲低),重要場合可以切換 Claude 拉高品質。可以先設定好專有名詞和品牌的固定譯法,翻出來前後一致。
-
-## 特色
-
-- **群組內即時翻譯**:自動偵測語言,不用手動指定
-- **多語雙向**:中文 ↔ 英 / 韓 / 日 / 泰 / 越
-- **第三種語言兩邊都翻**:群組裡有人用第三種語言(例如英文)發言,會同時翻成中文和群組外語兩段,雙方都看得懂
-- **手動指定方向**:偶爾偵測誤判時,用 `/翻中` `/翻日` `/翻英` `/翻韓` `/翻泰` `/翻越` 強制翻成指定語言
-- **雙引擎**:Gemini Flash 主力,Claude 選配(重要場合)
-- **隱私**:不落地訊息原文與翻譯結果
-- **譯名一致**:可鎖定專有名詞、品牌的固定譯法
+一個掛在 **LINE 群組**裡的**即時翻譯 bot**,自動偵測語言,在中文和英、韓、日、泰、越之間雙向翻譯;專有名詞可以固定譯法,前後一致。
 
 ## What is this? (English)
 
-A **real-time translation bot for LINE group chats**: it auto-detects each message's language and translates two-way between Chinese and English / Korean / Japanese / Thai / Vietnamese, so everyone can just type in their own language. Gemini Flash is the primary engine (fast, strong on Asian languages), with Claude as an option for higher-stakes conversations. Message content isn't stored, and a glossary keeps proper nouns and brand names consistent. Messages in a third language are translated into both Chinese and the group's language, and commands like `/翻英` (to English) force a direction when auto-detection guesses wrong.
+A **real-time translation bot for LINE group chats**: it auto-detects each message's language and translates two-way between Chinese and English / Korean / Japanese / Thai / Vietnamese, so everyone can type in their own language. Message content isn't stored.
 
 ## 目前狀態
 
-🔒 這是內部在用的工具。有興趣了解歡迎到 [找我合作](/contact) 聊聊。
+🔒 這是公司內部使用的工具,**尚未有對外公開版本**。有興趣歡迎到 [找我合作](/contact) 留個訊息。
+
+🔒 An internal tool used by the Hu Creates team. **No public version yet** — [get in touch](/contact) if you're interested.

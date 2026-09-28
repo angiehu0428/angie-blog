@@ -3,24 +3,20 @@ name: 收據掃描報帳 AI Receipt Scanner
 icon: 🧾
 tag: AI · OCR
 tag_en: "AI · OCR"
-desc: 代墊花錢還好,煩的是平常太忙沒空整理,收據堆著,事後還要一筆筆手 key 發票號碼、自己編憑證號,會計每個月追著你哇哇叫。當場拍一張丟進去,AI 全讀出來、自動編號換匯、連電子檔一起歸進 Notion 代墊總表,會計要什麼有什麼。
-desc_en: "Fronting expenses is fine — the annoyance is being too busy to sort receipts, letting them pile up, then manually keying in invoice numbers and voucher IDs after the fact while accounting chases you every month. Snap one photo and AI reads everything, auto-numbers it, converts currency, and files it — receipt image included — straight into the Notion expense ledger, ready for accounting."
+desc: 代墊花錢還好,煩的是事後報帳:收據堆著沒空整理,還要一筆筆手 key 發票號碼、自己編憑證號。當場拍一張丟進去,AI 讀出內容、自動編號換匯,整理成報帳總表。
+desc_en: "Fronting expenses is fine — the pain is the expense report afterward: receipts pile up, and invoice numbers and voucher IDs get keyed in by hand. Snap a photo on the spot and AI reads it, numbers it, converts the currency, and files it into an expense ledger."
 features:
-  - 支援照片、截圖與 PDF(電子發票/機票)
+  - 支援照片、截圖與 PDF 電子發票
   - AI 讀出事由/金額/幣別/發票號碼
-  - 收據自動裁切:AI 抓出邊界,去掉背景雜物
+  - 收據自動裁切,去掉背景雜物
   - 自動編憑證編號、換算匯率
-  - 重複偵測:發票號碼、金額與日期比對,外幣也能跨幣別認出同一筆
-  - 差旅自動分流:機票、住宿、eSIM 進差旅總表,出差期間的雜項也歸到該趟出差
-  - 一鍵存進 Notion 代墊總表
+  - 重複偵測,同一張收據不會報兩次
 features_en:
-  - "Works with photos, screenshots, and PDFs (e-invoices/flight tickets)"
+  - "Works with photos, screenshots, and PDF e-invoices"
   - "AI reads the purpose / amount / currency / invoice number"
-  - "Auto-crops the receipt: AI finds the edges and removes the background clutter"
+  - "Auto-crops the receipt and removes background clutter"
   - "Auto-generates a voucher number and converts currency"
-  - "Duplicate detection by invoice number, amount, and date — even across currencies"
-  - "Travel routing: flights, hotels, and eSIMs go to the travel ledger, and misc receipts during a trip are filed under that trip"
-  - "One click to save into the Notion expense ledger"
+  - "Duplicate detection so the same receipt is never claimed twice"
 status: internal
 badge: update
 order: 5
@@ -34,39 +30,24 @@ keywords:
   - 代墊費用 管理
   - 報帳 自動化
   - 統一發票 掃描
-  - receipt scanner notion
   - AI receipt OCR
   - expense report automation
   - invoice scanner app
-  - receipt to Notion database
 ---
-
 ## 為什麼做這個?
 
-幫公司代墊費用很常見,痛的是事後報帳。平常工作已經夠忙,收據就堆著沒空整理,拖到月底(或會計來催)才一筆筆把事由、金額、幣別、日期、發票號碼手動填進表格,還要自己按規則編憑證編號、把收據掃描歸檔——一趟出差累積十幾張,光整理就半天,難怪會計每個月追著哇哇叫。這工具把這整段自動化:當場拍一張丟進去,AI 讀好、編好號、換好匯、連電子檔一起進 Notion,會計要什麼有什麼,你也不用再擠時間坐下來 key。
+幫公司代墊費用很常見,痛的是事後報帳:收據堆著沒空整理,拖到月底才一筆筆把金額、幣別、日期、發票號碼手動填進表格,還要自己編憑證編號。這工具把這整段自動化:當場拍一張,AI 讀好、編好號、換好匯。
 
 ## 這是什麼?
 
-報帳救星。代墊了一堆費用,收據拍照丟進去,**AI 自動讀出**事由、金額、幣別、日期、發票號碼,自動編好憑證編號,一鍵存進 **Notion 報帳總表**,連收據的電子檔都幫你歸檔——會計要什麼有什麼。
-
-## 特色
-
-- **什麼都能讀**:紙本收據拍照、手機截圖、PDF 電子發票/電子機票
-- **台灣發票友善**:自動抓統一發票號碼
-- **自動編號**:憑證編號依日期+流水號自動生成
-- **自動裁切**:AI 偵測收據邊界,裁掉桌面等背景,存檔更乾淨
-- **防重複報帳**:同一張發票(或金額、日期對得上的外幣收據)再掃一次會提醒
-- **差旅自動分流**:機票、住宿、eSIM 等進差旅費總表;國外出差期間的雜項收據,自動歸到那一趟出差
-- 也支援從 Slack 丟檔案自動匯入
+報帳救星。收據拍照丟進去,**AI 自動讀出**事由、金額、幣別、日期、發票號碼,自動編好憑證編號、換算匯率,整理成報帳總表。
 
 ## What is this? (English)
 
-An **AI receipt scanner for expense reports**: photograph paper receipts, drop in screenshots or PDF e-invoices/e-tickets, and the AI extracts purpose, amount, currency, date and invoice number — auto-numbers the voucher, converts currency, and files everything (with the receipt image) into a **Notion expense database**. It auto-crops receipts, flags duplicates (even across currencies), and routes travel expenses — flights, hotels, eSIMs, and misc receipts during a trip — to the right trip. Taiwan uniform-invoice friendly; also ingests files dropped into Slack.
+An **AI receipt scanner for expense reports**: photograph receipts or drop in PDF e-invoices, and the AI extracts purpose, amount, currency, date, and invoice number, auto-numbers the voucher, converts currency, flags duplicates, and files it into an expense ledger.
 
-## 目前狀態 / Status
+## 目前狀態
 
-🔒 這是我公司內部在用的工具(連我自己的 Notion)。**對外開放版本開發中**——有興趣歡迎到 [聯絡我](/about) 留個訊息。
+🔒 這是公司內部使用的工具,**尚未有對外公開版本**。有興趣歡迎到 [找我合作](/contact) 留個訊息。
 
-🔒 Currently an internal company tool (connected to my own Notion). **A public version is in development** — [contact me](/about) if you're interested.
-
-*(截圖之後補上)*
+🔒 An internal tool used by the Hu Creates team. **No public version yet** — [get in touch](/contact) if you're interested.
