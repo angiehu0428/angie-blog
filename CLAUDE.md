@@ -46,6 +46,7 @@ Angie 的個人網站(Astro 靜態站,網域 angiehu.com)。**這份是專案交
   - ICRT 專訪補上節目名《Taiwan Talk》(Angie 提供)。線上存檔搜不到(ICRT/Apple Podcasts/Listen Notes 雲端 session 都連不到),音檔仍待 Angie 從後台上傳 mp3。
   - Angie 給了 SoundOn 上的單集連結 → `about.astro` 的音檔區塊新增 `link`(+`link_label`/`link_label_en`)欄位,顯示成「🎧 在 SoundOn 收聽這集」按鈕(沿用 placeholder 的色票);有 `file` 就同時顯示播放器+來源連結,兩個都沒有才顯示 note。CMS 已加欄位。**沒有把音檔下載下來放自己網站**:雲端 session 連不到 SoundOn,而且錄音版權屬 ICRT,連回原節目最穩;Angie 若要站內直接播,可自己從 SoundOn 下載 mp3 再從後台上傳。
   - Angie 已從後台上傳 ICRT 音檔(48kbps 單聲道、11:34、4.2 MB)。後台存的檔名帶空格與括號,已改名成 `public/uploads/icrt-taiwan-talk-2020.mp3`;瀏覽器實測播放器可載入、中英文都正常,SoundOn 按鈕保留當出處。**之後後台上傳檔案,檔名最好先改成英文、不要有空格。**
+  - ⚠️ Sveltia 後台存檔會**自動刪掉字串前後的空格**。9/28 Angie 從後台改首頁(換 hero 照為 `AngieIP.png`)後,hero 標語的片段黏在一起(英文變成「shippingAI tools」「turnedIP licensing」)。已改 `HeroV2.astro`:標語片段由程式自動 trim 後以一個空格串接,資料裡有沒有空格都不影響。之後其他「多段拼接」的欄位也要這樣處理,不要依賴資料裡的前後空格。
 - 2026-09-27:**新工具「傳送門 Link in Bio」**(`hu-link.md`,對應 repo `hu-link`)。團隊內部用的一頁式傳送門+短網址+可追蹤 QR code,後台只有團隊能登入 → 照「內部工具不寫公司機密」規則:`status: internal`、不放網址、不寫串接系統與團隊資訊,只寫問題與大方向功能(每項都對過 repo 已上線的 commit)。`llms.txt` 同步。(模型:Opus 5.5)
 - 2026-09-26(晚):**依 Angie 指示「內部工具不要分享太多公司機密」,收斂所有內部工具的公開內容。** 7 個內部工具頁(Expo、圖庫整理、hu-meet、合約比對、LINE 翻譯 bot、收據掃描、Skuld)改寫成只講問題與大方向功能,拿掉內部系統串接、AI 引擎、公司實體/展會/權限/會計流程、合作夥伴國家、內部網址;Skuld 是 Angie 自己寫的,只刪敏感處、保留她的文字。名片掃描刪掉「公司內部版」段落;社群後台狀態改成「對外版本準備中」。`llms.txt` 與本交接檔同步清理,並在「規則」加上一條。**Skuld 的示範圖(`skuld-expense-demo.png`)裡還有公司名與內部網址,需要 Angie 自己決定要不要換圖。**(模型:Opus 5.5)
 - 2026-09-26:**名片掃描公開付費版上架+五個工具內容更新+修正英文版一個顯示 bug。**
