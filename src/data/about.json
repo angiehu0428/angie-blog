@@ -6,6 +6,8 @@
   "blocks": [
     {
       "type": "richText",
+      "heading": "",
+      "heading_en": "",
       "body": "我是 **Angie Hu**。\n\n畢業於洛杉磯 Art Center College of Design 設計藝術中心學院。在台時曾有多媒體網頁設計相關資歷,曾任**迪士尼(Disney)**、社交遊戲大廠 **Zynga** 資深概念設計師。2016 年回台後成立外包美術工作室,參與歐美與中國大陸遊戲動畫美術設計案,並舉辦大型設計藝術相關活動與課程。2019 年成立**胡創有限公司**,2020 年轉型為圖像代理授權,致力連結亞洲與國際市場的藝術家與 IP。",
       "body_en": "I'm **Angie Hu**.\n\nI graduated from Art Center College of Design in Los Angeles. Before that, I worked in multimedia web design in Taiwan, and later served as a senior concept designer at **Disney** and social-game giant **Zynga**. After returning to Taiwan in 2016, I founded an outsourced art studio, working on game and animation art for Western and Mainland Chinese productions, and organizing large-scale design and art events and courses. I founded **Hu Creates** in 2019, and pivoted it to art & IP licensing in 2020, focused on connecting artists and IP between Asia and the international market."
     },
@@ -62,15 +64,17 @@
       "type": "audio",
       "title": "ICRT《Taiwan Talk》廣播專訪(2020/04/28)",
       "title_en": "ICRT radio interview on Taiwan Talk (2020/04/28)",
-      "file": "",
+      "file": "/uploads/5dc1019b-d100-4a99-b7ce-3fbefa9c57a6 (1).mp3",
+      "note": "🎧 音檔整理中——在後台這個區塊上傳 mp3 後,這裡就會出現播放器。",
+      "note_en": "🎧 Audio coming soon — once an mp3 is uploaded for this block in the CMS, a player will appear here.",
       "link": "https://player.soundon.fm/p/3960c746-c9ae-4c01-9d39-0a10a02081b5/episodes/3fcd5a4a-c637-41ab-ae72-36fad0c98f64",
       "link_label": "🎧 在 SoundOn 收聽這集",
-      "link_label_en": "🎧 Listen on SoundOn",
-      "note": "🎧 音檔整理中——在後台這個區塊上傳 mp3 後,這裡就會出現播放器。",
-      "note_en": "🎧 Audio coming soon — once an mp3 is uploaded for this block in the CMS, a player will appear here."
+      "link_label_en": "🎧 Listen on SoundOn"
     },
     {
       "type": "richText",
+      "heading": "",
+      "heading_en": "",
       "body": "**Stan Lee 官方網站專訪**(2014,網站已隨 Stan Lee 過世而註銷)",
       "body_en": "**Interview on Stan Lee's official website** (2014; the site was taken down after Stan Lee's passing)"
     },
@@ -85,12 +89,36 @@
       "heading": "聯絡我",
       "heading_en": "Get in Touch",
       "items": [
-        { "label": "✉️ 找我合作(聯絡表單)", "label_en": "✉️ Work with me (contact form)", "url": "/contact" },
-        { "label": "公司官網 Hu Creates", "label_en": "Company site: Hu Creates", "url": "https://www.hucreates.com" },
-        { "label": "Instagram(生活)@huisangie", "label_en": "Instagram (life) @huisangie", "url": "https://www.instagram.com/huisangie" },
-        { "label": "Instagram(繪圖)@hupaints", "label_en": "Instagram (art) @hupaints", "url": "https://www.instagram.com/hupaints" },
-        { "label": "Facebook angiehu", "label_en": "Facebook angiehu", "url": "https://www.facebook.com/angiehu" },
-        { "label": "早期作品集 Behance", "label_en": "Early portfolio: Behance", "url": "https://www.behance.net/angiehu" }
+        {
+          "label": "✉️ 找我合作(聯絡表單)",
+          "label_en": "✉️ Work with me (contact form)",
+          "url": "/contact"
+        },
+        {
+          "label": "公司官網 Hu Creates",
+          "label_en": "Company site: Hu Creates",
+          "url": "https://www.hucreates.com"
+        },
+        {
+          "label": "Instagram(生活)@huisangie",
+          "label_en": "Instagram (life) @huisangie",
+          "url": "https://www.instagram.com/huisangie"
+        },
+        {
+          "label": "Instagram(繪圖)@hupaints",
+          "label_en": "Instagram (art) @hupaints",
+          "url": "https://www.instagram.com/hupaints"
+        },
+        {
+          "label": "Facebook angiehu",
+          "label_en": "Facebook angiehu",
+          "url": "https://www.facebook.com/angiehu"
+        },
+        {
+          "label": "早期作品集 Behance",
+          "label_en": "Early portfolio: Behance",
+          "url": "https://www.behance.net/angiehu"
+        }
       ]
     }
   ]
