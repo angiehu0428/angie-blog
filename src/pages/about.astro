@@ -97,9 +97,16 @@ const blocks = about.blocks ?? [];
 										</p>
 									</>
 								)}
-								{block.file ? (
-									<audio controls preload="metadata" src={block.file} />
-								) : (
+								{block.file && <audio controls preload="metadata" src={block.file} />}
+								{block.link && (
+									<a class="audio-link" href={block.link} target="_blank" rel="noopener">
+										<span class="i18n-zh">{block.link_label || '🎧 收聽這集節目'}</span>
+										<span class="i18n-en" hidden>
+											{block.link_label_en || block.link_label || '🎧 Listen to the episode'}
+										</span>
+									</a>
+								)}
+								{!block.file && !block.link && (
 									block.note && (
 										<>
 											<div class="audio-placeholder i18n-zh">{block.note}</div>
@@ -211,6 +218,20 @@ const blocks = about.blocks ?? [];
 		padding: 1rem 1.2rem;
 		font-size: 0.95rem;
 		color: rgb(var(--gray-dark));
+	}
+	.audio-link {
+		display: inline-block;
+		margin-top: 0.6rem;
+		background: rgba(var(--accent-soft), 0.1);
+		border: 1px solid rgba(var(--accent-soft), 0.5);
+		border-radius: 12px;
+		padding: 0.8rem 1.2rem;
+		color: var(--accent-dark);
+		font-weight: 600;
+		text-decoration: none;
+	}
+	.audio-link:hover {
+		background: rgba(var(--accent-soft), 0.2);
 	}
 	.contact-links {
 		list-style: none;

@@ -43,6 +43,7 @@ Angie 的個人網站(Astro 靜態站,網域 angiehu.com)。**這份是專案交
   - 再追加:查到正式名稱——獎項是 **Licensing International Asian Awards 2023 的 Newcomer Award**(國際授權業協會「亞洲授權大獎」新秀獎,2023/4/20 香港國際授權展頒發;官方提名名單寫 Bu2ma / Wyrd Media);Comic-Con 是 **2024/7 San Diego Comic-Con** 的 IP 主題座談。
   - 商周那篇找到了(Angie 給的連結):**商業周刊第 1914 期(2024/7/18)**〈使台灣貼圖明星與米奇、凱蒂貓分庭抗禮,這支Line 20人團隊如何做到〉,已加進媒體清單。
   - ICRT 專訪補上節目名《Taiwan Talk》(Angie 提供)。線上存檔搜不到(ICRT/Apple Podcasts/Listen Notes 雲端 session 都連不到),音檔仍待 Angie 從後台上傳 mp3。
+  - Angie 給了 SoundOn 上的單集連結 → `about.astro` 的音檔區塊新增 `link`(+`link_label`/`link_label_en`)欄位,顯示成「🎧 在 SoundOn 收聽這集」按鈕(沿用 placeholder 的色票);有 `file` 就同時顯示播放器+來源連結,兩個都沒有才顯示 note。CMS 已加欄位。**沒有把音檔下載下來放自己網站**:雲端 session 連不到 SoundOn,而且錄音版權屬 ICRT,連回原節目最穩;Angie 若要站內直接播,可自己從 SoundOn 下載 mp3 再從後台上傳。
 - 2026-09-26:**名片掃描公開付費版上架+五個工具內容更新+修正英文版一個顯示 bug。**
   - **名片掃描器 Card Scanner**(`card-scanner.md`)從內部工具改成公開產品:`status: live`、`href: https://scan.hucreates.com`、`badge: new`、去掉「公司工具」分類。方案事實取自 card-scanner repo 的 README 與 `wrangler.public.toml`:免費每天 10 張/一次 5 張照片;Pro US$5/月(Stripe)每天 200 張/一次 20 張、名單累積+跨裝置同步、自動找重複、Excel 統計分頁、自訂欄位;免帳號(訂閱序號)。「照片不存伺服器」是查過公開版 worker 的 KV 寫入(只有額度、訂閱、文字名單)才寫的。內部版(Notion)在內文一段帶過。
   - **示範圖做法**(之後其他工具照這套):格式對齊 Angie 9/23 做的 `skuld-expense-demo.png`——1440×860、深藍底、三支手機、上方 HU CREATES+工具名、底部網址+「示意畫面」註記。畫面是在本機跑該工具**真正的程式**(`wrangler dev --local`)用 Chromium 截的,只把 AI 讀取的 API 回應換成**明顯虛構**的名片(範例公司、example.com、555 電話),方案資訊用正式設定值。中英各一張,英文版放新欄位 `cover_en`(schema/工具頁/首頁卡片/CMS 都已支援,沒給就沿用中文封面)。
