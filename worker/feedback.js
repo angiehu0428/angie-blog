@@ -50,7 +50,7 @@ async function getInvite(env, code) {
 
 // 公開時要顯示的名字那一行(照填寫人自己選的方式)
 export function byline(fb) {
-	if (fb.publish === 'named') return { who: fb.name, sub: [fb.title, fb.company].filter(Boolean).join('|') };
+	if (fb.publish === 'named') return { who: fb.name, sub: [fb.title, fb.company].filter(Boolean).join('｜') };
 	if (fb.publish === 'company') return { who: fb.company + ' 的學員', sub: '' };
 	return { who: fb.title ? '一位' + fb.title : '一位學員', sub: '' };
 }

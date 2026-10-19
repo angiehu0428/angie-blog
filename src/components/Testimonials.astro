@@ -1,0 +1,240 @@
+---
+// 顧問頁的心得牆。
+// - 舊課後問卷的節錄:src/data/testimonials.json(不具名,Angie 10/20 同意先公開,學員不想公開就從這裡拿掉)
+// - 新問卷(/feedback)Angie 按「公開」的:瀏覽器載入時從 /api/feedback/public 抓,排在最前面
+//   ⚠️ 動態內容一律用 textContent 放,不要用 innerHTML(填寫人打的字)
+import data from '../data/testimonials.json';
+
+const parts = (q: string, hl: string) => {
+	const i = hl ? q.indexOf(hl) : -1;
+	return i < 0 ? [q, '', ''] : [q.slice(0, i), hl, q.slice(i + hl.length)];
+};
+const av = ['a1', 'a2', 'a3'];
+---
+
+<section class="c-block t-wall">
+	<span class="t-kicker">FEEDBACK · 學員怎麼說</span>
+	<h2 class="i18n-zh">{data.heading}</h2>
+	<h2 class="i18n-en" hidden>{data.heading_en}</h2>
+	<p class="t-sub i18n-zh">{data.sub}</p>
+	<p class="t-sub i18n-en" hidden>{data.sub_en}</p>
+
+	<div class="t-stats">
+		{
+			data.stats.map((s) => (
+				<div class="t-stat">
+					<b>
+						{s.value}
+						<small>{s.unit}</small>
+					</b>
+					<span class="i18n-zh">{s.label}</span>
+					<span class="i18n-en" hidden>
+						{s.label_en}
+					</span>
+				</div>
+			))
+		}
+	</div>
+
+	<div class="t-grid" id="t-grid">
+		{
+			data.items.map((it, i) => {
+				const [a, b, c] = parts(it.quote, it.hl);
+				return (
+					<figure class={'t-card' + (i === 0 ? ' hl' : '')}>
+						<span class="t-mark" aria-hidden="true">
+							“
+						</span>
+						<blockquote>{a}{b && <em>{b}</em>}{c}</blockquote>
+						<figcaption>
+							<span class={'t-av ' + av[i % 3]}>學</span>
+							<span>
+								<b>{it.who}</b>
+								{it.sub && <span>{it.sub}</span>}
+							</span>
+						</figcaption>
+						<span class="t-tag">{it.course}</span>
+					</figure>
+				);
+			})
+		}
+	</div>
+</section>
+
+<script>
+	// 新問卷裡 Angie 按了公開的心得,排在最前面
+	(async () => {
+		const grid = document.getElementById('t-grid');
+		if (!grid) return;
+		try {
+			const r = await fetch('/api/feedback/public');
+			const j = await r.json();
+			if (!j.ok || !Array.isArray(j.items)) return;
+			const el = (tag: string, cls = '', text = '') => {
+				const e = document.createElement(tag);
+				if (cls) e.className = cls;
+				if (text) e.textContent = text;
+				return e;
+			};
+			for (const it of [...j.items].reverse()) {
+				const card = el('figure', 't-card');
+				card.append(el('span', 't-mark', '“'));
+				card.append(el('blockquote', '', String(it.quote || '')));
+				const cap = el('figcaption');
+				cap.append(el('span', 't-av a3', String(it.who || '學').slice(0, 1)));
+				const who = el('span');
+				who.append(el('b', '', String(it.who || '')));
+				if (it.sub) who.append(el('span', '', String(it.sub)));
+				cap.append(who);
+				card.append(cap);
+				if (it.course) card.append(el('span', 't-tag', String(it.course)));
+				grid.prepend(card);
+			}
+		} catch {
+			/* 抓不到就只顯示舊的 */
+		}
+	})();
+</script>
+
+<style is:global>
+	/* is:global:新問卷的卡片是 JS 產生的,scoped 樣式套不到;全部掛在 .t-wall 底下不會影響別頁 */
+	.t-wall .t-kicker {
+		font-family: var(--font-display);
+		font-size: 0.75rem;
+		letter-spacing: 0.14em;
+		color: var(--peri-deep);
+		font-weight: 700;
+	}
+	.t-wall h2 {
+		margin: 0.3rem 0 0.4rem !important;
+	}
+	.t-wall .t-sub {
+		color: var(--ink-soft);
+		margin: 0 0 1.2rem;
+		font-size: 0.95rem;
+	}
+	.t-wall .t-stats {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 10px;
+		margin-bottom: 1.4rem;
+	}
+	.t-wall .t-stat {
+		background: rgba(255, 255, 255, 0.75);
+		border: 1px solid var(--line);
+		border-radius: 18px;
+		padding: 12px 14px;
+		line-height: 1.4;
+	}
+	.t-wall .t-stat b {
+		display: block;
+		font-family: var(--font-display);
+		font-size: 1.6rem;
+		line-height: 1.15;
+		background: linear-gradient(120deg, #6b7cf5, #8fa0f8 60%, #f3a37c);
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+	}
+	.t-wall .t-stat small {
+		font-size: 0.85rem;
+	}
+	.t-wall .t-stat span {
+		font-size: 0.78rem;
+		color: var(--ink-soft);
+	}
+	.t-wall .t-grid {
+		columns: 3 260px;
+		column-gap: 14px;
+	}
+	.t-wall .t-card {
+		break-inside: avoid;
+		margin: 0 0 14px;
+		background: var(--paper-2);
+		border-radius: 22px;
+		padding: 18px 18px 16px;
+		box-shadow:
+			0 2px 6px rgba(38, 42, 63, 0.06),
+			0 10px 28px rgba(38, 42, 63, 0.06);
+		display: block;
+	}
+	.t-wall .t-card.hl {
+		background: linear-gradient(150deg, #fff 0%, #f4f2ff 70%, #fff3ea 100%);
+	}
+	.t-wall .t-mark {
+		font-family: Georgia, serif;
+		font-size: 46px;
+		line-height: 0.6;
+		color: var(--peri);
+		opacity: 0.35;
+		display: block;
+		height: 20px;
+	}
+	.t-wall .t-card blockquote {
+		margin: 0 0 14px;
+		padding: 0;
+		border: 0;
+		font-size: 0.97rem;
+		line-height: 1.7;
+		white-space: pre-wrap;
+		font-style: normal;
+	}
+	.t-wall .t-card em {
+		font-style: normal;
+		background: linear-gradient(transparent 60%, var(--peach) 60%);
+	}
+	.t-wall .t-card figcaption {
+		display: flex;
+		gap: 10px;
+		align-items: center;
+		font-size: 0.85rem;
+		line-height: 1.45;
+	}
+	.t-wall .t-card figcaption b {
+		display: block;
+	}
+	.t-wall .t-card figcaption span span {
+		color: var(--ink-soft);
+	}
+	.t-wall .t-av {
+		flex: none;
+		width: 34px;
+		height: 34px;
+		border-radius: 50%;
+		display: grid;
+		place-items: center;
+		font-weight: 700;
+		font-family: var(--font-display);
+		font-size: 0.85rem;
+	}
+	.t-wall .a1 {
+		background: var(--peach);
+	}
+	.t-wall .a2 {
+		background: var(--lav);
+	}
+	.t-wall .a3 {
+		background: var(--mint);
+	}
+	.t-wall .t-tag {
+		display: inline-block;
+		margin-top: 12px;
+		font-size: 0.72rem;
+		padding: 3px 10px;
+		border-radius: 999px;
+		background: var(--lav);
+		color: var(--peri-deep);
+		font-weight: 600;
+	}
+	@media (max-width: 520px) {
+	.t-wall .t-stats {
+			gap: 8px;
+		}
+	.t-wall .t-stat {
+			padding: 10px;
+		}
+	.t-wall .t-stat b {
+			font-size: 1.3rem;
+		}
+	}
+</style>

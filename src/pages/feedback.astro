@@ -571,7 +571,7 @@ import Header from '../components/Header.astro';
 					if (inv.date) bits.push(`${inv.date} 團體課程`);
 					bits.push('這條連結是給這堂課的同學');
 				}
-				$('inv-sub').textContent = bits.join('|');
+				$('inv-sub').textContent = bits.join('｜');
 				$('course-label').textContent = '團體課程' + (inv.date ? ' ' + inv.date : '');
 
 				const dl = $('companies');
@@ -609,7 +609,7 @@ import Header from '../components/Header.astro';
 				const title = f('title').value.trim();
 				const company = f('company').value.trim() || '你的公司';
 				const ex: Record<string, string> = {
-					named: [name, title, company].filter(Boolean).join('|'),
+					named: [name, title, company].filter(Boolean).join('｜'),
 					company: `${company} 的學員`,
 					anon: title ? `一位${title}(只留職稱)` : '一位學員(沒填職稱就這樣寫)',
 				};
@@ -621,7 +621,7 @@ import Header from '../components/Header.astro';
 				$('agree-wrap').hidden = !pub;
 				const who =
 					p === 'named' ? name : p === 'company' ? `${company} 的學員` : title ? '一位' + title : '一位學員';
-				const sub = p === 'named' ? [title, company].filter(Boolean).join('|') : '';
+				const sub = p === 'named' ? [title, company].filter(Boolean).join('｜') : '';
 				const gain = f('gain').value.trim();
 				$('prev-q').textContent = gain ? '「' + gain + '」' : '(你寫的「最有收穫的」會出現在這裡)';
 				$('prev-who').textContent = who;

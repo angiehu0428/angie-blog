@@ -1,0 +1,77 @@
+{
+	"heading": "上過課的人怎麼說",
+	"heading_en": "What past students say",
+	"sub": "節錄自課後問卷和諮詢心得的原話。",
+	"sub_en": "Excerpts from post-class surveys and consultation feedback (in Chinese).",
+	"stats": [
+		{
+			"value": "4.9",
+			"unit": "/5",
+			"label": "課後滿意度（15 份問卷）",
+			"label_en": "Satisfaction (15 surveys)"
+		},
+		{
+			"value": "9.5",
+			"unit": "/10",
+			"label": "願意推薦給朋友",
+			"label_en": "Would recommend to a friend"
+		},
+		{
+			"value": "53%",
+			"unit": "",
+			"label": "覺得「超出期待」",
+			"label_en": "Said it beat expectations"
+		}
+	],
+	"items": [
+		{
+			"quote": "在角色設計初期的定位、世界觀、還有 TA 的設定上，有很多細節是我沒想過的！",
+			"hl": "有很多細節是我沒想過的",
+			"who": "一位插畫創作者",
+			"sub": "上過入門＋進階兩堂",
+			"course": "IP 進階實戰｜2026.05"
+		},
+		{
+			"quote": "很大方的分享自己做的 AI 及 Notion 工具……今天有點像內部員訓了 XD",
+			"hl": "今天有點像內部員訓了 XD",
+			"who": "一位學員",
+			"sub": "參加過 1–2 次",
+			"course": "IP 進階實戰｜2026.05"
+		},
+		{
+			"quote": "無敵甲方、壞人與陷阱的避雷區、授權金該訂的趴數……超乎期待，覺得含金量滿滿",
+			"hl": "覺得含金量滿滿",
+			"who": "一位插畫家",
+			"sub": "第一次接觸授權",
+			"course": "IP 授權入門｜2026.01"
+		},
+		{
+			"quote": "不要畫家放價格太少，但也不能放太高，提供合理的建議",
+			"hl": "",
+			"who": "一位學員",
+			"sub": "參加過 3 次以上",
+			"course": "IP 進階實戰｜2026.05"
+		},
+		{
+			"quote": "學到的知識，馬上可用來釐清思路。",
+			"hl": "",
+			"who": "一位學員",
+			"sub": "第一次參加",
+			"course": "IP 進階實戰｜2026.05"
+		},
+		{
+			"quote": "很感謝提供估價時一般合理範圍的參考",
+			"hl": "",
+			"who": "一位學員",
+			"sub": "第一次參加",
+			"course": "IP 授權入門｜2026.01"
+		},
+		{
+			"quote": "資訊量很大現在還在消化中，太營養了吃不完",
+			"hl": "太營養了吃不完",
+			"who": "一位學員",
+			"sub": "第一次參加",
+			"course": "IP 進階實戰｜2026.05"
+		}
+	]
+}
