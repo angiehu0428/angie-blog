@@ -3,6 +3,7 @@
 // 資料都存在 Cloudflare KV(binding FEEDBACK),不進公開 repo:
 //   invite:<code>  邀請內容(課程名稱、日期、這堂課的公司清單、一對一的人名公司),用 npm run fb:invite 上傳
 //   fb:<id>        每一份心得(含 Email、改進建議,這兩個永遠不公開)
+//   public:<id>    Angie 按「公開」後另存的公開版(只有感想、名字那一行、課程),/api/feedback/public 只讀這個
 // 送出後通知 Angie 的 Telegram,訊息裡有「公開/不公開」的簽名連結;她按了才會出現在 /api/feedback/public。
 // secret:FEEDBACK_SECRET(簽連結用的隨機字串)
 
@@ -24,7 +25,7 @@ function esc(s) {
 		.replace(/>/g, '&gt;')
 		.replace(/"/g, '&quot;');
 }
-const clean = (v, n) => String(v ?? '').trim().slice(0, n);
+const clean = (v, n) => (typeof v === 'string' ? v.trim().slice(0, n) : '');
 const okCode = (c) => /^[A-Za-z0-9_-]{6,40}$/.test(c);
 
 async function hmac(secret, data) {
@@ -78,12 +79,18 @@ async function handleSubmit(request, env) {
 	} catch {
 		return json({ ok: false, error: 'bad request' }, 400);
 	}
+	if (!d || typeof d !== 'object' || Array.isArray(d)) return json({ ok: false, error: 'bad request' }, 400);
 	if (d.website) return json({ ok: true }); // 蜜罐
 	const code = clean(d.c, 40);
 	const inv = await getInvite(env, code);
 	if (!inv) return json({ ok: false, error: 'invalid' }, 403);
 
 	const ip = request.headers.get('cf-connecting-ip') || 'x';
+	// 限流兩層:Cloudflare 內建的每分鐘上限(同時送一堆也擋得住)+ KV 每小時大約上限
+	if (env.FB_LIMITER) {
+		const { success } = await env.FB_LIMITER.limit({ key: ip });
+		if (!success) return json({ ok: false, error: 'too many' }, 429);
+	}
 	const rk = 'rate:' + ip;
 	const n = Number((await env.FEEDBACK.get(rk)) || 0);
 	if (n >= RATE_LIMIT) return json({ ok: false, error: 'too many' }, 429);
@@ -96,15 +103,15 @@ async function handleSubmit(request, env) {
 		title: clean(d.title, MAX.title),
 		company: clean(d.company, MAX.company),
 		email: clean(d.email, MAX.email),
-		course: inv.kind === 'person' ? !!d.course : true,
+		course: inv.kind === 'person' ? d.course === true : true,
 		courseDate: inv.date || '',
-		one: inv.kind === 'person' ? true : !!d.one,
+		one: inv.kind === 'person' ? true : d.one === true,
 		oneDate: clean(d.oneDate, MAX.date) || (inv.kind === 'person' ? inv.oneDate || '' : ''),
 		rating: [1, 2, 3, 4, 5].includes(Number(d.rating)) ? Number(d.rating) : null,
 		gain: clean(d.gain, MAX.gain),
 		improve: clean(d.improve, MAX.improve),
 		publish: PUBLISH.includes(d.publish) ? d.publish : 'private',
-		consent: !!d.consent,
+		consent: d.consent === true,
 		status: 'new',
 		createdAt: new Date().toISOString(),
 	};
@@ -116,12 +123,17 @@ async function handleSubmit(request, env) {
 	fb.id = id;
 	await env.FEEDBACK.put('fb:' + id, JSON.stringify(fb));
 
-	await notify(request, env, fb).catch(() => {}); // 通知失敗不擋填寫人(資料已存)
+	// 通知失敗不擋填寫人(資料已存),但記在那份心得上,npm run fb:list 看得到
+	const sent = await notify(request, env, fb).catch(() => false);
+	if (!sent) {
+		fb.notifyFailed = true;
+		await env.FEEDBACK.put('fb:' + id, JSON.stringify(fb));
+	}
 	return json({ ok: true });
 }
 
 async function notify(request, env, fb) {
-	if (!env.TG_BOT_TOKEN || !env.TG_CHAT_ID) return;
+	if (!env.TG_BOT_TOKEN || !env.TG_CHAT_ID) return false;
 	const base = new URL(request.url).origin;
 	const link = async (a) => `${base}/api/feedback/review?id=${fb.id}&a=${a}&s=${await hmac(env.FEEDBACK_SECRET || '', fb.id + ':' + a)}`;
 	const b = byline(fb);
@@ -133,19 +145,26 @@ async function notify(request, env, fb) {
 		`💬 <b>新的諮詢心得</b>(${esc(fb.invite)})\n\n` +
 		`<b>${esc(fb.name)}</b>${fb.title ? '|' + esc(fb.title) : ''}|${esc(fb.company)}\n` +
 		`${esc(fb.email)}\n參加:${esc(went)}${fb.rating ? '|' + '★'.repeat(fb.rating) : ''}\n\n` +
-		`<b>收穫</b>\n${esc(fb.gain)}\n` +
-		(fb.improve ? `\n<b>想改進的(只有妳看得到)</b>\n${esc(fb.improve)}\n` : '') +
+		// 每段先截短再 escape,整則一定塞得進 Telegram 4096 字、公開連結不會被切掉
+		`<b>收穫</b>\n${esc(cut(fb.gain, 1500))}\n` +
+		(fb.improve ? `\n<b>想改進的(只有妳看得到)</b>\n${esc(cut(fb.improve, 900))}\n` : '') +
 		`\n公開方式:${label}`;
 	if (fb.publish !== 'private' && env.FEEDBACK_SECRET) {
 		text += `\n網站上會顯示:${esc(b.who)}${b.sub ? '|' + esc(b.sub) : ''}\n\n👉 <a href="${await link('publish')}">公開到網站</a>`;
 	}
-	await fetch(`https://api.telegram.org/bot${env.TG_BOT_TOKEN}/sendMessage`, {
-		method: 'POST',
-		headers: { 'content-type': 'application/json' },
-		// 關掉連結預覽:不然 Telegram 會先去開那個網址
-		body: JSON.stringify({ chat_id: env.TG_CHAT_ID, text: text.slice(0, 4000), parse_mode: 'HTML', link_preview_options: { is_disabled: true } }),
-	});
+	for (let i = 0; i < 2; i++) {
+		const r = await fetch(`https://api.telegram.org/bot${env.TG_BOT_TOKEN}/sendMessage`, {
+			method: 'POST',
+			headers: { 'content-type': 'application/json' },
+			// 關掉連結預覽:不然 Telegram 會先去開那個網址
+			body: JSON.stringify({ chat_id: env.TG_CHAT_ID, text, parse_mode: 'HTML', link_preview_options: { is_disabled: true } }),
+		});
+		if (r.ok) return true;
+		await new Promise((res) => setTimeout(res, 1500));
+	}
+	return false;
 }
+const cut = (s, n) => (s.length > n ? s.slice(0, n) + '…(完整內容用 npm run fb:list 看)' : s);
 
 // /api/feedback/review:GET 只顯示確認頁(預覽機器人開了也不會改到),按按鈕 POST 才真的公開/收回
 async function handleReview(request, url, env) {
@@ -172,7 +191,9 @@ async function handleReview(request, url, env) {
 		fb.status = a === 'publish' ? 'public' : 'hidden';
 		fb.reviewedAt = new Date().toISOString();
 		await env.FEEDBACK.put('fb:' + id, JSON.stringify(fb));
-		await env.FEEDBACK.delete('public-cache');
+		// 公開版另存一份,只放公開欄位;收回就刪掉(公開 API 不碰私人資料,也沒有快取會回填舊資料)
+		if (a === 'publish') await env.FEEDBACK.put('public:' + id, JSON.stringify(publicView(fb)));
+		else await env.FEEDBACK.delete('public:' + id);
 		const undo = a === 'publish' ? 'hide' : 'publish';
 		const undoUrl = `/api/feedback/review?id=${id}&a=${undo}&s=${await hmac(env.FEEDBACK_SECRET, id + ':' + undo)}`;
 		return page(
@@ -186,27 +207,22 @@ async function handleReview(request, url, env) {
 	);
 }
 
-// GET /api/feedback/public → 已公開的心得(只給公開欄位:感想、名字那行、課程)
+// GET /api/feedback/public → 已公開的心得(只讀 public:* 那份公開版)
+const publicView = (fb) => ({ quote: fb.gain, ...byline(fb), course: fb.invite, rating: fb.rating, at: fb.createdAt });
 async function handlePublic(env) {
-	const cached = await env.FEEDBACK.get('public-cache');
-	if (cached) return new Response(cached, { headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'public, max-age=300' } });
 	const out = [];
 	let cursor;
 	do {
-		const l = await env.FEEDBACK.list({ prefix: 'fb:', cursor });
-		for (const k of l.keys) {
-			const raw = await env.FEEDBACK.get(k.name);
-			if (!raw) continue;
-			const fb = JSON.parse(raw);
-			if (fb.status !== 'public' || fb.publish === 'private' || !fb.consent) continue;
-			out.push({ quote: fb.gain, ...byline(fb), course: fb.invite, rating: fb.rating, at: fb.createdAt });
-		}
+		const l = await env.FEEDBACK.list({ prefix: 'public:', cursor });
+		const vals = await Promise.all(l.keys.map((k) => env.FEEDBACK.get(k.name)));
+		for (const v of vals) if (v) out.push(JSON.parse(v));
 		cursor = l.list_complete ? undefined : l.cursor;
 	} while (cursor);
 	out.sort((x, y) => (x.at < y.at ? 1 : -1));
-	const body = JSON.stringify({ ok: true, items: out });
-	await env.FEEDBACK.put('public-cache', body, { expirationTtl: 3600 });
-	return new Response(body, { headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'public, max-age=300' } });
+	// 瀏覽器只快取 1 分鐘:收回後最多一分鐘就消失
+	return new Response(JSON.stringify({ ok: true, items: out }), {
+		headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'public, max-age=60' },
+	});
 }
 
 // 沒設定 KV 時回「設定中」,不影響其他頁
