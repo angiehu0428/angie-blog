@@ -153,13 +153,14 @@ async function notify(request, env, fb) {
 		text += `\n網站上會顯示:${esc(b.who)}${b.sub ? '|' + esc(b.sub) : ''}\n\n👉 <a href="${await link('publish')}">公開到網站</a>`;
 	}
 	for (let i = 0; i < 2; i++) {
+		// 斷線(fetch 丟例外)跟 Telegram 回錯誤一樣,都再試一次
 		const r = await fetch(`https://api.telegram.org/bot${env.TG_BOT_TOKEN}/sendMessage`, {
 			method: 'POST',
 			headers: { 'content-type': 'application/json' },
 			// 關掉連結預覽:不然 Telegram 會先去開那個網址
 			body: JSON.stringify({ chat_id: env.TG_CHAT_ID, text, parse_mode: 'HTML', link_preview_options: { is_disabled: true } }),
-		});
-		if (r.ok) return true;
+		}).catch(() => null);
+		if (r && r.ok) return true;
 		await new Promise((res) => setTimeout(res, 1500));
 	}
 	return false;

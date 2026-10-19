@@ -44,6 +44,20 @@ tgOk = true;
 const failed = [...store.entries()].filter(([k]) => k.startsWith('fb:')).map(([, v]) => JSON.parse(v)).find((x) => x.gain === '通知失敗這份');
 assert.equal(failed.notifyFailed, true);
 
+// 斷線:第一次丟例外、第二次成功 → 有送到；連續丟例外 → 記失敗、試了兩次
+const realFetch = globalThis.fetch;
+let tries = 0;
+globalThis.fetch = async (u, i) => { tries++; if (tries === 1) throw new Error('net'); return realFetch(u, i); };
+await post({ ...base, consent: true, gain: '斷線一次' });
+assert.equal(tries, 2);
+assert.ok(!JSON.parse([...store.values()].find((v) => v.includes('斷線一次'))).notifyFailed, 'retried after throw');
+tries = 0;
+globalThis.fetch = async () => { tries++; throw new Error('net'); };
+await post({ ...base, consent: true, gain: '一直斷線' });
+assert.equal(tries, 2);
+assert.equal(JSON.parse([...store.values()].find((v) => v.includes('一直斷線'))).notifyFailed, true);
+globalThis.fetch = realFetch;
+
 // 公開／收回:public 只讀公開版,收回就消失
 const id = failed.id;
 const sig = (a) => createHmac('sha256', 'sec').update(id + ':' + a).digest('base64url');
