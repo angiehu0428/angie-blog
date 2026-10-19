@@ -319,9 +319,9 @@ const { title, title_en, intro, intro_en, credentials, areas, pricing, cta } = c
 			}
 
 			.c-main {
-				/* 全站 main 是 width:720px;這裡要蓋掉,不然手機會被撐出橫向捲動 */
-				width: auto;
-				max-width: 1080px;
+				/* 全站 main 是 width:720px + max-width:calc(100% - 2em);原本這裡把 max-width 蓋成 1080px,
+				   手機就被撐到 720px 橫向捲動。桌面維持 720px(已核准的樣子),只把手機的上限補回來 */
+				max-width: calc(100% - 2em);
 				margin: 0 auto;
 				padding: 1rem 1em 2rem;
 			}
