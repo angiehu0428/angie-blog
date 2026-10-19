@@ -9,5 +9,11 @@
 	},
 	// 顧問履歷的內容與照片存這裡(不進 repo)。namespace id 不是密碼,
 	// 要存取仍需 Cloudflare 帳號權限。secrets 另外設:CV_PASSWORD / CV_SESSION_SECRET
-	"kv_namespaces": [{ "binding": "CV", "id": "4f65381a88c2484db1d4a8995aa979a9" }]
+	// FEEDBACK:諮詢心得問卷的邀請碼與每份心得(含 Email,不進 repo)。secret 另設 FEEDBACK_SECRET
+	// 心得問卷送出的每分鐘上限(每個 IP 10 份;Cloudflare 內建,同時灌也擋得住)
+	"ratelimits": [{ "name": "FB_LIMITER", "namespace_id": "1001", "simple": { "limit": 10, "period": 60 } }],
+	"kv_namespaces": [
+		{ "binding": "CV", "id": "4f65381a88c2484db1d4a8995aa979a9" },
+		{ "binding": "FEEDBACK", "id": "114e87204f364795985309b862af34e9" }
+	]
 }
