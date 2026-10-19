@@ -4,6 +4,7 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { personPageSchema } from '../utils/schema';
 import consulting from '../data/consulting.json';
+import Testimonials from '../components/Testimonials.astro';
 
 const { title, title_en, intro, intro_en, credentials, areas, pricing, cta } = consulting;
 ---
@@ -94,6 +95,9 @@ const { title, title_en, intro, intro_en, credentials, areas, pricing, cta } = c
 					}
 				</div>
 			</section>
+
+			<!-- 學員心得 -->
+			<Testimonials />
 
 			<!-- 價位(填表後解鎖) -->
 			<section class="c-block" id="pricing">
@@ -315,6 +319,8 @@ const { title, title_en, intro, intro_en, credentials, areas, pricing, cta } = c
 			}
 
 			.c-main {
+				/* 全站 main 是 width:720px;這裡要蓋掉,不然手機會被撐出橫向捲動 */
+				width: auto;
 				max-width: 1080px;
 				margin: 0 auto;
 				padding: 1rem 1em 2rem;
