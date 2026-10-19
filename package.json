@@ -10,7 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "cv:push": "node scripts/cv-push.mjs"
+    "cv:push": "node scripts/cv-push.mjs",
+    "fb:invite": "node scripts/feedback-invite.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^6.0.2",

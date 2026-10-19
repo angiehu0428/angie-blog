@@ -1,0 +1,695 @@
+---
+// 諮詢心得問卷:只有拿到邀請連結(?c=邀請碼)的人能填。
+// ⚠️ 這個檔案裡不放任何課程名單或公司名稱——邀請內容存在 Cloudflare KV(binding FEEDBACK),
+//    由 worker/feedback.js 的 /api/feedback/* 提供。repo 是公開的,寫在這裡等於公開。
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+	<head>
+		<BaseHead title="諮詢心得｜Angie Hu" description="上過 Angie 的課或一對一諮詢?跟她說說你的感想。" />
+		<meta name="robots" content="noindex, nofollow" />
+	</head>
+	<body>
+		<Header />
+
+		<main class="fb-main">
+			<div class="fb-blob" aria-hidden="true"></div>
+			<section class="fb-hero">
+				<span class="kicker">FEEDBACK · 諮詢心得</span>
+				<h1>謝謝你來上課 🙌<br />可以跟我說說感想嗎?</h1>
+				<p class="lede">
+					大概 3 分鐘。你的回饋我會認真看,之後想參考的人也能看到真實的心得(要不要公開、要不要具名都由你決定)。
+				</p>
+				<div class="invite" id="invite" hidden>
+					<div class="badge">H</div>
+					<div><b id="inv-title"></b><span id="inv-sub"></span></div>
+				</div>
+			</section>
+
+			<p class="state" id="state">讀取中…</p>
+
+			<form id="fb-form" novalidate hidden>
+				<fieldset>
+					<legend>你是誰</legend>
+					<div class="row2">
+						<label><span>名字 *</span><input name="name" required maxlength="60" autocomplete="name" /></label>
+						<label><span>職稱</span><input name="title" maxlength="60" placeholder="例如:品牌經理" /></label>
+					</div>
+					<label
+						><span>公司名稱 *</span><input
+							name="company"
+							required
+							maxlength="100"
+							list="companies"
+							autocomplete="organization"
+						/></label
+					>
+					<datalist id="companies"></datalist>
+					<p class="hint" id="company-hint" hidden>打一兩個字會跳出這堂課的公司,點一下就好;不在裡面就打完整名稱</p>
+					<label
+						><span>Email * <i>(不會公開,只是方便我回覆你)</i></span><input
+							name="email"
+							type="email"
+							required
+							maxlength="200"
+							autocomplete="email"
+						/></label
+					>
+				</fieldset>
+
+				<fieldset>
+					<legend>這次諮詢</legend>
+					<span class="lbl">你參加了哪些</span>
+					<div class="chips">
+						<label class="chip"><input type="checkbox" name="course" /><span id="course-label">團體課程</span></label>
+						<label class="chip"><input type="checkbox" name="one" /><span>一對一諮詢</span></label>
+					</div>
+					<label id="one-date-wrap" hidden
+						><span>一對一是哪一天?</span><input name="oneDate" maxlength="40" placeholder="例如:10/15" /></label
+					>
+					<span class="lbl">整體滿意度</span>
+					<div class="stars" role="radiogroup" aria-label="整體滿意度">
+						{
+							[1, 2, 3, 4, 5].map((n) => (
+								<label>
+									<input type="radio" name="rating" value={n} />
+									<span aria-label={`${n} 顆星`}>★</span>
+								</label>
+							))
+						}
+					</div>
+				</fieldset>
+
+				<fieldset>
+					<legend>感想 <em>想到什麼寫什麼就好</em></legend>
+					<label
+						><span>上完之後,最有收穫的是什麼? *</span><textarea name="gain" rows="5" required maxlength="3000"
+						></textarea></label
+					>
+					<label
+						><span>有什麼想讓我改進的? <i>(只有我看得到)</i></span><textarea
+							name="improve"
+							rows="3"
+							maxlength="3000"
+							placeholder="直說沒關係"></textarea></label
+					>
+				</fieldset>
+
+				<fieldset>
+					<legend>要不要公開</legend>
+					<label class="opt"
+						><input type="radio" name="publish" value="named" checked /><span
+							><b>具名公開</b><small data-ex="named"></small></span
+						></label
+					>
+					<label class="opt"
+						><input type="radio" name="publish" value="company" /><span
+							><b>不具名,但留公司名</b><small data-ex="company"></small></span
+						></label
+					>
+					<label class="opt"
+						><input type="radio" name="publish" value="anon" /><span
+							><b>完全匿名</b><small data-ex="anon"></small></span
+						></label
+					>
+					<label class="opt"
+						><input type="radio" name="publish" value="private" /><span
+							><b>先不要公開</b><small>只給 Angie 看</small></span
+						></label
+					>
+
+					<div class="prev" id="prev">
+						<div class="tag">放到網站上會長這樣</div>
+						<p class="q" id="prev-q"></p>
+						<div class="who">
+							<span class="av" id="prev-av"></span>
+							<div><b id="prev-who"></b><span id="prev-sub"></span></div>
+						</div>
+					</div>
+
+					<label class="agree" id="agree-wrap"
+						><input type="checkbox" name="consent" /><span
+							>我同意 Angie 把上面這段心得,用我選的方式放在 angiehu.com 和她的社群上。錯字可能會幫忙修,意思不會改。之後想撤下,寫信給她就好。</span
+						></label
+					>
+				</fieldset>
+
+				<label class="hp" aria-hidden="true"><span>Website</span><input name="website" tabindex="-1" autocomplete="off" /></label>
+				<button type="submit" class="btn-send">送出心得 →</button>
+				<p class="form-msg" hidden></p>
+				<p class="foot">送出後 Angie 會收到通知,公開前她會再看過一次</p>
+			</form>
+
+			<section class="done" id="done" hidden>
+				<h2>收到了,謝謝你 🙏</h2>
+				<p>你的心得已經送到 Angie 那邊。</p>
+			</section>
+		</main>
+		<Footer />
+
+		<style>
+			.fb-main {
+				width: 640px;
+				max-width: calc(100% - 32px);
+				margin: auto;
+				padding: 1.5rem 0 3rem;
+				position: relative;
+			}
+			.fb-blob {
+				position: absolute;
+				top: -60px;
+				right: -80px;
+				width: 320px;
+				height: 320px;
+				border-radius: 50%;
+				background:
+					radial-gradient(circle at 30% 30%, var(--peach), transparent 60%),
+					radial-gradient(circle at 70% 60%, var(--lav), transparent 65%);
+				filter: blur(30px);
+				opacity: 0.9;
+				z-index: 0;
+				pointer-events: none;
+			}
+			.fb-hero,
+			form,
+			.state,
+			.done {
+				position: relative;
+				z-index: 1;
+			}
+			.kicker {
+				font-family: var(--font-display);
+				font-size: 0.75rem;
+				letter-spacing: 0.14em;
+				color: var(--peri-deep);
+				font-weight: 700;
+			}
+			h1 {
+				font-family: var(--font-display);
+				font-size: 1.9rem;
+				line-height: 1.25;
+				margin: 0.5rem 0 0.6rem;
+			}
+			.lede {
+				color: var(--ink-soft);
+				font-size: 1rem;
+				margin: 0 0 1.1rem;
+			}
+			.invite {
+				display: flex;
+				gap: 12px;
+				align-items: center;
+				background: rgba(255, 255, 255, 0.75);
+				backdrop-filter: blur(8px);
+				border: 1px solid var(--line);
+				border-radius: 18px;
+				padding: 12px 14px;
+				font-size: 0.9rem;
+				line-height: 1.55;
+			}
+			.invite b {
+				display: block;
+				font-size: 0.95rem;
+			}
+			.badge {
+				flex: none;
+				width: 40px;
+				height: 40px;
+				border-radius: 12px;
+				background: linear-gradient(135deg, var(--peri), #8fa0f8);
+				color: #fff;
+				display: grid;
+				place-items: center;
+				font-family: var(--font-display);
+				font-weight: 700;
+			}
+			.state {
+				color: var(--ink-soft);
+				font-size: 1rem;
+			}
+			form {
+				display: grid;
+				gap: 22px;
+				margin-top: 22px;
+				font-size: 1rem;
+				line-height: 1.6;
+			}
+			fieldset {
+				border: 0;
+				margin: 0;
+				padding: 18px;
+				background: var(--paper-2);
+				border-radius: 22px;
+				box-shadow:
+					0 2px 6px rgba(38, 42, 63, 0.06),
+					0 10px 28px rgba(38, 42, 63, 0.06);
+				display: grid;
+				gap: 14px;
+				min-width: 0;
+			}
+			legend {
+				font-family: var(--font-display);
+				font-weight: 700;
+				font-size: 1.06rem;
+				padding: 0;
+				margin-bottom: 4px;
+				float: left;
+				width: 100%;
+			}
+			legend em {
+				font-style: normal;
+				font-family: var(--font-sans);
+				font-weight: 500;
+				font-size: 0.8rem;
+				color: var(--ink-soft);
+				margin-left: 6px;
+			}
+			label {
+				display: grid;
+				gap: 6px;
+			}
+			label > span,
+			.lbl {
+				font-size: 0.88rem;
+				font-weight: 600;
+			}
+			label > span i {
+				font-style: normal;
+				color: var(--ink-soft);
+				font-weight: 500;
+			}
+			input,
+			textarea {
+				font: inherit;
+				font-size: 16px;
+				padding: 11px 14px;
+				border-radius: 12px;
+				border: 1px solid var(--line);
+				background: #fff;
+				color: var(--ink);
+				width: 100%;
+				box-sizing: border-box;
+			}
+			input:focus,
+			textarea:focus {
+				outline: none;
+				border-color: var(--peri);
+				box-shadow: 0 0 0 3px rgba(107, 124, 245, 0.18);
+			}
+			.hint {
+				font-size: 0.8rem;
+				color: var(--ink-soft);
+				margin: -6px 0 0;
+			}
+			.row2 {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 12px;
+			}
+			.chips {
+				display: flex;
+				gap: 8px;
+				flex-wrap: wrap;
+				margin-top: -6px;
+			}
+			.chip {
+				display: inline-flex;
+				cursor: pointer;
+			}
+			.chip input,
+			.stars input,
+			.opt input {
+				position: absolute;
+				opacity: 0;
+				width: 1px;
+				height: 1px;
+			}
+			.chip span {
+				border: 1px solid var(--line);
+				background: #fff;
+				border-radius: 999px;
+				padding: 7px 14px;
+				font-size: 0.88rem;
+				font-weight: 500;
+			}
+			.chip input:checked + span {
+				background: var(--ink);
+				color: #fff;
+				border-color: var(--ink);
+			}
+			.chip input:checked + span::before {
+				content: '✓ ';
+			}
+			.chip input:focus-visible + span,
+			.opt input:focus-visible + span,
+			.stars input:focus-visible + span {
+				outline: 2px solid var(--peri);
+				outline-offset: 2px;
+			}
+			.chip input:disabled + span {
+				opacity: 0.85;
+				cursor: default;
+			}
+			.stars {
+				display: flex;
+				gap: 6px;
+				margin-top: -6px;
+			}
+			.stars label {
+				cursor: pointer;
+				display: inline-flex;
+			}
+			.stars span {
+				font-size: 28px;
+				line-height: 1;
+				color: #d7d9e6;
+			}
+			.stars span.on {
+				color: #f5b84a;
+			}
+			.opt {
+				display: block;
+				cursor: pointer;
+			}
+			.opt > span {
+				display: block;
+				border: 1.5px solid var(--line);
+				border-radius: 16px;
+				padding: 12px 14px 12px 44px;
+				background: #fff;
+				position: relative;
+			}
+			.opt > span::before {
+				content: '';
+				position: absolute;
+				left: 14px;
+				top: 15px;
+				width: 18px;
+				height: 18px;
+				border-radius: 50%;
+				border: 2px solid #b9bdd0;
+				box-sizing: border-box;
+			}
+			.opt input:checked + span {
+				border-color: var(--peri);
+				background: #f4f5ff;
+			}
+			.opt input:checked + span::before {
+				border: 5px solid var(--peri);
+			}
+			.opt b {
+				display: block;
+				font-size: 0.95rem;
+			}
+			.opt small {
+				font-size: 0.82rem;
+				color: var(--ink-soft);
+			}
+			.prev {
+				border-radius: 18px;
+				padding: 16px;
+				background: linear-gradient(135deg, #fff 0%, #fbf8ff 100%);
+				border: 1px dashed #c9cdf5;
+			}
+			.prev .tag {
+				font-family: var(--font-display);
+				font-size: 0.7rem;
+				letter-spacing: 0.12em;
+				color: var(--peri-deep);
+				font-weight: 700;
+				margin-bottom: 8px;
+			}
+			.prev .q {
+				font-size: 0.95rem;
+				margin: 0 0 10px;
+				white-space: pre-wrap;
+			}
+			.who {
+				display: flex;
+				gap: 10px;
+				align-items: center;
+				font-size: 0.85rem;
+				line-height: 1.45;
+			}
+			.who b {
+				display: block;
+			}
+			.who span {
+				color: var(--ink-soft);
+			}
+			.av {
+				flex: none;
+				width: 34px;
+				height: 34px;
+				border-radius: 50%;
+				background: var(--peach);
+				display: grid;
+				place-items: center;
+				font-weight: 700;
+				font-family: var(--font-display);
+				color: var(--ink) !important;
+			}
+			.agree {
+				grid-template-columns: 22px 1fr;
+				gap: 10px;
+				align-items: start;
+				font-size: 0.88rem;
+				cursor: pointer;
+			}
+			.agree input {
+				width: 20px;
+				height: 20px;
+				margin: 3px 0 0;
+				padding: 0;
+				accent-color: var(--peri);
+			}
+			.agree > span {
+				font-weight: 400;
+			}
+			.hp {
+				position: absolute;
+				left: -9999px;
+				height: 0;
+				overflow: hidden;
+			}
+			.btn-send {
+				font-family: var(--font-display);
+				font-weight: 600;
+				font-size: 1rem;
+				padding: 15px 22px;
+				border-radius: 14px;
+				border: 0;
+				background: var(--ink);
+				color: #fff;
+				width: 100%;
+				cursor: pointer;
+			}
+			.btn-send:disabled {
+				opacity: 0.6;
+				cursor: default;
+			}
+			.form-msg {
+				margin: -8px 0 0;
+				font-size: 0.9rem;
+			}
+			.form-msg.err {
+				color: #c0392b;
+			}
+			.foot {
+				font-size: 0.8rem;
+				color: var(--ink-soft);
+				text-align: center;
+				margin: -10px 0 0;
+			}
+			.done {
+				margin-top: 22px;
+				background: var(--paper-2);
+				border-radius: 22px;
+				padding: 24px 18px;
+				box-shadow: 0 10px 28px rgba(38, 42, 63, 0.06);
+			}
+			.done h2 {
+				font-family: var(--font-display);
+				margin: 0 0 6px;
+			}
+			@media (max-width: 420px) {
+				.row2 {
+					grid-template-columns: 1fr;
+				}
+				h1 {
+					font-size: 1.6rem;
+				}
+			}
+		</style>
+
+		<script>
+			const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+			const form = $<HTMLFormElement>('fb-form');
+			const state = $('state');
+			const msg = form.querySelector('.form-msg') as HTMLElement;
+			const btn = form.querySelector('.btn-send') as HTMLButtonElement;
+			const code = new URL(location.href).searchParams.get('c') || '';
+			const f = (n: string) => form.elements.namedItem(n) as HTMLInputElement;
+
+			type Invite = {
+				kind: 'course' | 'person';
+				title: string;
+				date: string;
+				companies: string[];
+				name: string;
+				company: string;
+				oneDate: string;
+			};
+
+			async function load() {
+				if (!code) return (state.textContent = '這個頁面要用 Angie 給的專屬連結開喔,請跟她要一下連結 🙏');
+				try {
+					const r = await fetch('/api/feedback/invite?c=' + encodeURIComponent(code));
+					const j = await r.json();
+					if (!j.ok) throw new Error('invalid');
+					setup(j as Invite);
+				} catch {
+					state.textContent = '這個連結好像不對或過期了,請跟 Angie 要新的連結 🙏';
+				}
+			}
+
+			function setup(inv: Invite) {
+				state.hidden = true;
+				form.hidden = false;
+				$('invite').hidden = false;
+				$('inv-title').textContent = inv.kind === 'person' && inv.company ? inv.company : inv.title;
+				const bits = [];
+				if (inv.kind === 'person') {
+					if (inv.date) bits.push(`${inv.title} ${inv.date}`);
+					if (inv.oneDate) bits.push(`一對一諮詢 ${inv.oneDate}`);
+					bits.push('這份連結是專門給你的');
+				} else {
+					if (inv.date) bits.push(`${inv.date} 團體課程`);
+					bits.push('這條連結是給這堂課的同學');
+				}
+				$('inv-sub').textContent = bits.join('|');
+				$('course-label').textContent = '團體課程' + (inv.date ? ' ' + inv.date : '');
+
+				const dl = $('companies');
+				for (const c of inv.companies) {
+					const o = document.createElement('option');
+					o.value = c;
+					dl.appendChild(o);
+				}
+				$('company-hint').hidden = !inv.companies.length;
+
+				if (inv.kind === 'person') {
+					if (inv.name) f('name').value = inv.name;
+					if (inv.company) f('company').value = inv.company;
+					f('one').checked = true;
+					f('course').checked = !!inv.date;
+					if (inv.oneDate) f('oneDate').value = inv.oneDate;
+				} else {
+					// 課程連結:一定有上團體課
+					f('course').checked = true;
+					f('course').disabled = true;
+				}
+				sync();
+			}
+
+			function selected(name: string) {
+				return (form.querySelector(`[name="${name}"]:checked`) as HTMLInputElement | null)?.value || '';
+			}
+
+			function sync() {
+				$('one-date-wrap').hidden = !f('one').checked;
+				const r = Number(selected('rating'));
+				form.querySelectorAll('.stars span').forEach((s, i) => s.classList.toggle('on', i < r));
+
+				const name = f('name').value.trim() || '你的名字';
+				const title = f('title').value.trim();
+				const company = f('company').value.trim() || '你的公司';
+				const ex: Record<string, string> = {
+					named: [name, title, company].filter(Boolean).join('|'),
+					company: `${company} 的學員`,
+					anon: title ? `一位${title}(只留職稱)` : '一位學員(沒填職稱就這樣寫)',
+				};
+				form.querySelectorAll<HTMLElement>('[data-ex]').forEach((el) => (el.textContent = ex[el.dataset.ex!]));
+
+				const p = selected('publish');
+				const pub = p !== 'private';
+				$('prev').hidden = !pub;
+				$('agree-wrap').hidden = !pub;
+				const who =
+					p === 'named' ? name : p === 'company' ? `${company} 的學員` : title ? '一位' + title : '一位學員';
+				const sub = p === 'named' ? [title, company].filter(Boolean).join('|') : '';
+				const gain = f('gain').value.trim();
+				$('prev-q').textContent = gain ? '「' + gain + '」' : '(你寫的「最有收穫的」會出現在這裡)';
+				$('prev-who').textContent = who;
+				$('prev-sub').textContent = sub;
+				$('prev-av').textContent = p === 'named' ? name.slice(0, 1) : p === 'company' ? company.slice(0, 1) : '學';
+			}
+
+			form.addEventListener('input', sync);
+			form.addEventListener('change', sync);
+
+			form.addEventListener('submit', async (e) => {
+				e.preventDefault();
+				const g = (n: string) => (form.elements.namedItem(n) as HTMLInputElement).value.trim();
+				if (!g('name') || !g('company') || !g('email') || !g('gain'))
+					return show('請填「名字、公司名稱、Email、最有收穫的是什麼」這四格 🙏');
+				if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(g('email'))) return show('Email 好像打錯了,再看一下 🙏');
+				const publish = selected('publish');
+				if (publish !== 'private' && !f('consent').checked)
+					return show('要公開的話,請勾一下最下面的「我同意」;不想公開就選「先不要公開」');
+				btn.disabled = true;
+				btn.textContent = '送出中…';
+				try {
+					const r = await fetch('/api/feedback', {
+						method: 'POST',
+						headers: { 'content-type': 'application/json' },
+						body: JSON.stringify({
+							c: code,
+							name: g('name'),
+							title: g('title'),
+							company: g('company'),
+							email: g('email'),
+							course: f('course').checked,
+							one: f('one').checked,
+							oneDate: f('one').checked ? g('oneDate') : '',
+							rating: Number(selected('rating')) || null,
+							gain: g('gain'),
+							improve: g('improve'),
+							publish,
+							consent: f('consent').checked,
+							website: g('website'),
+						}),
+					});
+					const j = await r.json();
+					if (!j.ok) throw new Error(j.error || 'failed');
+					form.hidden = true;
+					$('done').hidden = false;
+					$('done').scrollIntoView({ behavior: 'smooth', block: 'center' });
+				} catch (err) {
+					const m = String((err as Error).message);
+					show(
+						m === 'too many'
+							? '這個網路送出太多次了,過一小時再試試 🙏'
+							: m === 'invalid'
+								? '這個連結好像過期了,請跟 Angie 要新的連結'
+								: '送出失敗了 😥 請再試一次,不行的話私訊 Angie',
+					);
+					btn.disabled = false;
+					btn.textContent = '送出心得 →';
+				}
+			});
+
+			function show(text: string) {
+				msg.hidden = false;
+				msg.className = 'form-msg err';
+				msg.textContent = text;
+			}
+
+			load();
+		</script>
+	</body>
+</html>

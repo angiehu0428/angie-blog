@@ -6,6 +6,8 @@
 // 這樣公開 repo 只看得到版面程式碼,看不到任何履歷資料。
 // secrets:CV_PASSWORD(存取密碼)/ CV_SESSION_SECRET(簽 cookie 用的隨機字串)
 
+import { routeFeedback } from './feedback.js';
+
 const MAX = { name: 100, email: 200, subject: 150, message: 4000 };
 
 // 顧問報價:價目只放在這裡(不進網頁原始碼),填表驗證通過才回傳。
@@ -238,6 +240,9 @@ export default {
 				return handleCvPhoto(request, env, decodeURIComponent(url.pathname.slice('/api/cv/photo/'.length)));
 			return json({ ok: false, error: 'method not allowed' }, 405);
 		}
+
+		const fb = await routeFeedback(request, url, env);
+		if (fb) return fb;
 
 		return env.ASSETS.fetch(request);
 	},
