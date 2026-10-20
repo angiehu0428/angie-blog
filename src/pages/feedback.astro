@@ -392,6 +392,23 @@ import Header from '../components/Header.astro';
 				gap: 4px;
 				margin-top: -6px;
 			}
+			/* 右上角的光暈在手機上別超出畫面,不然會多出橫向捲動 */
+			@media (max-width: 520px) {
+				.fb-blob {
+					right: -16px;
+					width: 240px;
+				}
+			}
+			/* 手機上 11 格一排太小,改兩排(0–5、6–10),每格約 45px 好點 */
+			@media (max-width: 520px) {
+				.nps {
+					grid-template-columns: repeat(6, 1fr);
+					gap: 6px;
+				}
+				.nps span {
+					padding: 11px 0;
+				}
+			}
 			.nps label {
 				cursor: pointer;
 				display: block;
