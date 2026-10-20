@@ -22,14 +22,16 @@ const av = ['a1', 'a2', 'a3'];
 	<div class="t-stats">
 		{
 			data.stats.map((s) => (
-				<div class="t-stat">
+				<div class="t-stat" data-stat={s.key}>
 					<b>
-						{s.value}
+						<span class="t-val">{s.value}</span>
 						<small>{s.unit}</small>
 					</b>
-					<span class="i18n-zh">{s.label}</span>
-					<span class="i18n-en" hidden>
-						{s.label_en}
+					<span class="i18n-zh" data-tpl={s.label}>
+						{s.label.replace('{n}', '15')}
+					</span>
+					<span class="i18n-en" hidden data-tpl={s.label_en}>
+						{s.label_en.replace('{n}', '15')}
 					</span>
 				</div>
 			))
@@ -62,6 +64,29 @@ const av = ['a1', 'a2', 'a3'];
 </section>
 
 <script>
+	// 三個數字:舊問卷+新問卷一起算(/api/feedback/stats),抓不到就留頁面上的舊數字
+	(async () => {
+		try {
+			const j = await (await fetch('/api/feedback/stats')).json();
+			if (!j.ok) return;
+			const vals: Record<string, string | null> = {
+				rating: j.rating == null ? null : Number(j.rating).toFixed(1),
+				nps: j.nps == null ? null : Number(j.nps).toFixed(1),
+				exceed: j.exceed == null ? null : j.exceed + '%',
+			};
+			document.querySelectorAll<HTMLElement>('.t-wall [data-stat]').forEach((box) => {
+				const v = vals[box.dataset.stat || ''];
+				const el = box.querySelector('.t-val');
+				if (v && el) el.textContent = v;
+				box.querySelectorAll<HTMLElement>('[data-tpl]').forEach((s) => {
+					s.textContent = (s.dataset.tpl || '').replace('{n}', String(Number(j.n) || 15));
+				});
+			});
+		} catch {
+			/* 留舊數字 */
+		}
+	})();
+
 	// 新問卷裡 Angie 按了公開的心得,排在最前面
 	(async () => {
 		const grid = document.getElementById('t-grid');
@@ -138,6 +163,10 @@ const av = ['a1', 'a2', 'a3'];
 	}
 	.t-wall .t-stat small {
 		font-size: 0.85rem;
+	}
+	.t-wall .t-stat .t-val {
+		font-size: inherit;
+		color: inherit;
 	}
 	.t-wall .t-stat span {
 		font-size: 0.78rem;

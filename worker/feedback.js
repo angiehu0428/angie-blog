@@ -10,6 +10,10 @@
 const enc = new TextEncoder();
 const MAX = { name: 60, title: 60, company: 100, email: 200, gain: 3000, improve: 3000, date: 40 };
 const PUBLISH = ['named', 'company', 'anon', 'private'];
+// 跟舊的 Google 課後問卷同一組題目,顧問頁的數字才能一起算(Angie 10/20)
+export const EXPECT = ['超出期待', '大致符合', '部分符合', '不太符合'];
+// 舊問卷 15 份(HCW01 10 份+HCW02 5 份)的原始加總;新問卷的分數加上去一起算
+export const BASELINE = { n: 15, ratingSum: 73, ratingN: 15, npsSum: 143, npsN: 15, exceed: 8, expectN: 15 };
 const RATE_LIMIT = 20; // 同一個 IP 每小時最多送 20 份(課程教室可能共用網路)
 
 function json(obj, status = 200) {
@@ -108,6 +112,8 @@ async function handleSubmit(request, env) {
 		one: inv.kind === 'person' ? true : d.one === true,
 		oneDate: clean(d.oneDate, MAX.date) || (inv.kind === 'person' ? inv.oneDate || '' : ''),
 		rating: [1, 2, 3, 4, 5].includes(Number(d.rating)) ? Number(d.rating) : null,
+		expect: EXPECT.includes(d.expect) ? d.expect : null,
+		nps: Number.isInteger(d.nps) && d.nps >= 0 && d.nps <= 10 ? d.nps : null,
 		gain: clean(d.gain, MAX.gain),
 		improve: clean(d.improve, MAX.improve),
 		publish: PUBLISH.includes(d.publish) ? d.publish : 'private',
@@ -116,6 +122,7 @@ async function handleSubmit(request, env) {
 		createdAt: new Date().toISOString(),
 	};
 	if (!fb.name || !fb.company || !fb.email || !fb.gain) return json({ ok: false, error: 'missing fields' }, 400);
+	if (!fb.rating || !fb.expect || fb.nps === null) return json({ ok: false, error: 'missing scores' }, 400);
 	if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fb.email)) return json({ ok: false, error: 'bad email' }, 400);
 	if (fb.publish !== 'private' && !fb.consent) return json({ ok: false, error: 'consent' }, 400);
 
@@ -144,7 +151,8 @@ async function notify(request, env, fb) {
 	let text =
 		`💬 <b>新的諮詢心得</b>(${esc(fb.invite)})\n\n` +
 		`<b>${esc(fb.name)}</b>${fb.title ? '|' + esc(fb.title) : ''}|${esc(fb.company)}\n` +
-		`${esc(fb.email)}\n參加:${esc(went)}${fb.rating ? '|' + '★'.repeat(fb.rating) : ''}\n\n` +
+		`${esc(fb.email)}\n參加:${esc(went)}\n` +
+		`滿意度 ${'★'.repeat(fb.rating || 0)}|${esc(fb.expect || '')}|推薦 ${fb.nps ?? '-'}/10\n\n` +
 		// 每段先截短再 escape,整則一定塞得進 Telegram 4096 字、公開連結不會被切掉
 		`<b>收穫</b>\n${esc(cut(fb.gain, 1500))}\n` +
 		(fb.improve ? `\n<b>想改進的(只有妳看得到)</b>\n${esc(cut(fb.improve, 900))}\n` : '') +
@@ -226,6 +234,42 @@ async function handlePublic(env) {
 	});
 }
 
+// GET /api/feedback/stats → 顧問頁上的三個數字(舊問卷+新問卷,不分公不公開,只回平均)
+export function addStats(t, fb) {
+	if (fb.rating) (t.ratingSum += fb.rating), t.ratingN++;
+	if (Number.isInteger(fb.nps)) (t.npsSum += fb.nps), t.npsN++;
+	if (fb.expect) (t.expectN++, fb.expect === EXPECT[0] && t.exceed++);
+	if (fb.rating || fb.expect || Number.isInteger(fb.nps)) t.n++;
+	return t;
+}
+async function handleStats(request, env) {
+	const cache = typeof caches !== 'undefined' ? caches.default : null;
+	const ck = new Request(new URL('/api/feedback/stats', request.url));
+	const hit = cache && (await cache.match(ck));
+	if (hit) return hit;
+	const t = { ...BASELINE };
+	let cursor;
+	do {
+		const l = await env.FEEDBACK.list({ prefix: 'fb:', cursor });
+		const vals = await Promise.all(l.keys.map((k) => env.FEEDBACK.get(k.name)));
+		for (const v of vals) if (v) addStats(t, JSON.parse(v));
+		cursor = l.list_complete ? undefined : l.cursor;
+	} while (cursor);
+	const r1 = (x) => Math.round(x * 10) / 10;
+	const body = {
+		ok: true,
+		n: t.n,
+		rating: t.ratingN ? r1(t.ratingSum / t.ratingN) : null,
+		nps: t.npsN ? r1(t.npsSum / t.npsN) : null,
+		exceed: t.expectN ? Math.round((t.exceed / t.expectN) * 100) : null,
+	};
+	const res = new Response(JSON.stringify(body), {
+		headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'public, max-age=300' },
+	});
+	if (cache) await cache.put(ck, res.clone());
+	return res;
+}
+
 // 沒設定 KV 時回「設定中」,不影響其他頁
 export async function routeFeedback(request, url, env) {
 	if (!url.pathname.startsWith('/api/feedback')) return null;
@@ -235,5 +279,6 @@ export async function routeFeedback(request, url, env) {
 	if (p === '/api/feedback' && request.method === 'POST') return handleSubmit(request, env);
 	if (p === '/api/feedback/review' && (request.method === 'GET' || request.method === 'POST')) return handleReview(request, url, env);
 	if (p === '/api/feedback/public' && request.method === 'GET') return handlePublic(env);
+	if (p === '/api/feedback/stats' && request.method === 'GET') return handleStats(request, env);
 	return json({ ok: false, error: 'not found' }, 404);
 }
