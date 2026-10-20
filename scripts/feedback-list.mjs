@@ -12,6 +12,7 @@ for (const k of keys) {
 	const f = JSON.parse(kv('key', 'get', k));
 	console.log(`\n${f.createdAt.slice(0, 16)}|${status[f.status] || f.status}|${f.publish}${f.notifyFailed ? '|⚠️ 通知失敗' : ''}`);
 	console.log(`${f.name}|${f.title || ''}|${f.company}|${f.email}`);
+	console.log(`滿意度 ${f.rating ?? '-'}/5|${f.expect || '-'}|推薦 ${f.nps ?? '-'}/10`);
 	console.log(`收穫:${f.gain}`);
 	if (f.improve) console.log(`改進:${f.improve}`);
 }

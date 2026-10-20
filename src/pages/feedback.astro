@@ -71,13 +71,35 @@ import Header from '../components/Header.astro';
 					<label id="one-date-wrap" hidden
 						><span>一對一是哪一天?</span><input name="oneDate" maxlength="40" placeholder="例如:10/15" /></label
 					>
-					<span class="lbl">整體滿意度</span>
+					<span class="lbl">整體滿意度 *</span>
 					<div class="stars" role="radiogroup" aria-label="整體滿意度">
 						{
 							[1, 2, 3, 4, 5].map((n) => (
 								<label>
 									<input type="radio" name="rating" value={n} />
 									<span aria-label={`${n} 顆星`}>★</span>
+								</label>
+							))
+						}
+					</div>
+					<span class="lbl">有符合你的期待嗎? *</span>
+					<div class="chips" role="radiogroup" aria-label="有符合你的期待嗎">
+						{
+							['超出期待', '大致符合', '部分符合', '不太符合'].map((o) => (
+								<label class="chip">
+									<input type="radio" name="expect" value={o} />
+									<span>{o}</span>
+								</label>
+							))
+						}
+					</div>
+					<span class="lbl">會推薦給朋友嗎? * <i>0 不會,10 一定會</i></span>
+					<div class="nps" role="radiogroup" aria-label="會推薦給朋友嗎,0 到 10 分">
+						{
+							[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
+								<label>
+									<input type="radio" name="nps" value={n} />
+									<span>{n}</span>
 								</label>
 							))
 						}
@@ -359,6 +381,63 @@ import Header from '../components/Header.astro';
 				gap: 6px;
 				margin-top: -6px;
 			}
+			.lbl i {
+				font-style: normal;
+				color: var(--ink-soft);
+				font-weight: 500;
+			}
+			.nps {
+				display: grid;
+				grid-template-columns: repeat(11, 1fr);
+				gap: 4px;
+				margin-top: -6px;
+			}
+			/* 右上角的光暈在手機上別超出畫面,不然會多出橫向捲動 */
+			@media (max-width: 520px) {
+				.fb-blob {
+					right: -16px;
+					width: 240px;
+				}
+			}
+			/* 手機上 11 格一排太小,改兩排(0–5、6–10),每格約 45px 好點 */
+			@media (max-width: 520px) {
+				.nps {
+					grid-template-columns: repeat(6, 1fr);
+					gap: 6px;
+				}
+				.nps span {
+					padding: 11px 0;
+				}
+			}
+			.nps label {
+				cursor: pointer;
+				display: block;
+			}
+			.nps input {
+				position: absolute;
+				opacity: 0;
+				width: 1px;
+				height: 1px;
+			}
+			.nps span {
+				display: block;
+				text-align: center;
+				border: 1px solid var(--line);
+				background: #fff;
+				border-radius: 10px;
+				padding: 9px 0;
+				font-size: 0.88rem;
+				font-weight: 600;
+			}
+			.nps input:checked + span {
+				background: var(--ink);
+				color: #fff;
+				border-color: var(--ink);
+			}
+			.nps input:focus-visible + span {
+				outline: 2px solid var(--peri);
+				outline-offset: 2px;
+			}
 			.stars label {
 				cursor: pointer;
 				display: inline-flex;
@@ -637,6 +716,8 @@ import Header from '../components/Header.astro';
 				const g = (n: string) => (form.elements.namedItem(n) as HTMLInputElement).value.trim();
 				if (!g('name') || !g('company') || !g('email') || !g('gain'))
 					return show('請填「名字、公司名稱、Email、最有收穫的是什麼」這四格 🙏');
+				if (!selected('rating') || !selected('expect') || selected('nps') === '')
+					return show('請點一下「滿意度、有沒有符合期待、會不會推薦」這三題 🙏');
 				if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(g('email'))) return show('Email 好像打錯了,再看一下 🙏');
 				const publish = selected('publish');
 				if (publish !== 'private' && !f('consent').checked)
@@ -657,6 +738,8 @@ import Header from '../components/Header.astro';
 							one: f('one').checked,
 							oneDate: f('one').checked ? g('oneDate') : '',
 							rating: Number(selected('rating')) || null,
+							expect: selected('expect'),
+							nps: Number(selected('nps')),
 							gain: g('gain'),
 							improve: g('improve'),
 							publish,

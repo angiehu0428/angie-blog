@@ -22,7 +22,7 @@ const call = async (path, init = {}) => {
 	try { return { status: r.status, body: JSON.parse(t) }; } catch { return { status: r.status, body: t }; }
 };
 const post = (b) => call('/api/feedback', { method: 'POST', body: typeof b === 'string' ? b : JSON.stringify(b) });
-const base = { c: 'course123', name: '王小明', company: 'A 公司', email: 'a@b.co', gain: '很有收穫', publish: 'named' };
+const base = { c: 'course123', name: '王小明', company: 'A 公司', email: 'a@b.co', gain: '很有收穫', publish: 'named', rating: 5, expect: '超出期待', nps: 10 };
 
 assert.equal((await call('/api/feedback/invite?c=course123')).body.title, '工作坊');
 assert.equal((await call('/api/feedback/invite?c=nope000')).status, 404);
@@ -79,6 +79,24 @@ await post({ ...base, publish: 'private', gain: '私人' });
 const priv = [...store.values()].map((v) => { try { return JSON.parse(v); } catch { return {}; } }).find((x) => x.gain === '私人');
 const ps = createHmac('sha256', 'sec').update(priv.id + ':publish').digest('base64url');
 assert.ok(String((await call(`/api/feedback/review?id=${priv.id}&a=publish&s=${ps}`, { method: 'POST' })).body).includes('不能放上網站'));
+
+// 三題分數必填、範圍要對
+assert.equal((await post({ ...base, consent: true, expect: undefined })).body.error, 'missing scores');
+assert.equal((await post({ ...base, consent: true, nps: 11 })).body.error, 'missing scores');
+assert.equal((await post({ ...base, consent: true, nps: '9' })).body.error, 'missing scores', 'nps must be a number');
+assert.equal((await post({ ...base, consent: true, expect: '還行' })).body.error, 'missing scores');
+
+// 統計:舊問卷 15 份＋新的全部(含不公開),只回平均
+for (const k of [...store.keys()]) if (k.startsWith('fb:')) store.delete(k);
+let st = (await call('/api/feedback/stats')).body;
+assert.deepEqual(st, { ok: true, n: 15, rating: 4.9, nps: 9.5, exceed: 53 });
+await post({ ...base, publish: 'private', rating: 3, expect: '部分符合', nps: 0 });
+await post({ ...base, consent: true });
+store.set('fb:old', JSON.stringify({ rating: 4, gain: '舊版只有星星' }));
+st = (await call('/api/feedback/stats')).body;
+assert.deepEqual(st, { ok: true, n: 18, rating: Math.round((73 + 3 + 5 + 4) / 18 * 10) / 10, nps: Math.round((143 + 0 + 10) / 17 * 10) / 10, exceed: Math.round(9 / 17 * 100) });
+assert.ok(!JSON.stringify(st).includes('王小明'));
+assert.ok(sent.at(-1).text.includes('推薦 10/10') && sent.at(-1).text.includes('超出期待'), 'notify shows scores');
 
 // 每分鐘限流
 env.FB_LIMITER = { limit: async () => ({ success: false }) };

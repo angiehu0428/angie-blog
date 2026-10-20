@@ -5,18 +5,21 @@
 	"sub_en": "Excerpts from post-class surveys and consultation feedback (in Chinese).",
 	"stats": [
 		{
+			"key": "rating",
 			"value": "4.9",
 			"unit": "/5",
-			"label": "課後滿意度（15 份問卷）",
-			"label_en": "Satisfaction (15 surveys)"
+			"label": "課後滿意度（{n} 份問卷）",
+			"label_en": "Satisfaction ({n} surveys)"
 		},
 		{
+			"key": "nps",
 			"value": "9.5",
 			"unit": "/10",
 			"label": "願意推薦給朋友",
 			"label_en": "Would recommend to a friend"
 		},
 		{
+			"key": "exceed",
 			"value": "53%",
 			"unit": "",
 			"label": "覺得「超出期待」",
